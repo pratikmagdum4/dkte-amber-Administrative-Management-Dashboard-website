@@ -69,10 +69,10 @@ const StudentSubmissionForm = () => {
 
     return (
         <>
-        <div>
+        <div className='font-black'>
             hi there how 
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='h-200'>
                 <div>
                     <label className='mt-2 bg-red'>PRN:</label>
                     <input
