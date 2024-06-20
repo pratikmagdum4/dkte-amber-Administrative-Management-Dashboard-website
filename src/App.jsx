@@ -12,8 +12,6 @@ import Testing1 from './pages/test.jsx';
 
 const App = () => {
 
-
-
   return (
     
       <Router>

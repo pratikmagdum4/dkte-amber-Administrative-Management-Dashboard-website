@@ -70,7 +70,7 @@ const StudentSubmissionForm = () => {
     return (
         <>
         <div>
-            hi ther e
+            hi there how 
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
