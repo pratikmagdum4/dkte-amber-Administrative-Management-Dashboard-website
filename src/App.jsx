@@ -6,15 +6,19 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 
 import './App.css';
 import LoginForm from './pages/LoginForm';
-import StudentSubmissionForm from './pages/Home';
+import StudentSubmissionForm from './pages/Home.jsx';
+import Testing1 from './pages/test.jsx';
+
+
 const App = () => {
 
 
+
   return (
-    <div>
+    
       <Router>
         <Routes>
-          <Route path='/' element={<StudentSubmissionForm />}>
+        <Route path='/sub' element={<StudentSubmissionForm />}>
           </Route>
           <Route path='/login' element={<LoginForm />}>
           </Route>
@@ -22,7 +26,7 @@ const App = () => {
       </Router>
      
       
-    </div>
+   
   )
 }
 

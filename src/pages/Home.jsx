@@ -13,63 +13,81 @@ const StudentSubmissionForm = () => {
         language: '',
         file: null
     });
-}
+
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleFileChange = (e) => {
-        setFormData({ ...formData, file: e.target.files[0]});
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-    // Create a FormData object to handle file upload
-    const data = new FormData();
-    data.append('prn', formData.prn);
-    data.append('name', formData.name);
-    data.append('contact', formData.contact);
-    data.append('email', formData.email);
-    data.append('content', formData.content);
-    data.append('language', formData.language);
-    if (formData.file) {
-      data.append('file', formData.file);
-    }
-
-    // Here you would typically send `data` to a server using fetch or axios
-    console.log('Form submitted:', formData);
-
-        // Reset form after submission
-        setFormData({
-            prn: '',
-            name: '',
-            contact: '',
-            email: '',
-            content: '',
-            language: '',
-            file: null
-        });
+        setFormData({ ...formData, file: e.target.files[0] });
     };
 
+
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+
+            // Create a FormData object to handle file upload
+            const data = new FormData();
+            data.append('prn', formData.prn);
+            data.append('name', formData.name);
+            data.append('contact', formData.contact);
+            data.append('email', formData.email);
+            data.append('content', formData.content);
+            data.append('language', formData.language);
+            if (formData.file) {
+                data.append('file', formData.file);
+            }
+
+            try {
+                // Replace the URL with your server endpoint
+                const response = await fetch('https://your-api-endpoint.com/submit', {
+                    method: 'POST',
+                    body: data,
+                });
+
+                if (response.ok) {
+                    console.log('Form submitted successfully!');
+                    // Reset form after successful submission
+                    setFormData({
+                        prn: '',
+                        name: '',
+                        contact: '',
+                        email: '',
+                        content: '',
+                        language: '',
+                        file: null,
+                    });
+                } else {
+                    console.error('Error submitting form:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+            }
+        };
+
+
     return (
+        <>
+        <div>
+            hi ther e
+        </div>
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>PRN:</label>
-            <input 
-                type="text" 
-                name="prn" 
-                value={formData.prn} 
-                onChange={handleChange} 
-                placeholder="PRN number" required />
-            </div>
+                <div>
+                    <label>File:</label>
+                    <input
+                        type="text"
+                        name="prn"
+                        onChange={handleChange}
+                        placeholder="PRN number" required />
+                </div>
+
 
             <div>
                 <label>Name:</label>
             <input 
                 type="text" 
                 name="name" 
-                value={formData.name} 
                 onChange={handleChange} 
                 placeholder="Name" required />
             </div>
@@ -79,7 +97,6 @@ const StudentSubmissionForm = () => {
             <input 
                 type="number" 
                 name="contact" 
-                value={formData.contact} 
                 onChange={handleChange} 
                 placeholder="Contact" required />
             </div>
@@ -89,7 +106,6 @@ const StudentSubmissionForm = () => {
             <input 
                 type="email" 
                 name="email" 
-                value={formData.email} 
                 onChange={handleChange} 
                 placeholder="Email" required />
             </div>
@@ -99,7 +115,6 @@ const StudentSubmissionForm = () => {
             <input 
                 type="text" 
                 name="content" 
-                value={formData.content} 
                 onChange={handleChange} 
                 placeholder="Content" required />
             </div>
@@ -109,7 +124,6 @@ const StudentSubmissionForm = () => {
             <input 
                 type="text" 
                 name="language" 
-                value={formData.language} 
                 onChange={handleChange} 
                 placeholder="Content Language" required />
             </div>
@@ -119,21 +133,22 @@ const StudentSubmissionForm = () => {
             <input 
                 type="text" 
                 name="prn" 
-                value={formData.prn} 
                 onChange={handleChange} 
                 placeholder="PRN number" required />
             </div>
 
-            <div>
-                <label>Upload File:</label>
-            <input
-                type="file"
-                name="file"
-                onChange={handleFileChange}
-                placeholder="Upload File" required />
-            </div>
+                <div>
+                    <label>Upload File:</label>
+                    <input
+                        type="file"
+                        name="file"
+                        onChange={handleFileChange}
+                        required />
+                </div>
+
             <button type="submit">Submit</button>
         </form>
+        </>
     );
 };
 
