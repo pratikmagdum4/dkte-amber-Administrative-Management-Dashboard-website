@@ -1,42 +1,147 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.navbar {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .card {
-  padding: 2em;
+  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
 }
 
-.read-the-docs {
-  color: #888;
+
+
+@keyframes slideFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
+
+.animate-slideFromLeft {
+    animation: slideFromLeft 1s ease forwards;
+}
+
+@keyframes slideFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(3%);
+    }
+}
+
+.animate-slideFromBottom {
+    animation: slideFromBottom 1s ease forwards;
+}
+
+@media (max-width: 1024px) {
+    .navlinks {
+        display: none;
+    }
+}
+.hidden {
+    display: none;
+}
+
+
+.dropDownProfile{
+    position: absolute;
+    top: 4.5rem;
+    right:1.5rem;
+    width: 80;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid gray;
+}
+.dropDownProfile::before{
+    position: absolute;
+    top: -0.7rem;
+    right: 1.1rem;
+    width: 20px ;
+    height: 20px;
+    transform: rotate(45deg);
+    background-color: white;
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+}
+
+@media (max-width: 510px) {
+    .Navlogo{
+        flex-direction: column;
+    }
+  .Navlogo img {
+    width: 80px; /* Adjust the width as needed */
+    height: auto; /* This will maintain the aspect ratio */
+  }
+  .Navlogo h1{
+    display: block;
+    /* margin-top: 1rem; */
+  }
+  
+}
+
+
+@media (max-width: 500px)
+{
+    .StudentHome{
+        flex-direction: column;
+        /* margin-left: 2rem; */
+        /* display: block; */
+    }
+    .but1{
+        /* margin-left: 1rem; */
+        /* width: 14rem; */
+        /* padding-left: 1rem; */
+    }
+}
+
+@media (max-width:600px)
+{
+    .signbox{
+        flex-direction: column;
+         space-x-16: 0; /* Reset any spacing set on larger screens */
+         space-y-4: 1rem; 
+    }
+}
+
+@media (max-width:600px){
+    .interviewSignup{
+       margin-left: 80px;
+       display: block;
+       justify-content: start;
+       padding: 40px;
+    }
+    #student-card {
+        margin-bottom: 1rem; /* Increase space between cards */
+    }
+    #schedule-button {
+        padding: 0.5rem 1rem; /* Larger button padding for easier click */
+    }
+}
+
+
+#logoutsyb{
+    
+    z-index:50;
+}
+.sticky-search-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    transition: top 0.3s;
+}
+.sticky-offset {
+    margin-top: 70px; 
+}
+
+#schduleAdInt{
+    
+}
+
