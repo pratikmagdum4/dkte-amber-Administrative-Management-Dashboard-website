@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './App.css';
-import LoginForm from './pages/Loginform';
+import LoginForm from './pages/LoginForm';
 import StudentSubmissionForm from './pages/Home';
 const App = () => {
 
