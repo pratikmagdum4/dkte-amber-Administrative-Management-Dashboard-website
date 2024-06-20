@@ -74,7 +74,7 @@ const StudentSubmissionForm = () => {
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
-                    <label className='mt-2 bg-red'>File:</label>
+                    <label className='mt-2 bg-red'>PRN:</label>
                     <input
                         type="text"
                         name="prn"
@@ -143,7 +143,7 @@ const StudentSubmissionForm = () => {
                         type="file"
                         name="file"
                         onChange={handleFileChange}
-                        required />
+                         />
                 </div>
 
             <button type="submit">Submit</button>
