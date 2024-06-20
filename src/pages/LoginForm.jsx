@@ -1,6 +1,6 @@
 import React from 'react';
 import './login.css';
-import 'boxicons/css/boxicons.min.css';
+// import 'boxicons/css/boxicons.min.css';
 
 const LoginForm = () => {
     return (
