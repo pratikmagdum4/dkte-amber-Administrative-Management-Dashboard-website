@@ -1,15 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import StudentSubmissionForm from './pages/Home'
-function App() {
+import React from 'react';
+//import reactLogo from './assets/react.svg'
+//import viteLogo from '/vite.svg'
+import './App.css';
+import LoginForm from './LoginForm';
+//import StudentSubmissionForm from './pages/Home'
+const App = () => {
   
 
   return (
-    <>
-      <StudentSubmissionForm/>
-    </>
+      <div>
+        <LoginForm />
+    </div>
   )
 }
 
