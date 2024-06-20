@@ -3,13 +3,14 @@ import React from 'react';
 //import viteLogo from '/vite.svg'
 import './App.css';
 import LoginForm from './LoginForm';
-//import StudentSubmissionForm from './pages/Home'
+import StudentSubmissionForm from './pages/Home';
 const App = () => {
   
 
   return (
       <div>
         <LoginForm />
+        <StudentSubmissionForm/>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Home.css';
 
 const StudentSubmissionForm = () => {
     const [formData, setFormData] = useState({
@@ -10,15 +11,33 @@ const StudentSubmissionForm = () => {
         language: '',
         file: null
     });
+}
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleFileChange = (e) => {
+        setFormData({ ...formData, file: e.target.files[0]});
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Send formData to backend for verification and storage
-        console.log(formData);
+        
+    // Create a FormData object to handle file upload
+    const data = new FormData();
+    data.append('prn', formData.prn);
+    data.append('name', formData.name);
+    data.append('contact', formData.contact);
+    data.append('email', formData.email);
+    data.append('content', formData.content);
+    data.append('language', formData.language);
+    if (formData.file) {
+      data.append('file', formData.file);
+    }
+
+    // Here you would typically send `data` to a server using fetch or axios
+    console.log('Form submitted:', formData);
+
         // Reset form after submission
         setFormData({
             prn: '',
@@ -33,8 +52,84 @@ const StudentSubmissionForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" name="prn" value={formData.prn} onChange={handleChange} placeholder="PRN number" required />
-            {/* Other input fields */}
+            <div>
+                <label>PRN:</label>
+            <input 
+                type="text" 
+                name="prn" 
+                value={formData.prn} 
+                onChange={handleChange} 
+                placeholder="PRN number" required />
+            </div>
+
+            <div>
+                <label>Name:</label>
+            <input 
+                type="text" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                placeholder="Name" required />
+            </div>
+
+            <div>
+                <label>Contact:</label>
+            <input 
+                type="number" 
+                name="contact" 
+                value={formData.contact} 
+                onChange={handleChange} 
+                placeholder="Contact" required />
+            </div>
+
+            <div>
+                <label>Email:</label>
+            <input 
+                type="email" 
+                name="email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                placeholder="Email" required />
+            </div>
+
+            <div>
+                <label>Content:</label>
+            <input 
+                type="text" 
+                name="content" 
+                value={formData.content} 
+                onChange={handleChange} 
+                placeholder="Content" required />
+            </div>
+
+            <div>
+                <label>Language:</label>
+            <input 
+                type="text" 
+                name="language" 
+                value={formData.language} 
+                onChange={handleChange} 
+                placeholder="Content Language" required />
+            </div>
+
+            <div>
+                <label>File:</label>
+            <input 
+                type="text" 
+                name="prn" 
+                value={formData.prn} 
+                onChange={handleChange} 
+                placeholder="PRN number" required />
+            </div>
+
+            <div>
+                <label>Upload File:</label>
+            <input
+                type="file"
+                name="file"
+                onChange={handleFileChange}
+                placeholder="Upload File" required />
+            </div>
             <button type="submit">Submit</button>
         </form>
     );
