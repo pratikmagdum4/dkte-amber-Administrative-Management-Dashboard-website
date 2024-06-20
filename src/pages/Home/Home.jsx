@@ -74,7 +74,7 @@ const StudentSubmissionForm = () => {
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
-                    <label>File:</label>
+                    <label className='mt-2 bg-red'>File:</label>
                     <input
                         type="text"
                         name="prn"
