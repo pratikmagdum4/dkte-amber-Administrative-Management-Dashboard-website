@@ -1,7 +1,8 @@
 import React from 'react';
-import ScoreRankers from '../../../components/ui/ScoreRankers'
+import StudentFormTable from '../../../components/ui/ScoreRankers'
 import NavBar from '../../navbar/Navbar';
-import '../../../index.css'
+// import '../../../index.css'
+import '../../../App.css'
 const Btech = () => {
     const branchAStudents = [
        "CSE"
@@ -14,15 +15,15 @@ const Btech = () => {
     return (
         <>
        <NavBar/>
-        <div>
+        <div className=''>
             <h1>Branch A</h1>
-            <ScoreRankers title={branchAStudents} />
+                <StudentFormTable title={branchAStudents} />
             <h1>Branch B23</h1>
-            <ScoreRankers title={branchBStudents} />
+                <StudentFormTable title={branchBStudents} />
              <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
+                <StudentFormTable title={branchBStudents} />
             <h1>Branch B</h1> 
-             <ScoreRankers title={branchBStudents} /> 
+                <StudentFormTable title={branchBStudents} /> 
             {/* <h1>Branch B</h1>
             <ScoreRankers title={branchBStudents} />
             <h1>Branch B</h1>
