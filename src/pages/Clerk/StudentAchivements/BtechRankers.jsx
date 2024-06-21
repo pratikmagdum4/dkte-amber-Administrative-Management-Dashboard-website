@@ -1,45 +1,27 @@
 import React from 'react';
 import StudentFormTable from '../../../components/ui/ScoreRankers'
 import NavBar from '../../navbar/Navbar';
-// import '../../../index.css'
+
 import '../../../App.css'
-const Btech = () => {
-    const branchAStudents = [
-       "CSE"
-    ];
+const Btech = ({dept}) => {
 
-    const branchBStudents = [
-        "ENTC"
+    // let Years = [];
+    const Years = [
+       "First",
+       "Second",
+       "Third",
+       "Final",
     ];
-
+    
     return (
         <>
        <NavBar/>
         <div className=''>
-            <h1>Branch A</h1>
-                <StudentFormTable title={branchAStudents} />
-            <h1>Branch B23</h1>
-                <StudentFormTable title={branchBStudents} />
-             <h1>Branch B</h1>
-                <StudentFormTable title={branchBStudents} />
-            <h1>Branch B</h1> 
-                <StudentFormTable title={branchBStudents} /> 
-            {/* <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} />
-            <h1>Branch B</h1>
-            <ScoreRankers title={branchBStudents} /> */}
+
+                {Years.map((item)=>(
+                    <StudentFormTable key={item} title={item} dept={dept} />
+        ))}
+           
         </div>
         </>
     );

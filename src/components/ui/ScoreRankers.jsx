@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-const StudentFormTable = ({ title }) => {
+const StudentFormTable = ({ title, dept }) => {
     const [students, setStudents] = useState([
         { rank: 1, name: '', cgpa: '' },
         { rank: 2, name: '', cgpa: '' },
@@ -35,7 +35,7 @@ const StudentFormTable = ({ title }) => {
 
         try {
             // Make a POST request to your backend
-            const response = await axios.post('{title}/api/create', dataToSend);
+            const response = await axios.post(`{title}{title}/api/create`, dataToSend);
             console.log('Data sent successfully:', response.data);
             alert('Data saved successfully!');
         } catch (error) {

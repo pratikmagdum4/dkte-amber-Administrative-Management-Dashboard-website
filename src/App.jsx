@@ -6,7 +6,7 @@ import StudentSubmissionForm from './pages/Home/Home.jsx';
 import LoginForm2 from './pages/login/login2.jsx';
 import StudentFormTable from './pages/Clerk/StudentAchivements/BtechRankers.jsx';
 import Btech from './pages/Clerk/StudentAchivements/BtechRankers.jsx';
-
+import DisplayInstitutes from './pages/Clerk/StudentAchivements/CGPARanks.jsx';
 const App = () => {
 
 
@@ -21,6 +21,8 @@ const App = () => {
         <Route path='/rank' element={<StudentFormTable />}>
         </Route>
         <Route path='/tech2' element={<Btech />}>
+        </Route>
+        <Route path='/institute' element={<DisplayInstitutes />}>
         </Route>
       </Routes>
     </Router>
