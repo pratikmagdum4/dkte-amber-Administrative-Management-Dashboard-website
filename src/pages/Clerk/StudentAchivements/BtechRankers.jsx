@@ -12,16 +12,24 @@ const Btech = ({dept}) => {
        "Third",
        "Final",
     ];
+    const Years1 = [
+        "First",
+        "Second",
+        "Third",
+       
+    ];
     
     return (
         <>
        <NavBar/>
         <div className=''>
 
-                {Years.map((item)=>(
+                {dept==="Btech"&&Years.map((item)=>(
                     <StudentFormTable key={item} title={item} dept={dept} />
         ))}
-           
+                {dept === "Diploma" && Years1.map((item) => (
+                    <StudentFormTable key={item} title={item} dept={dept} />
+                ))}
         </div>
         </>
     );

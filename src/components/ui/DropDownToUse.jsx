@@ -8,25 +8,29 @@ import {
     DropdownMenuTrigger,
 } from "./DropDown";
 
-function DropDownOptions({ options, course }) {
-
-    function handleOnClick(option )
+import Btech from "../../pages/Clerk/StudentAchivements/BtechRankers";
+import { useNavigate } from "react-router-dom";
+function DropDownOptions({ options, title }) {
+    const navigate = useNavigate()
+    function handleClick(item)
     {
-        
+       console.log("clickked houdfhauo")
+       console.log(item)
+        navigate('')
     }
-
-
+       
+            
     
     return (
         <>
             <DropdownMenu>
-                <DropdownMenuTrigger>{course}</DropdownMenuTrigger>
+                <DropdownMenuTrigger>{title}</DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
 
                     {options.map((item) => (
-                        <DropdownMenuItem onClick={handleOnClick(item)}  key={item}>{item}</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleClick(item)}  key={item}>{item}</DropdownMenuItem>
 
                     ))}
                 </DropdownMenuContent>
