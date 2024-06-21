@@ -12,6 +12,11 @@ import CourseList from './pages/Clerk/StudentAchivements/CourseList.jsx';
 import ClerkHomePage from './pages/Clerk/ClerkHome/clerkHome.jsx';
 import DepartmentListing from './components/ui/departmentlisting.jsx';
 import AchievementsTable2 from './pages/Clerk/StudentAchivements/PaperProject.jsx';
+import StudentPaperProject from './pages/Clerk/StudentAchivements/PaperProject.jsx';
+import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievement.jsx';
+import StdHigherEducation from './pages/Clerk/StudentAchivements/HigherStudies.jsx';
+import StdAppreciationPrize from './pages/Clerk/StudentAchivements/AppreciationPrize.jsx';
+import StdInternationalTraining from './pages/Clerk/StudentAchivements/InternationalTraining.jsx';
 const App = () => {
 
 
@@ -37,11 +42,21 @@ const App = () => {
         </Route>
         <Route path='/clerklogin/clerkhome/studentachievement/courselist/listing' element={<DepartmentListing />}>
         </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/paperproject' element={<StudentPaperProject />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/paperproject' element={<StudentPaperProject />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/specialachievement' element={<StudentSpecialAchievements />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/higherstudies' element={<StdHigherEducation />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
+        </Route>
         <Route path='/AchievementsTable' element={<AchievementsTable2 />}>
         </Route>
 
-        {/* <Route path='/login/clerk/studentachievements/rank/' element={<DisplayInstitutes />}>
-        </Route> */}
       </Routes>
     </Router>
   )

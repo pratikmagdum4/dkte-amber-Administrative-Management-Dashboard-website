@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AchievementsTable = ({ initialRows, columnHeaders, title, numberOfColumns }) => {
+const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns }) => {
     const [rows, setRows] = useState(initialRows);
 
     const handleAddRow = () => {
@@ -44,7 +44,7 @@ const AchievementsTable = ({ initialRows, columnHeaders, title, numberOfColumns 
                     {rows.map((row, index) => (
                         <tr key={index}>
                             {columnsToDisplay.map(header => (
-                                <td key={header.key} className="border border-zinc-400 px-4 py-2">
+                                <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
                                     <input
                                         type="text"
                                         name={header.key}
