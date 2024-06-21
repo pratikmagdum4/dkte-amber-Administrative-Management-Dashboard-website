@@ -16,7 +16,11 @@ function DropDownOptions({ options, title }) {
     {
        console.log("clickked houdfhauo")
        console.log(item)
-        navigate('')
+        navigate('/rank',{
+            state: {
+                dept: item
+            }
+        })
     }
        
             

@@ -47,7 +47,7 @@ function LoginForm2() {
             // if (response.data) {
             //     dispatch(authenticate(true));
             //     dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
-            //     navigate('/login/student/studentHome');
+            navigate('/clerklogin/clerkhome');
           
         } catch (error) {
             if (error.response.data.msg) {

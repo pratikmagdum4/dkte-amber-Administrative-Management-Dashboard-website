@@ -1,9 +1,14 @@
 import React from 'react';
 import StudentFormTable from '../../../components/ui/ScoreRankers'
 import NavBar from '../../navbar/Navbar';
-
+import { useLocation } from 'react-router-dom';
 import '../../../App.css'
-const Btech = ({dept}) => {
+const Btech = () => {
+
+    const location = useLocation();
+    const course = location.state &&location.state.course;
+    console.log("The course is ",course)
+    let dept = location.state && location.state.dept;
 
     // let Years = [];
     const Years = [
@@ -24,10 +29,10 @@ const Btech = ({dept}) => {
        <NavBar/>
         <div className=''>
 
-                {dept==="Btech"&&Years.map((item)=>(
+                {course ==="btech"&&Years.map((item)=>(
                     <StudentFormTable key={item} title={item} dept={dept} />
         ))}
-                {dept === "Diploma" && Years1.map((item) => (
+                {course === "diploma" && Years1.map((item) => (
                     <StudentFormTable key={item} title={item} dept={dept} />
                 ))}
         </div>
