@@ -1,55 +1,61 @@
 import { useNavigate } from "react-router-dom";
 
-
-function CourseList()
-{
-
-    const BtechDepartments =[
+function CourseList() {
+    const BtechDepartments = [
         "CSE",
         "ENTC",
-        "TEXTILTE",
+        "TEXTILE",
         "AI"
-    ]
+    ];
+
     const DiplomaDepartments = [
-        "CSE",
-        "ENTC",
-        "TEXTILTE",
-        "AI"
-    ]
+        "TC",
+        "FASHION",
+        "TT",
+    ];
+
+    const Mbadept = [
+        "First Year",
+        "Second Year",
+    ];
+
     const navigate = useNavigate();
-    function handleClick(option)
-    {
-        console.log("hi i m inside ")
+
+    function handleClick(option) {
         let depts = [];
-        if(option=="btech"){
+        if (option === "btech") {
             depts = BtechDepartments;
-        }
-        else if(option=="diploma")
-            {
+        } else if (option === "diploma") {
             depts = DiplomaDepartments;
-            }
-        navigate('/clerklogin/clerkhome/studentachievement/courselist/listing',{
-            state:{
+        } else if (option === "mba") {
+            depts = Mbadept;
+        }
+
+        const route = option === "mba"
+            ? '/clerklogin/clerkhome/studentachievement/courselist/listing/ranktables'
+            : '/clerklogin/clerkhome/studentachievement/courselist/listing';
+
+        navigate(route, {
+            state: {
                 departments: depts,
-                course:option
+                course: option
             }
-        })
+        });
     }
+
     return (
-        <>
         <div>
-            <button onClick={()=>handleClick("btech")}>
+            <button onClick={() => handleClick("btech")}>
                 Btech
             </button>
-                <button onClick={() => handleClick("diploma")} >
+            <button onClick={() => handleClick("diploma")}>
                 Diploma
             </button>
-                <button onClick={() => handleClick("mba") }>
+            <button onClick={() => handleClick("mba")}>
                 MBA
             </button>
         </div>
-        </>
-    )
+    );
 }
 
 export default CourseList;

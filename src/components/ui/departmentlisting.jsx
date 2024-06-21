@@ -8,9 +8,12 @@ function DepartmentListing()
     let departments =[]
     const course = location.state&&location.state.course
     departments = location.state&&location.state.departments;
+        console.log("indie listing")
+    console.log("hi there " + location.state.departments);
+    console.log("hi there " + location.state.course);
 
-    function handleclick(item){
-        console.log(location.state.departments);
+    function handleClick(item){
+        console.log("hi there "+location.state.departments);
 
         navigate('/clerklogin/clerkhome/studentachievement/courselist/listing/ranktables', {
             state: {
@@ -25,7 +28,7 @@ function DepartmentListing()
         <div>
             
         {departments.map((item)=>(
-            <button key={item} onClick={() => handleclick(item)}>
+            <button key={item} onClick={() => handleClick(item)}>
                 {item}
             </button>
         ))}

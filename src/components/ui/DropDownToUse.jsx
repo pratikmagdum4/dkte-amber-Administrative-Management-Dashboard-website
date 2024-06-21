@@ -8,23 +8,22 @@ import {
     DropdownMenuTrigger,
 } from "./DropDown";
 
-import Btech from "../../pages/Clerk/StudentAchivements/BtechRankers";
+import Btech from "./RankersTables";
 import { useNavigate } from "react-router-dom";
 function DropDownOptions({ options, title }) {
     const navigate = useNavigate()
-    function handleClick(item)
-    {
-       console.log("clickked houdfhauo")
-       console.log(item)
-        navigate('/rank',{
+    function handleClick(item) {
+        console.log("clickked houdfhauo")
+        console.log(item)
+        navigate('/rank', {
             state: {
                 dept: item
             }
         })
     }
-       
-            
-    
+
+
+
     return (
         <>
             <DropdownMenu>
@@ -34,7 +33,7 @@ function DropDownOptions({ options, title }) {
                     <DropdownMenuSeparator />
 
                     {options.map((item) => (
-                        <DropdownMenuItem onClick={handleClick(item)}  key={item}>{item}</DropdownMenuItem>
+                        <DropdownMenuItem onClick={handleClick(item)} key={item}>{item}</DropdownMenuItem>
 
                     ))}
                 </DropdownMenuContent>
