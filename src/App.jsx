@@ -17,6 +17,13 @@ import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/Special
 import StdHigherEducation from './pages/Clerk/StudentAchivements/HigherStudies.jsx';
 import StdAppreciationPrize from './pages/Clerk/StudentAchivements/AppreciationPrize.jsx';
 import StdInternationalTraining from './pages/Clerk/StudentAchivements/InternationalTraining.jsx';
+import FacultyBooksPublication from './pages/Clerk/FacultyAchivements/BooksPublication.jsx';
+import FacultyPaperPresentation from './pages/Clerk/FacultyAchivements/PaperPresentationConference.jsx';
+import FacultyPatentGrant from './pages/Clerk/FacultyAchivements/PatentGrant.jsx';
+import FacultyWorkShop from './pages/Clerk/FacultyAchivements/WorkshopSTTPFDP.jsx';
+import FacultyOtherSpecial from './pages/Clerk/FacultyAchivements/OtherSpecial.jsx';
+import FacultyTrainingProgram from './pages/Clerk/FacultyAchivements/TrainingProgram.jsx';
+import ClubReports from './pages/Clerk/ClubReports/ClubList.jsx';
 const App = () => {
 
 
@@ -53,6 +60,24 @@ const App = () => {
         <Route path='/clerklogin/clerkhome/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
         </Route>
         <Route path='/clerklogin/clerkhome/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
+        </Route>
+
+
+        <Route path='/clerklogin/clerkhome/facultyachievement/internationalpaperjournalpublish' element={<StdInternationalTraining />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/bookspublish' element={<FacultyBooksPublication />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/paperpresentation' element={<FacultyPaperPresentation />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/patentgrant' element={<FacultyPatentGrant />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/workshop' element={<FacultyWorkShop />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/otherspecial' element={<FacultyOtherSpecial />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/trainingprogram' element={<FacultyTrainingProgram />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/clubreports' element={<ClubReports />}>
         </Route>
         <Route path='/AchievementsTable' element={<AchievementsTable2 />}>
         </Route>

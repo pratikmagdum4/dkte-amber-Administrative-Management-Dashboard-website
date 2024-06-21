@@ -7,8 +7,7 @@ const initialRows = [
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
-    // { key: 'prize', label: 'Prize' },
-    // { key: 'date', label: 'Date' }, // Example additional column
+    
 ];
 const stdabroad = true;
 const StdInternationalTraining = () => {
@@ -19,7 +18,7 @@ const StdInternationalTraining = () => {
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="STUDENTS INTERNATIONAL TRAINING ATTENDED/ CERTIFICATION BY STUDENTS"
-                numberOfColumns={2} // Display only the first 2 columns
+                numberOfColumns={2} 
             />
         </div>
     );
