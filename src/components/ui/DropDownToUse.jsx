@@ -8,9 +8,9 @@ import {
     DropdownMenuTrigger,
 } from "./DropDown";
 
-function DropDownOptions({ options, title }) {
+function DropDownOptions({ options, course }) {
 
-    function handleOnClick(option)
+    function handleOnClick(option )
     {
         
     }
@@ -20,7 +20,7 @@ function DropDownOptions({ options, title }) {
     return (
         <>
             <DropdownMenu>
-                <DropdownMenuTrigger>{title}</DropdownMenuTrigger>
+                <DropdownMenuTrigger>{course}</DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
