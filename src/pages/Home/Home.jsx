@@ -74,7 +74,7 @@ const StudentSubmissionForm = () => {
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
-                    <label className='mt-2 bg-red'>File:</label>
+                    <label className='mt-2 bg-red'>Prn:</label>
                     <input
                         type="text"
                         name="prn"
@@ -126,15 +126,6 @@ const StudentSubmissionForm = () => {
                 name="language" 
                 onChange={handleChange} 
                 placeholder="Content Language" required />
-            </div>
-
-            <div>
-                <label>File:</label>
-            <input 
-                type="text" 
-                name="prn" 
-                onChange={handleChange} 
-                placeholder="PRN number" required />
             </div>
 
                 <div>

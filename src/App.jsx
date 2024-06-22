@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 import './App.css';
 import LoginForm from './pages/login/LoginForm.jsx';
 import StudentSubmissionForm from './pages/Home/Home.jsx';
-import Testing1 from './pages/test.jsx';
 
 
 
