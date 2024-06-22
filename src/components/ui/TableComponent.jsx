@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 
-const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns }) => {
+const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, onSubmit }) => {
     const [rows, setRows] = useState(initialRows);
 
     const handleAddRow = () => {
@@ -24,10 +25,20 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         setRows(newRows);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSubmit(rows);
+    };
+
+    const adjustTextareaHeight = (textarea) => {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    };
+
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
     return (
-        <div className="p-4">
+        <form onSubmit={handleSubmit} className="p-4">
             <h2 className="text-center font-bold text-xl mb-4">
                 {title}
             </h2>
@@ -45,13 +56,16 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                         <tr key={index}>
                             {columnsToDisplay.map(header => (
                                 <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
-                                    <input
-                                        type="text"
-                                        name={header.key}
-                                        value={row[header.key]}
-                                        onChange={(e) => handleChange(index, e)}
-                                        className="w-full p-2 border border-zinc-300 rounded"
-                                    />
+                                   
+                                        <textarea
+                                            name={header.key}
+                                            value={row[header.key]}
+                                            onChange={(e) => handleChange(index, e)}
+                                            className="w-full p-2 border border-zinc-300 rounded resize-none"
+                                            rows="1"
+                                            onInput={(e) => adjustTextareaHeight(e.target)}
+                                            style={{ overflow: 'hidden' }}
+                                        />
                                 </td>
                             ))}
                             <td className="border border-zinc-400 px-4 py-2 text-center">
@@ -74,7 +88,13 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             >
                 Add Row
             </button>
-        </div>
+            <button
+                type="submit"
+                className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+            >
+                Submit
+            </button>
+        </form>
     );
 };
 

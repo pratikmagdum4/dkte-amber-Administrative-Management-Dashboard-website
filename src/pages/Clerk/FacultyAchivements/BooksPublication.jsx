@@ -1,5 +1,6 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
+import axios from 'axios';
 const initialRows1 = [
     { name: '', title: '', agency: '', isbnno: '' },
 ];
@@ -12,7 +13,7 @@ const columnHeaders1 = [
     { key: 'title', label: 'Title of Book/Chapter' },
     { key: 'agency', label: 'Publication Agency' },
     { key: 'isbnno', label: 'ISBN Number' },
-    // { key: 'date', label: 'Date' }, // Example additional column
+    
 ];
 const columnHeaders2 = [
     { key: 'name', label: 'Name of the Faculty' },
@@ -24,6 +25,19 @@ const columnHeaders2 = [
 ];
 
 const FacultyBooksPublication = () => {
+
+    const handleSubmit = async (data) => {
+        try {
+            const response = await axios.post('https://example.com/api/submit', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Success:', response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <div>
             <AchievementsTable
@@ -31,12 +45,14 @@ const FacultyBooksPublication = () => {
                 columnHeaders={columnHeaders1}
                 title="FACULTY ACHIEVEMENTS IN BOOKS PUBLICATION"
                 numberOfColumns={4} 
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 initialRows={initialRows2}
                 columnHeaders={columnHeaders2}
                 title="FACULTY ACHIEVEMENTS IN BOOKS PUBLICATION"
                 numberOfColumns={5}
+                onSubmit={handleSubmit}
             />
         </div>
     );

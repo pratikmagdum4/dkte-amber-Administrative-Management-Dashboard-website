@@ -1,5 +1,6 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
+import axios from 'axios';
 const initialRows = [
     { name: '', training: '' },
 ];
@@ -11,6 +12,18 @@ const columnHeaders = [
 ];
 const stdabroad = true;
 const FacultyTrainingProgram = () => {
+    const handleSubmit = async (data) => {
+        try {
+            const response = await axios.post('https://example.com/api/submit', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Success:', response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <div>
             <AchievementsTable
@@ -19,6 +32,7 @@ const FacultyTrainingProgram = () => {
                 columnHeaders={columnHeaders}
                 title="TRAINING PROGRAMMES FOR FACULTY IN VACATION "
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
         </div>
     );
