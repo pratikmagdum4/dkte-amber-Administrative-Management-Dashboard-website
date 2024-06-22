@@ -23,7 +23,10 @@ import FacultyPatentGrant from './pages/Clerk/FacultyAchivements/PatentGrant.jsx
 import FacultyWorkShop from './pages/Clerk/FacultyAchivements/WorkshopSTTPFDP.jsx';
 import FacultyOtherSpecial from './pages/Clerk/FacultyAchivements/OtherSpecial.jsx';
 import FacultyTrainingProgram from './pages/Clerk/FacultyAchivements/TrainingProgram.jsx';
+import FacultyPaperJournalPublications from './pages/Clerk/FacultyAchivements/PaperJournalPublications.jsx';
 import ClubReports from './pages/Clerk/ClubReports/ClubList.jsx';
+import StudentAchievementlists from './pages/Clerk/StudentAchivements/StudentAchivementList.jsx';
+import FacultyAchievementLists from './pages/Clerk/FacultyAchivements/FacultyAchivementList.jsx';
 const App = () => {
 
 
@@ -45,7 +48,10 @@ const App = () => {
         </Route>
         <Route path='/clerklogin/clerkhome/' element={<ClerkHomePage />}>
         </Route>
-        <Route path='/clerklogin/clerkhome/studentachievement' element={<CourseList />}>
+
+        <Route path='/clerklogin/clerkhome/studentachievement' element={<StudentAchievementlists />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/studentachievement/courselist/' element={<CourseList />}>
         </Route>
         <Route path='/clerklogin/clerkhome/studentachievement/courselist/listing' element={<DepartmentListing />}>
         </Route>
@@ -53,7 +59,7 @@ const App = () => {
         </Route>
         <Route path='/clerklogin/clerkhome/studentachievement/paperproject' element={<StudentPaperProject />}>
         </Route>
-        <Route path='/clerklogin/clerkhome/studentachievement/specialachievement' element={<StudentSpecialAchievements />}>
+        <Route path='/clerklogin/clerkhome/studentachievement/exams' element={<StudentSpecialAchievements />}>
         </Route>
         <Route path='/clerklogin/clerkhome/studentachievement/higherstudies' element={<StdHigherEducation />}>
         </Route>
@@ -62,8 +68,9 @@ const App = () => {
         <Route path='/clerklogin/clerkhome/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
         </Route>
 
-
-        <Route path='/clerklogin/clerkhome/facultyachievement/internationalpaperjournalpublish' element={<StdInternationalTraining />}>
+        <Route path='/clerklogin/clerkhome/facultyachievement' element={<FacultyAchievementLists />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/facultyachievement/paperjournalpub' element={<FacultyPaperJournalPublications />}>
         </Route>
         <Route path='/clerklogin/clerkhome/facultyachievement/bookspublish' element={<FacultyBooksPublication />}>
         </Route>

@@ -15,6 +15,7 @@ const columnHeaders1 = [
     { key: 'isbnno', label: 'ISBN Number' },
     
 ];
+
 const columnHeaders2 = [
     { key: 'name', label: 'Name of the Faculty' },
     { key: 'title', label: 'Title of Book/Chapter' },
