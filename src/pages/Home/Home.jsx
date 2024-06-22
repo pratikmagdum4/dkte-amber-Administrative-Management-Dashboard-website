@@ -69,21 +69,18 @@ const StudentSubmissionForm = () => {
 
     return (
         <>
-<<<<<<< HEAD
         <div>
             hi there how 
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
                     <label className='mt-2 bg-red'>Prn:</label>
-=======
             <div className='text-2xl font-bold mb-4 '>
                 Hi there, how can I help you?
             </div>
             <form onSubmit={handleSubmit} className='space-y-4 m-10 w-3/4  justify-center'>
                 <div className='flex flex-col'>
                     <label className='mb-1 text-sm font-medium'>PRN:</label>
->>>>>>> a42412d28921ba2801d579ed365016cb69e00827
                     <input
                         type="text"
                         name="prn"
@@ -153,23 +150,6 @@ const StudentSubmissionForm = () => {
                         className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                     />
                 </div>
-
-<<<<<<< HEAD
-            <div>
-                <label>Language:</label>
-            <input 
-                type="text" 
-                name="language" 
-                onChange={handleChange} 
-                placeholder="Content Language" required />
-            </div>
-
-                <div>
-                    <label>Upload File:</label>
-=======
-                <div className='flex flex-col'>
-                    <label className='mb-1 text-sm font-medium'>Upload File:</label>
->>>>>>> a42412d28921ba2801d579ed365016cb69e00827
                     <input
                         type="file"
                         name="file"
