@@ -28,6 +28,17 @@ import FacultyPaperJournalPublications from './pages/Clerk/FacultyAchivements/Pa
 import ClubReports from './pages/Clerk/ClubReports/ClubList.jsx';
 import StudentAchievementlists from './pages/Clerk/StudentAchivements/StudentAchivementList.jsx';
 import FacultyAchievementLists from './pages/Clerk/FacultyAchivements/FacultyAchivementList.jsx';
+import MainEventTables from './pages/Clerk/MainEvents/EventsList.jsx';
+import TrainingPlacementListing from './pages/Clerk/TrainingPlacement/TrainingPlacementHome.jsx';
+import TrainingPlacementEngineeringReport from './pages/Clerk/TrainingPlacement/TrainingPlacementEngineeringReport.jsx';
+import TextileInternationalCompaniesList from './pages/Clerk/TrainingPlacement/TextileInternationalCompanies.jsx';
+import TrainingPlacementTextileReport from './pages/Clerk/TrainingPlacement/TrainingPlacementTexttileReport.jsx';
+import TextileNationalCompaniesList from './pages/Clerk/TrainingPlacement/TextilenationalCompanies.jsx';
+import EngineeringCompaniesList from './pages/Clerk/TrainingPlacement/EngineeringPlacementComapanies.jsx';
+import SponsorListInfo from './pages/Clerk/SponsoresList/Sponsorlist.jsx';
+import StaffMembersList from './pages/Clerk/StaffMembers/StaffMemberslist.jsx';
+import UpGraduationQalificationList from './pages/Clerk/UpGraduation/UpGraduationQalification.jsx';
+
 const App = () => {
 
 
