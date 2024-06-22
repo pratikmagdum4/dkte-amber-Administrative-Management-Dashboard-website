@@ -5,10 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate } from 'react-router';
-import Navbar from '../../navbar/Navbar';
 const links = [
     { label: 'Home', url: '/' },
-    //{ label: 'Login', url: '/login' },
+    { label: 'Login', url: '/login' },
     { label: 'Register', url: '/' },
     { label: 'Contact', url: '/' },
    ];
