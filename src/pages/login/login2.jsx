@@ -5,6 +5,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate } from 'react-router';
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    //{ label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 
 function LoginForm2() {
     const navigate = useNavigate();
@@ -69,7 +76,7 @@ function LoginForm2() {
     
     return (
         <div>
-            <Navbar/>
+            <Navbar links={links}/>
             <ToastContainer position="top-center" autoClose={2000} />
             {fields ==="undefined" ? (
                 <div>Empty fields</div>

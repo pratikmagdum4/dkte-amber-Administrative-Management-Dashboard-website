@@ -1,4 +1,8 @@
-import React from 'react'; const Navbar = () => {
+import React from 'react'; const Navbar = ({links}) => {
+
+    
+    
+
     return (
         <nav className="bg-black text-white p-4 flex justify-between items-center">
             <div className="flex items-center">
@@ -6,10 +10,11 @@ import React from 'react'; const Navbar = () => {
                 <span className="text-white">Ascendere</span>
             </div>
             <div className="flex space-x-4">
-                <a href="#" className="hover:text-zinc-400">Home</a>
-                <a href="#" className="hover:text-zinc-400">Login</a>
-                <a href="#" className="hover:text-zinc-400">Register</a>
-                <a href="#" className="hover:text-zinc-400">Contact</a>
+                {links&&links.map((link, index) => (
+                    <a key={index} href={link.url} className="hover:text-zinc-400">
+                        {link.label}
+                    </a>
+                ))}
             </div>
         </nav>
     );
