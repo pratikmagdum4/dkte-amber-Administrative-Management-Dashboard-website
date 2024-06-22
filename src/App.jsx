@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 import './App.css';
 import LoginForm from './pages/login/LoginForm.jsx';
 import StudentSubmissionForm from './pages/Home/Home.jsx';
+import Footer from './pages/footer/Footer.jsx';
 
 import LoginForm2 from './pages/login/login2.jsx';
 import StudentFormTable from './components/ui/RankersTables.jsx';
