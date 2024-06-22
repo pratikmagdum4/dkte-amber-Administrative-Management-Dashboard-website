@@ -27,6 +27,16 @@ import FacultyPaperJournalPublications from './pages/Clerk/FacultyAchivements/Pa
 import ClubReports from './pages/Clerk/ClubReports/ClubList.jsx';
 import StudentAchievementlists from './pages/Clerk/StudentAchivements/StudentAchivementList.jsx';
 import FacultyAchievementLists from './pages/Clerk/FacultyAchivements/FacultyAchivementList.jsx';
+import MainEventTables from './pages/Clerk/MainEvents/EventsList.jsx';
+import TrainingPlacementListing from './pages/Clerk/TrainingPlacement/TrainingPlacementHome.jsx';
+import TrainingPlacementTextileReport from './pages/Clerk/TrainingPlacement/TrainingPlacementTexttileReport.jsx';
+import TrainingPlacementEngineeringReport from './pages/Clerk/TrainingPlacement/TrainingPlacementEngineeringReport.jsx';
+import TextileInternationalCompaniesList from './pages/Clerk/TrainingPlacement/TextileInternationalCompanies.jsx';
+import TextileNationalCompaniesList from './pages/Clerk/TrainingPlacement/TextilenationalCompanies.jsx';
+import EngineeringCompaniesList from './pages/Clerk/TrainingPlacement/EngineeringPlacementComapanies.jsx';
+import SponsorListInfo from './pages/Clerk/SponsoresList/Sponsorlist.jsx';
+import StaffMembersList from './pages/Clerk/StaffMembers/StaffMemberslist.jsx';
+import UpGraduationQalificationList from './pages/Clerk/UpGraduation/UpGraduationQalification.jsx';
 const App = () => {
 
 
@@ -84,11 +94,37 @@ const App = () => {
         </Route>
         <Route path='/clerklogin/clerkhome/facultyachievement/trainingprogram' element={<FacultyTrainingProgram />}>
         </Route>
+       
+
         <Route path='/clerklogin/clerkhome/clubreports' element={<ClubReports />}>
         </Route>
-        <Route path='/AchievementsTable' element={<AchievementsTable2 />}>
+
+        <Route path='/clerklogin/clerkhome/mainevents/' element={<MainEventTables />}>
         </Route>
 
+        <Route path='/clerklogin/clerkhome/trainingplacement/' element={<TrainingPlacementListing />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/trainingplacement/textilereport' element={<TrainingPlacementTextileReport />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/trainingplacement/engineeringreport' element={<TrainingPlacementEngineeringReport />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/trainingplacement/internationalcompanies' element={<TextileInternationalCompaniesList />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/trainingplacement/nationalcompanies' element={<TextileNationalCompaniesList />}>
+        </Route>
+        <Route path='/clerklogin/clerkhome/trainingplacement/engineeringcompanies' element={<EngineeringCompaniesList />}>
+        </Route>
+
+        <Route path='/clerklogin/clerkhome/sponsorlist' element={<SponsorListInfo />}>
+        </Route>
+
+        <Route path='/clerklogin/clerkhome/staffmembers' element={<StaffMembersList />}>
+        </Route>
+
+        <Route path='/clerklogin/clerkhome/upgraduation' element={<UpGraduationQalificationList />}>
+        </Route>
+
+       
       </Routes>
     </Router>
   )

@@ -27,14 +27,20 @@ const FacultyAchievementLists = () => {
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("clubreports")}>
                         Club Reports
                     </button>
-                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("patentgrant")}>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("mainevents")}>
                        Main Events
                     </button>
-                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("workshop")}>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("trainingplacement")}>
                        Reports on Training & Placement Activities
                     </button>
-                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("otherspecial")}>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("sponsorlist")}>
+                        Sponsors List
+                    </button>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("staffmembers")}>
                         Staff Members
+                    </button>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("upgraduation")}>
+                        Upgraduation 
                     </button>
                    
                 </div>

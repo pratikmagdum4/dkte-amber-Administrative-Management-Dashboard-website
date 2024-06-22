@@ -2,19 +2,19 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 const initialRows = [
-    { srno: '', sponsors: '' },
+    { nationalcompanies: '' },
 ];
 
 const columnHeaders = [
-    { key: 'srno', label: 'Sr.No.' },
-    { key: 'sponsors', label: 'Sponsors Information' },
+    { key: 'nationalcompanies', label: 'National Companies' },
+
 ];
 
 const stdabroad = true;
 
 
 
-const SponsorListInfo = () => {
+const TextileNationalCompaniesList = () => {
     const handleSubmit = async (data) => {
         try {
             const response = await axios.post('https://example.com/api/submit', data, {
@@ -34,12 +34,12 @@ const SponsorListInfo = () => {
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
-                title="SPONSORS"
-                numberOfColumns={2}
+                title="Textile National Companies"
+                numberOfColumns={1}
                 onSubmit={handleSubmit}
             />
         </div>
     );
 };
 
-export default SponsorListInfo;
+export default TextileNationalCompaniesList;

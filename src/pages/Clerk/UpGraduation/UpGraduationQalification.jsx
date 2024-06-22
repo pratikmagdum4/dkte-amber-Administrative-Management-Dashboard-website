@@ -2,19 +2,18 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 const initialRows = [
-    { srno: '', sponsors: '' },
+    { srno: '', name: '', designation: '', course: '' },
 ];
 
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
-    { key: 'sponsors', label: 'Sponsors Information' },
+    { key: 'name', label: 'Name of the Faculty' },
+    { key: 'designation', label: 'Designation' },
+    { key: 'course', label: 'Name of the Course' },
+   
 ];
 
-const stdabroad = true;
-
-
-
-const SponsorListInfo = () => {
+const UpGraduationQalificationList = () => {
     const handleSubmit = async (data) => {
         try {
             const response = await axios.post('https://example.com/api/submit', data, {
@@ -27,19 +26,18 @@ const SponsorListInfo = () => {
             console.error('Error:', error);
         }
     };
-
     return (
         <div>
+            <h1>PH.D. Awarded :-</h1>
             <AchievementsTable
-                stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
-                title="SPONSORS"
-                numberOfColumns={2}
+                title="CONGRATULATION ON UPGRADATION OF QUALIFICATION 2023-24"
+                numberOfColumns={4}
                 onSubmit={handleSubmit}
             />
         </div>
     );
 };
 
-export default SponsorListInfo;
+export default UpGraduationQalificationList;

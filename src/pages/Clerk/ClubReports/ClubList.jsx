@@ -1,5 +1,6 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
+import axios from 'axios';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -11,7 +12,20 @@ const columnHeaders = [
 ];
 const stdabroad = true;
 const ClubReports = () => {
+    const handleSubmit = async (data) => {
+        try {
+            const response = await axios.post('https://example.com/api/submit', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Success:', response.data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
+         
         <div>
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -19,6 +33,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="ACSES REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -26,6 +41,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="AISA REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -33,6 +49,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="EESA REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -40,6 +57,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="COMSA REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -47,6 +65,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="CESA REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -54,6 +73,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="IET STUDENTS CHAPTER REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -61,6 +81,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="MESA REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 stdabroad={stdabroad}
@@ -68,6 +89,7 @@ const ClubReports = () => {
                 columnHeaders={columnHeaders}
                 title="TAIMU REPORT"
                 numberOfColumns={2}
+                onSubmit={handleSubmit}
             />
         </div>
     );
