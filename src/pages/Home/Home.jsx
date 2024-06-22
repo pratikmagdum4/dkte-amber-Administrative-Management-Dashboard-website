@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Home.css';
+// import './Home.css';
 
 const StudentSubmissionForm = () => {
 
@@ -69,56 +69,92 @@ const StudentSubmissionForm = () => {
 
     return (
         <>
+<<<<<<< HEAD
         <div>
             hi there how 
         </div>
         <form onSubmit={handleSubmit}>
                 <div>
                     <label className='mt-2 bg-red'>Prn:</label>
+=======
+            <div className='text-2xl font-bold mb-4 '>
+                Hi there, how can I help you?
+            </div>
+            <form onSubmit={handleSubmit} className='space-y-4 m-10 w-3/4  justify-center'>
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>PRN:</label>
+>>>>>>> a42412d28921ba2801d579ed365016cb69e00827
                     <input
                         type="text"
                         name="prn"
                         onChange={handleChange}
-                        placeholder="PRN number" required />
+                        placeholder="PRN number"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
                 </div>
 
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        placeholder="Name"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </div>
 
-            <div>
-                <label>Name:</label>
-            <input 
-                type="text" 
-                name="name" 
-                onChange={handleChange} 
-                placeholder="Name" required />
-            </div>
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Contact:</label>
+                    <input
+                        type="number"
+                        name="contact"
+                        onChange={handleChange}
+                        placeholder="Contact"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </div>
 
-            <div>
-                <label>Contact:</label>
-            <input 
-                type="number" 
-                name="contact" 
-                onChange={handleChange} 
-                placeholder="Contact" required />
-            </div>
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                        placeholder="Email"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </div>
 
-            <div>
-                <label>Email:</label>
-            <input 
-                type="email" 
-                name="email" 
-                onChange={handleChange} 
-                placeholder="Email" required />
-            </div>
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Content:</label>
+                    <input
+                        type="text"
+                        name="content"
+                        onChange={handleChange}
+                        placeholder="Content"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </div>
 
-            <div>
-                <label>Content:</label>
-            <input 
-                type="text" 
-                name="content" 
-                onChange={handleChange} 
-                placeholder="Content" required />
-            </div>
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Language:</label>
+                    <input
+                        type="text"
+                        name="language"
+                        onChange={handleChange}
+                        placeholder="Content Language"
+                        required
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
+                </div>
 
+<<<<<<< HEAD
             <div>
                 <label>Language:</label>
             <input 
@@ -130,17 +166,28 @@ const StudentSubmissionForm = () => {
 
                 <div>
                     <label>Upload File:</label>
+=======
+                <div className='flex flex-col'>
+                    <label className='mb-1 text-sm font-medium'>Upload File:</label>
+>>>>>>> a42412d28921ba2801d579ed365016cb69e00827
                     <input
                         type="file"
                         name="file"
                         onChange={handleFileChange}
-                        required />
+                        className='px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    />
                 </div>
 
-            <button type="submit">Submit</button>
-        </form>
+                <button
+                    type="submit"
+                    className='w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                >
+                    Submit
+                </button>
+            </form>
         </>
     );
+
 };
 
 export default StudentSubmissionForm;
