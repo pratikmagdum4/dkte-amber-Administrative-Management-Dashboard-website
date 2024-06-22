@@ -33,7 +33,7 @@ const FacultyOtherSpecial = () => {
     };
     return (
         <div>
-            <Navbar/>
+            <Navbar links={links}/>
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
