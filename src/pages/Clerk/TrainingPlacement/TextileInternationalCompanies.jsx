@@ -1,6 +1,13 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 const initialRows = [
     { internationalcompanies: '' },
 ];
@@ -30,6 +37,7 @@ const TextileInternationalCompaniesList = () => {
 
     return (
         <div>
+            <Navbar/>
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

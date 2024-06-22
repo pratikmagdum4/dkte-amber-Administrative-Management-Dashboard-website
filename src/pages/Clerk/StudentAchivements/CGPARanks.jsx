@@ -1,6 +1,11 @@
-
-
 import DropDownOptions from "../../../components/ui/DropDownToUse"
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 function DisplayInstitutes()
 {
 
@@ -36,7 +41,7 @@ function DisplayInstitutes()
     return (
         <>
         <div>
-
+        <Navbar/>
        
             <DropDownOptions title={"BTech"}options={Btech}/>
             <DropDownOptions title={"Diploma"} options={Diploma} />

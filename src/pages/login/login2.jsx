@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,6 +69,7 @@ function LoginForm2() {
     
     return (
         <div>
+            <Navbar/>
             <ToastContainer position="top-center" autoClose={2000} />
             {fields ==="undefined" ? (
                 <div>Empty fields</div>

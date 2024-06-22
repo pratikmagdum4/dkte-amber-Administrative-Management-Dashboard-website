@@ -1,6 +1,13 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 const initialRows = [
     { branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
 ];
@@ -41,6 +48,7 @@ const TrainingPlacementEngineeringReport = () => {
     };
     return (
         <div>
+            <Navbar/>
             <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIES</h1>
            
             <AchievementsTable

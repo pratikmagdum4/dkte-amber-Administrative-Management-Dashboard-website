@@ -1,5 +1,11 @@
 import { useNavigate } from "react-router-dom";
-
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 function CourseList() {
     const BtechDepartments = [
         "CSE",
@@ -45,6 +51,7 @@ function CourseList() {
 
     return (
         <div>
+            <Navbar/>
             <button onClick={() => handleClick("btech")}>
                 Btech
             </button>

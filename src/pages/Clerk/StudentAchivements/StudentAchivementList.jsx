@@ -1,4 +1,11 @@
 import React from 'react';import { useNavigate } from 'react-router-dom';
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
  const StudentAchievementlists = () => {
     const navigate = useNavigate();
     function handleClick(option)
@@ -7,15 +14,7 @@ import React from 'react';import { useNavigate } from 'react-router-dom';
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <header className="bg-black text-white p-4 flex justify-between items-center">
-                <img src="https://placehold.co/100x50" alt="DKTE Logo" className="h-12" />
-                <nav className="flex space-x-4">
-                    <span>Amber</span>
-                    <a href="#" className="hover:underline">Home</a>
-                    <a href="#" className="hover:underline">Login</a>
-                    <a href="#" className="hover:underline">Contact</a>
-                </nav>
-            </header>
+            <Navbar/>
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">Student</h1>
                 <div className="space-y-4 w-full max-w-md">

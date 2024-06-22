@@ -1,6 +1,13 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
+import Navbar from '../../navbar/Navbar';
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Login', url: '/login' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 const initialRows = [
     { name: '', event: '', prize: '', date: '' },
 ];
@@ -27,6 +34,7 @@ const StudentPaperProject = () => {
     };
     return (
         <div>
+            <Navbar/>
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
