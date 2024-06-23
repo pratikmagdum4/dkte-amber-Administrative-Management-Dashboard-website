@@ -6,6 +6,12 @@ import { HomeLink } from '../../../components/varialbles/variables';
 const ArticleForm = () => {
   const [formData, setFormData] = useState({
     title: '',
+    stdname: '',
+    prn: '',
+    email: '',
+    contact: '',
+    branch: '',
+    year: '',
     language: 'english',
     content: '',
   });
@@ -35,6 +41,54 @@ const ArticleForm = () => {
             type="text"
             name="title"
             value={formData.title}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="stdname"
+            value={formData.stdname}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="number"
+            name="prn"
+            value={formData.prn}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="number"
+            name="contact"
+            value={formData.contact}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="text"
+            name="branch"
+            value={formData.branch}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          />
+          <input
+            type="number"
+            name="year"
+            value={formData.year}
             onChange={handleChange}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
