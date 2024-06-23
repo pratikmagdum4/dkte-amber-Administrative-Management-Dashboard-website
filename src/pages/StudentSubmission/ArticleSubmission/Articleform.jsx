@@ -31,8 +31,10 @@ const ArticleForm = () => {
   };
 
   return (
+    <>
+          <Navbar links={HomeLink} />
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-      <Navbar links={HomeLink}/>
+    
       <h2 className="text-2xl font-bold mb-6">Article Submission Form</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -126,6 +128,7 @@ const ArticleForm = () => {
         </button>
       </form>
     </div>
+     </>
   );
 };
 
