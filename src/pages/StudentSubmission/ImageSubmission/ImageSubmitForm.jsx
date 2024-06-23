@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/varialbles/variables';
 
-
-const ArticleForm = () => {
+const ImageForm = () => {
   const [formData, setFormData] = useState({
     title: '',
-    language: 'english',
-    content: '',
+    image: null,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: files ? files[0] : value,
     });
   };
 
@@ -26,8 +24,8 @@ const ArticleForm = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-      <Navbar links={HomeLink}/>
-      <h2 className="text-2xl font-bold mb-6">Article Submission Form</h2>
+    <Navbar links={HomeLink}/>
+      <h2 className="text-2xl font-bold mb-6">Image Submission Form</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-left text-sm font-medium text-gray-700">Title:</label>
@@ -41,28 +39,15 @@ const ArticleForm = () => {
           />
         </div>
         <div>
-          <label className="block text-left text-sm font-medium text-gray-700">Language:</label>
-          <select
-            name="language"
-            value={formData.language}
+          <label className="block text-left text-sm font-medium text-gray-700">Image:</label>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
             onChange={handleChange}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          >
-            <option value="english">English</option>
-            <option value="hindi">Hindi</option>
-            <option value="marathi">Marathi</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-left text-sm font-medium text-gray-700">Content:</label>
-          <textarea
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          ></textarea>
+          />
         </div>
         <button
           type="submit"
@@ -75,4 +60,4 @@ const ArticleForm = () => {
   );
 };
 
-export default ArticleForm;
+export default ImageForm;

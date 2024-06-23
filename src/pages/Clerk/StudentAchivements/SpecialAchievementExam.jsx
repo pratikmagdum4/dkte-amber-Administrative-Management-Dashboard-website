@@ -1,6 +1,7 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
+import { StudentAchivements } from '../../../components/varialbles/variables';
 const initialRows1 = [
     { srno: '', name: '', class: '' },
 ];
@@ -28,6 +29,7 @@ const StudentSpecialAchievements = () => {
     };
     return (
         <div>
+            <Navbar links={StudentAchivements}/>
             <AchievementsTable
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}

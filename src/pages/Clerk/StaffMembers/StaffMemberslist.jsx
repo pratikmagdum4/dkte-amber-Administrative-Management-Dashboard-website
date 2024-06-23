@@ -2,12 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Login', url: '/login' },
-    { label: 'Register', url: '/' },
-    { label: 'Contact', url: '/' },
-   ];
+import { StaffMembers } from '../../../components/varialbles/variables';
 const initialRows = [
     { name: '', title: '', position: '' },
 ];
@@ -48,7 +43,7 @@ const StaffMembersList = () => {
     };
     return (
         <div>
-            <Navbar/>
+            <Navbar links={StaffMembers}/>
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}

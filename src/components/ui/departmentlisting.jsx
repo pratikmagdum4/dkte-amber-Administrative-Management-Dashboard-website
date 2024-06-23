@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
-
+//import Navbar from "../../pages/navbar/Navbar";
+//import { StudentAchivements } from '../../../components/varialbles/variables';
 
 function DepartmentListing()
 {
@@ -26,7 +27,7 @@ function DepartmentListing()
     return (
         <>
         <div>
-            
+         
         {departments.map((item)=>(
             <button key={item} onClick={() => handleClick(item)}>
                 {item}

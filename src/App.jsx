@@ -39,6 +39,8 @@ import EngineeringCompaniesList from './pages/Clerk/TrainingPlacement/Engineerin
 import SponsorListInfo from './pages/Clerk/SponsoresList/Sponsorlist.jsx';
 import StaffMembersList from './pages/Clerk/StaffMembers/StaffMemberslist.jsx';
 import UpGraduationQalificationList from './pages/Clerk/UpGraduation/UpGraduationQalification.jsx';
+import Articleform from './pages/StudentSubmission/ArticleSubmission/Articleform.jsx';
+import ImageSubmitForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm.jsx';
 
 const App = () => {
 
@@ -60,6 +62,10 @@ const App = () => {
         <Route path='/drop' element={<Dropdown2 />}>
         </Route>
         <Route path='/clerklogin/clerkhome/' element={<ClerkHomePage />}>
+        </Route>
+        <Route path='/ArticleSubmission' element={<Articleform />}>
+        </Route>
+        <Route path='/ImageSubmission' element={<ImageSubmitForm />}>
         </Route>
 
         <Route path='/clerklogin/clerkhome/studentachievement' element={<StudentAchievementlists />}>
