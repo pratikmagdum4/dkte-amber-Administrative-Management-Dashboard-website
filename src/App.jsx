@@ -42,7 +42,8 @@ import StaffMembersList from './pages/Clerk/StaffMembers/StaffMemberslist.jsx';
 import UpGraduationQalificationList from './pages/Clerk/UpGraduation/UpGraduationQalification.jsx';
 import ArticleForm from './pages/StudentSubmission/ArticleSubmission/Articleform.jsx';
 import ImageForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm.jsx';
-
+import AuthButton from './components/ui/AuthButtom.jsx';
+import LoginPage from './pages/login/LoginPage.jsx';
 const App = () => {
 
 
@@ -134,6 +135,10 @@ const App = () => {
         <Route path='/submit' element={<ArticleForm />}>
         </Route>
         <Route path='/stdimgform' element={<ImageForm />}>
+        </Route>
+        <Route path='/auth' element={<AuthButton />}>
+        </Route>
+        <Route path='/log' element={<LoginPage />}>
         </Route>
 
        
