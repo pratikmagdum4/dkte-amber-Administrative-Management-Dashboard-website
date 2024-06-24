@@ -131,7 +131,7 @@ const App = () => {
         <Route path='/clerklogin/clerkhome/upgraduation' element={<UpGraduationQalificationList />}>
         </Route>
 
-        <Route path='/stdarticleform' element={<ArticleForm />}>
+        <Route path='/submit' element={<ArticleForm />}>
         </Route>
         <Route path='/stdimgform' element={<ImageForm />}>
         </Route>

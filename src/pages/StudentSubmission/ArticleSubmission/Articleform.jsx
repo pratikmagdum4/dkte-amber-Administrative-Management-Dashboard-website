@@ -122,8 +122,9 @@ const ArticleForm = () => {
             name="content"
             value={formData.content}
             onChange={handleChange}
+            placeholder='Paste your Article here'
             required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="mt-1 block w-full px-3 py-20 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           ></textarea>
         </div>
         <button
