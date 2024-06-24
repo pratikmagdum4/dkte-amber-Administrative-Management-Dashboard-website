@@ -25,8 +25,11 @@ const CarouselComponent = () => {
   };
 
   return (
+    <>
+     <Navbar links={HomeLink}/>
+   
     <div className="carousel-container mx-auto mt-10 w-full max-w-4xl">
-      <Navbar links={HomeLink}/>
+     
       <Slider {...settings}>
         <div className="relative h-full">
           <img src={img1} alt="Slide 1" className="w-full h-full object-cover bottom-{50px}" />
@@ -41,8 +44,10 @@ const CarouselComponent = () => {
           <img src={img4} alt="Slide 4" className="w-full h-full object-cover bottom-{50px}" />
         </div>
       </Slider>
-      <Footer/>
+      
     </div>
+      <Footer />
+    </>
   );
 }
 

@@ -50,7 +50,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/home' element={<CarouselComponent />}>
+        <Route path='/' element={<CarouselComponent />}>
         </Route>
         <Route path='/login' element={<LoginForm2 />}>
         </Route>

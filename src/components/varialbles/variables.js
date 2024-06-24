@@ -1,5 +1,6 @@
 export const HomeLink = [
   { label: "Login", url: "/login" },
+  { label: "Submit", url: "/Submit" },
   { label: "About Us", url: "/" },
   { label: "Contact", url: "/" },
 ];
