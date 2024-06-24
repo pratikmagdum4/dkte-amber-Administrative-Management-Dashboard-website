@@ -1,7 +1,6 @@
 export const HomeLink = [
-  { label: "Home", url: "/" },
   { label: "Login", url: "/login" },
-  { label: "Register", url: "/" },
+  { label: "About Us", url: "/" },
   { label: "Contact", url: "/" },
 ];
 export const ClerkNavLink = [
