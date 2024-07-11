@@ -2,12 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Login', url: '/login' },
-    { label: 'Register', url: '/' },
-    { label: 'Contact', url: '/' },
-   ];
+import { FacultyAchivements } from '../../../components/varialbles/variables';
 const initialRows1 = [
     { name: '', title: '', agency: '', isbnno: '' },
 ];
@@ -48,7 +43,7 @@ const FacultyBooksPublication = () => {
     };
     return (
         <div>
-            <Navbar/>
+            <Navbar links={FacultyAchivements}/>
             <AchievementsTable
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}

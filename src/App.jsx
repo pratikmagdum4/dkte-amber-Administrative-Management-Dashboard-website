@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'react-router-dom';
 import './App.css';
+import CarouselComponent from './pages/Home/Home.jsx';
 import LoginForm from './pages/login/LoginForm.jsx';
 import StudentSubmissionForm from './pages/Home/Home.jsx';
 import Footer from './pages/footer/Footer.jsx';
@@ -39,7 +40,11 @@ import EngineeringCompaniesList from './pages/Clerk/TrainingPlacement/Engineerin
 import SponsorListInfo from './pages/Clerk/SponsoresList/Sponsorlist.jsx';
 import StaffMembersList from './pages/Clerk/StaffMembers/StaffMemberslist.jsx';
 import UpGraduationQalificationList from './pages/Clerk/UpGraduation/UpGraduationQalification.jsx';
-
+import ArticleForm from './pages/StudentSubmission/ArticleSubmission/Articleform.jsx';
+import ImageForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm.jsx';
+import AuthButton from './components/ui/AuthButtom.jsx';
+import LoginPage from './pages/login/LoginPage.jsx';
+import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 const App = () => {
 
 
@@ -47,7 +52,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<StudentSubmissionForm />}>
+        <Route path='/' element={<CarouselComponent />}>
         </Route>
         <Route path='/login' element={<LoginForm2 />}>
         </Route>
@@ -61,6 +66,7 @@ const App = () => {
         </Route>
         <Route path='/clerklogin/clerkhome/' element={<ClerkHomePage />}>
         </Route>
+      
 
         <Route path='/clerklogin/clerkhome/studentachievement' element={<StudentAchievementlists />}>
         </Route>
@@ -125,6 +131,17 @@ const App = () => {
         </Route>
 
         <Route path='/clerklogin/clerkhome/upgraduation' element={<UpGraduationQalificationList />}>
+        </Route>
+
+        <Route path='/submit' element={<ArticleForm />}>
+        </Route>
+        <Route path='/stdimgform' element={<ImageForm />}>
+        </Route>
+        <Route path='/auth' element={<AuthButton />}>
+        </Route>
+        <Route path='/log' element={<LoginPage />}>
+        </Route>
+        <Route path='/dash' element={<Dashboard />}>
         </Route>
 
        
