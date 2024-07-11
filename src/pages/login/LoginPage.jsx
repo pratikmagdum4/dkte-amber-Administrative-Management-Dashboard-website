@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { StudentMale, AdministratorMale, Interviewer, SignUpLoginHome } from '@/assets/';
+import { StudentMale, AdministratorMale, Interviewer, SignUpLoginHome } from '@/assets/';
 import Navbar from "../navbar/Navbar";
 import AuthButton from "../../components/ui/AuthButtom";
 import { LogIn } from "lucide-react";
@@ -25,14 +25,14 @@ function LoginPage() {
             </div>
             <div className={isSmallScreen ? "flex flex-col items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-y-4" : "flex flex-row items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-x-8"}>
                 <AuthButton
-                    // imageUrl={StudentMale}
+                    imageUrl={AdministratorMale}
                     altText="Clerk Login"
                     buttonText={"Clerk Login"}
                     buttonUrl={"/login/clerk"}
                     isSmallScreen={isSmallScreen}
                 />
                 <AuthButton
-                    // imageUrl={AdministratorMale}
+                    imageUrl={AdministratorMale}
                     altText={"Admin Login"}
                     buttonText={"Admin Login"}
                     buttonUrl="/login/admin"

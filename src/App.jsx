@@ -44,6 +44,7 @@ import ArticleForm from './pages/StudentSubmission/ArticleSubmission/Articleform
 import ImageForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm.jsx';
 import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
+import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 const App = () => {
 
 
@@ -139,6 +140,8 @@ const App = () => {
         <Route path='/auth' element={<AuthButton />}>
         </Route>
         <Route path='/log' element={<LoginPage />}>
+        </Route>
+        <Route path='/dash' element={<Dashboard />}>
         </Route>
 
        
