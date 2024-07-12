@@ -5,8 +5,7 @@ import AuthButton from "../../components/ui/AuthButtom";
 import { LogIn } from "lucide-react";
 // import { Navlink } from "@/components/variables/formVariables";
 function LoginPage() {
-
-
+    
     const [isSmallScreen, setIsSmallerScreen] = useState(false);
 
     useEffect(() => {

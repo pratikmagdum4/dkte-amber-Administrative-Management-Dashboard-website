@@ -2,10 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'react-router-dom';
 import './App.css';
 import CarouselComponent from './pages/Home/Home.jsx';
-<<<<<<< HEAD
-=======
-import LoginForm from './pages/login/LoginForm.jsx';
->>>>>>> master
+
 import StudentSubmissionForm from './pages/Home/Home.jsx';
 import Footer from './pages/footer/Footer.jsx';
 
