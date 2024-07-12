@@ -28,14 +28,14 @@ function LoginPage() {
                     imageUrl={AdministratorMale}
                     altText="Clerk Login"
                     buttonText={"Clerk Login"}
-                    buttonUrl={"/login/clerk"}
+                    buttonUrl={"/login/clerklogin"}
                     isSmallScreen={isSmallScreen}
                 />
                 <AuthButton
                     imageUrl={AdministratorMale}
                     altText={"Admin Login"}
                     buttonText={"Admin Login"}
-                    buttonUrl="/login/admin"
+                    buttonUrl="/login/adminlogin"
                     isSmallScreen={isSmallScreen}
                     className={isSmallScreen ? "text-sm" : ""}
                 />

@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'react-router-dom';
 import './App.css';
 import CarouselComponent from './pages/Home/Home.jsx';
-import LoginForm from './pages/login/LoginForm.jsx';
 import StudentSubmissionForm from './pages/Home/Home.jsx';
 import Footer from './pages/footer/Footer.jsx';
 
@@ -14,7 +13,6 @@ import Dropdown2 from './components/ui/dropdown.jsx';
 import CourseList from './pages/Clerk/StudentAchivements/CourseList.jsx';
 import ClerkHomePage from './pages/Clerk/ClerkHome/clerkHome.jsx';
 import DepartmentListing from './components/ui/departmentlisting.jsx';
-import AchievementsTable2 from './pages/Clerk/StudentAchivements/PaperProject.jsx';
 import StudentPaperProject from './pages/Clerk/StudentAchivements/PaperProject.jsx';
 import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievement.jsx';
 import StdHigherEducation from './pages/Clerk/StudentAchivements/HigherStudies.jsx';
@@ -54,17 +52,19 @@ const App = () => {
       <Routes>
         <Route path='/' element={<CarouselComponent />}>
         </Route>
-        <Route path='/login' element={<LoginForm2 />}>
+        <Route path='/login' element={<LoginPage />}>
+        </Route>
+        <Route path='/login/clerklogin' element={<LoginForm2 />}>
         </Route>
         <Route path='/rank' element={<StudentFormTable />}>
         </Route>
-        <Route path='/clerklogin/clerkhome/studentachievement/courselist/listing/ranktables' element={<RankersTables />}>
+        <Route path='/login/clerklogin/clerkhome/studentachievement/courselist/listing/ranktables' element={<RankersTables />}>
         </Route>
         <Route path='/institute' element={<DisplayInstitutes />}>
         </Route>
         <Route path='/drop' element={<Dropdown2 />}>
         </Route>
-        <Route path='/clerklogin/clerkhome/' element={<ClerkHomePage />}>
+        <Route path='/login/clerklogin/clerkhome/' element={<ClerkHomePage />}>
         </Route>
       
 

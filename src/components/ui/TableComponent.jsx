@@ -1,8 +1,22 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import React, { useState } from 'react';
-
-const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, onSubmit }) => {
+const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl }) => {
     const [rows, setRows] = useState(initialRows);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(FetchUrl);
+                setRows(response.data.length > 0 ? response.data : initialRows);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setRows(initialRows); // Set to initialRows if fetching fails
+            }
+        };
+
+        fetchData();
+    }, [FetchUrl, initialRows]);
 
     const handleAddRow = () => {
         const newRow = columnHeaders.reduce((acc, header) => {
@@ -25,9 +39,18 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         setRows(newRows);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit(rows);
+        try {
+            const response = await axios.post(SubmitUrl, rows, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Success:', response.data);
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
     };
 
     const adjustTextareaHeight = (textarea) => {
@@ -56,16 +79,15 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                         <tr key={index}>
                             {columnsToDisplay.map(header => (
                                 <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
-                                   
-                                        <textarea
-                                            name={header.key}
-                                            value={row[header.key]}
-                                            onChange={(e) => handleChange(index, e)}
-                                            className="w-full p-2 border border-zinc-300 rounded resize-none"
-                                            rows="1"
-                                            onInput={(e) => adjustTextareaHeight(e.target)}
-                                            style={{ overflow: 'hidden' }}
-                                        />
+                                    <textarea
+                                        name={header.key}
+                                        value={row[header.key]}
+                                        onChange={(e) => handleChange(index, e)}
+                                        className="w-full p-2 border border-zinc-300 rounded resize-none"
+                                        rows="1"
+                                        onInput={(e) => adjustTextareaHeight(e.target)}
+                                        style={{ overflow: 'hidden' }}
+                                    />
                                 </td>
                             ))}
                             <td className="border border-zinc-400 px-4 py-2 text-center">

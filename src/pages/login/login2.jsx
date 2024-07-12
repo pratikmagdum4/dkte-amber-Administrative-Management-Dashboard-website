@@ -39,6 +39,16 @@ function LoginForm2() {
     const onSubmit = async (e) => {
         // setLoading(true);
         e.preventDefault();
+        console.log("formdata is ", formValues);
+        if (formValues.email == "admin@gmail.com" && formValues.password=="admin123")
+        {
+            navigate("/login/adminhome");
+        }
+        if (formValues.email == "clerk@gmail.com" && formValues.password == "clerk123") {
+            console.log("hi hter ")
+            navigate("/login/clerklogin/clerkhome");
+            return;
+        }
         // console.log("The form is ",formValues)
         try {
             // const response = await studentLogin(formValues)
@@ -57,11 +67,11 @@ function LoginForm2() {
             navigate('/clerklogin/clerkhome');
           
         } catch (error) {
-            if (error.response.data.msg) {
-                // setUserExists(false)
-                // setLoading(false)
-                // toast.error(error.response.data.msg)
-            }
+            // if (error.response.data.msg) {
+            //     // setUserExists(false)
+            //     // setLoading(false)
+            //     // toast.error(error.response.data.msg)
+            // }
             console.error("Error submitting form:", error);
         }
     };
