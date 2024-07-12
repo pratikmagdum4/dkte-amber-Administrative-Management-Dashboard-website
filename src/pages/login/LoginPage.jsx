@@ -4,6 +4,11 @@ import Navbar from "../navbar/Navbar";
 import AuthButton from "../../components/ui/AuthButtom";
 import { LogIn } from "lucide-react";
 // import { Navlink } from "@/components/variables/formVariables";
+const links = [
+    { label: 'Home', url: '/' },
+    { label: 'Register', url: '/' },
+    { label: 'Contact', url: '/' },
+   ];
 function LoginPage() {
 
     const [isSmallScreen, setIsSmallerScreen] = useState(false);
@@ -20,7 +25,7 @@ function LoginPage() {
     return (
         <div>
             <div>
-                <Navbar  />
+                <Navbar links={links} />
             </div>
             <div className={isSmallScreen ? "flex flex-col items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-y-4" : "flex flex-row items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-x-8"}>
                 <AuthButton
