@@ -13,11 +13,8 @@ const ClerkHome = () => {
         <div className="min-h-screen bg-white dark:bg-zinc-900">
             <Navbar links={ClerkLink} />
             <main className="flex flex-col items-center p-8">
-<<<<<<< Updated upstream
-                <h1 className="text-2xl font-bold mb-8">Clerk Home </h1>
-=======
                 <h1 className="text-2xl font-bold mb-8">Select Category </h1>
->>>>>>> Stashed changes
+
                 <div className="space-y-4 w-full max-w-md">
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("studentachievement")}>
                         Student Achievements
