@@ -1,22 +1,21 @@
-import React from 'react';import { useNavigate } from 'react-router-dom';
+import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
 import { StudentAchivements } from '../../../components/varialbles/variables';
- const StudentAchievementlists = () => {
+const StudentAchievementlists = () => {
     const navigate = useNavigate();
-    function handleClick(option)
-    {
-        navigate(`/clerklogin/clerkhome/studentachievement/${option}`)
+    function handleClick(option) {
+        navigate(`/clerk/home/studentachievement/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={StudentAchivements}/>
+            <Navbar links={StudentAchivements} />
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">Student</h1>
                 <div className="space-y-4 w-full max-w-md">
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("courselist")}>
                         Studnet Rank CGPA
                     </button>
-                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full"onClick={()=>handleClick("paperproject")}>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("paperproject")}>
                         Studnet Achievement in Paper/Project
                     </button>
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("exams")}>
@@ -36,5 +35,5 @@ import { StudentAchivements } from '../../../components/varialbles/variables';
             </main>
         </div>
     );
-}; 
+};
 export default StudentAchievementlists;

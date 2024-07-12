@@ -10,7 +10,7 @@ const links = [
     { label: 'Login', url: '/login' },
     { label: 'Register', url: '/' },
     { label: 'Contact', url: '/' },
-   ];
+];
 
 function LoginForm2() {
     const navigate = useNavigate();
@@ -40,13 +40,12 @@ function LoginForm2() {
         // setLoading(true);
         e.preventDefault();
         console.log("formdata is ", formValues);
-        if (formValues.email == "admin@gmail.com" && formValues.password=="admin123")
-        {
+        if (formValues.email == "admin@gmail.com" && formValues.password == "admin123") {
             navigate("/login/adminhome");
         }
         if (formValues.email == "clerk@gmail.com" && formValues.password == "clerk123") {
             console.log("hi hter ")
-            navigate("/login/clerklogin/clerkhome");
+            navigate("/login/clerk/home");
             return;
         }
         // console.log("The form is ",formValues)
@@ -64,8 +63,8 @@ function LoginForm2() {
             // if (response.data) {
             //     dispatch(authenticate(true));
             //     dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
-            navigate('/clerklogin/clerkhome');
-          
+            navigate('/clerk/home');
+
         } catch (error) {
             // if (error.response.data.msg) {
             //     // setUserExists(false)
@@ -82,12 +81,12 @@ function LoginForm2() {
         setShowForgotPassword(false);
         toast.success('Password reset instructions sent to your email');
     };
-    
+
     return (
         <div>
-            <Navbar links={links}/>
+            <Navbar links={links} />
             <ToastContainer position="top-center" autoClose={2000} />
-            {fields ==="undefined" ? (
+            {fields === "undefined" ? (
                 <div>Empty fields</div>
             ) : (
                 <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col ">

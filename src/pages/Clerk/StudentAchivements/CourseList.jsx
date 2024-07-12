@@ -33,8 +33,8 @@ function CourseList() {
         }
 
         const route = option === "mba"
-            ? '/clerklogin/clerkhome/studentachievement/courselist/listing/ranktables'
-            : '/clerklogin/clerkhome/studentachievement/courselist/listing';
+            ? '/clerk/home/studentachievement/courselist/listing/ranktables'
+            : '/clerk/home/studentachievement/courselist/listing';
 
         navigate(route, {
             state: {
@@ -46,7 +46,7 @@ function CourseList() {
 
     return (
         <div>
-            <Navbar links={StudentAchivements}/>
+            <Navbar links={StudentAchivements} />
             <button onClick={() => handleClick("btech")}>
                 Btech
             </button>

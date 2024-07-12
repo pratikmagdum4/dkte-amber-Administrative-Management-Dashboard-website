@@ -1,19 +1,22 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
 import { TrainingPlacement } from '../../../components/varialbles/variables';
+
+
+
 const TrainingPlacementListing = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/clerklogin/clerkhome/trainingplacement/${option}`)
+        navigate(`/clerk/home/trainingplacement/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-           <Navbar links={TrainingPlacement}/>
+            <Navbar links={TrainingPlacement} />
             <main className="flex flex-col items-center p-8">
-                <h1 className="text-2xl font-bold mb-8">Student</h1>
+                <h1 className="text-2xl font-bold mb-8">Training And Placement Activities</h1>
                 <div className="space-y-4 w-full max-w-md">
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("textilereport")}>
-                       TEXTILE PLACEMENT REPORT 
+                        TEXTILE PLACEMENT REPORT
                     </button>
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("engineeringreport")}>
                         ENGINEERING PLACEMENT REPORT
