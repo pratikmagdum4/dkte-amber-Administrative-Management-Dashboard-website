@@ -4,17 +4,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
-    const [rows, setRows] = useState(initialRows);
+    const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
+    const [unsavedChanges, setUnsavedChanges] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(FetchUrl);
-                setRows(response.data.length > 0 ? response.data : initialRows);
+                setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
                 toast.success('Data fetched successfully');
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setRows(initialRows); // Set to initialRows if fetching fails
+                setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
                 toast.error('Error fetching data');
             }
         };
@@ -27,6 +28,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             acc[header.key] = '';
             return acc;
         }, {});
+        newRow.modified = true;
         setRows([...rows, newRow]);
         toast.success('Row added successfully');
     };
@@ -54,49 +56,63 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         }
     };
 
-
     const handleChange = (index, e) => {
         const { name, value } = e.target;
         const newRows = [...rows];
         newRows[index][name] = value;
+        newRows[index].modified = true;
         setRows(newRows);
     };
 
     const handleUpdateRow = async (index) => {
-        if(window.confirm("Are you sure you want to update the row")){
-        const rowToUpdate = rows[index];
-        try {
-            await axios.put(`${UpdateUrl}/${rowToUpdate._id}`, rowToUpdate, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            toast.success('Row updated successfully');
-        } catch (error) {
-            console.error('Error updating row:', error);
-            toast.error('Error updating row');
-        }
+        if (window.confirm("Are you sure you want to update the row")) {
+            const rowToUpdate = rows[index];
+            try {
+                await axios.put(`${UpdateUrl}/${rowToUpdate._id}`, rowToUpdate, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const newRows = [...rows];
+                newRows[index].modified = false;
+                setRows(newRows);
+                toast.success('Row updated successfully');
+            } catch (error) {
+                console.error('Error updating row:', error);
+                toast.error('Error updating row');
+            }
         }
     };
 
-    const handleSubmit = async (e) => {
+    useEffect(() => {
+        const hasUnsavedChanges = rows.some(row => row.modified);
+        setUnsavedChanges(hasUnsavedChanges);
+    }, [rows]);
 
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if(window.confirm("Are you sure you want to submit ")){
-            console.log("The rwos are ",rows);
-        
-        try {
-            const response = await axios.post(SubmitUrl, rows, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            toast.success('Data submitted successfully');
-        } catch (error) {
-            console.error('Error submitting data:', error);
-            toast.error('Error submitting data');
+
+        if (unsavedChanges) {
+            if (window.confirm("There are unsaved changes. Please update the rows before submitting. Do you want to update them?")) {
+                return;
+            }
         }
-    }
+
+        if (window.confirm("Are you sure you want to submit?")) {
+            console.log("The rows are ", rows);
+
+            try {
+                const response = await axios.post(SubmitUrl, rows, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                toast.success('Data submitted successfully');
+            } catch (error) {
+                console.error('Error submitting data:', error);
+                toast.error('Error submitting data');
+            }
+        }
     };
 
     const adjustTextareaHeight = (textarea) => {

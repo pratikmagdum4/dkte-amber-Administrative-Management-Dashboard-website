@@ -11,9 +11,9 @@ const initialRows = [
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
-    // { key: 'prize', label: 'Prize' },
-    // { key: 'date', label: 'Date' }, // Example additional column
+  
 ];
+
 const stdabroad = true;
 const FacultyPaperJournalPublications = () => {
     
