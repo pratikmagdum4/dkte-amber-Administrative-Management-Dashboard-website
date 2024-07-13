@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
     const [rows, setRows] = useState(initialRows);
@@ -9,9 +11,11 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             try {
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data : initialRows);
+                toast.success('Data fetched successfully');
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setRows(initialRows); // Set to initialRows if fetching fails
+                toast.error('Error fetching data');
             }
         };
 
@@ -24,23 +28,32 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             return acc;
         }, {});
         setRows([...rows, newRow]);
+        toast.success('Row added successfully');
     };
 
     const handleDeleteRow = async (index) => {
-        const rowToDelete = rows[index];
-        try {
-            await axios.delete(`${DeleteUrl}/${rowToDelete._id}  `, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+        if (window.confirm('Are you sure you want to delete this row?')) {
+            const rowToDelete = rows[index];
+            if (rowToDelete._id) {
+                try {
+                    await axios.delete(`${DeleteUrl}/${rowToDelete._id}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    toast.success('Row deleted successfully');
+                } catch (error) {
+                    console.error('Error deleting row:', error);
+                    toast.error('Error deleting row');
+                    return;
+                }
+            }
             const newRows = [...rows];
             newRows.splice(index, 1);
             setRows(newRows);
-        } catch (error) {
-            console.error('Error deleting row:', error);
         }
     };
+
 
     const handleChange = (index, e) => {
         const { name, value } = e.target;
@@ -50,6 +63,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     const handleUpdateRow = async (index) => {
+        if(window.confirm("Are you sure you want to update the row")){
         const rowToUpdate = rows[index];
         try {
             await axios.put(`${UpdateUrl}/${rowToUpdate._id}`, rowToUpdate, {
@@ -57,24 +71,32 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('Row updated successfully');
+            toast.success('Row updated successfully');
         } catch (error) {
             console.error('Error updating row:', error);
+            toast.error('Error updating row');
+        }
         }
     };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
+        if(window.confirm("Are you sure you want to submit ")){
+            console.log("The rwos are ",rows);
+        
         try {
             const response = await axios.post(SubmitUrl, rows, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('Success:', response.data);
+            toast.success('Data submitted successfully');
         } catch (error) {
             console.error('Error submitting data:', error);
+            toast.error('Error submitting data');
         }
+    }
     };
 
     const adjustTextareaHeight = (textarea) => {
@@ -86,6 +108,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
 
     return (
         <form onSubmit={handleSubmit} className="p-4">
+            <ToastContainer />
             <h2 className="text-center font-bold text-xl mb-4">
                 {title}
             </h2>
@@ -125,7 +148,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                                 <button
                                     type="button"
                                     onClick={() => handleDeleteRow(index)}
-                                    className="bg-red-500 text-white px-5 py-2  rounded"
+                                    className="bg-red-500 text-white px-5 py-2 rounded"
                                 >
                                     Delete
                                 </button>

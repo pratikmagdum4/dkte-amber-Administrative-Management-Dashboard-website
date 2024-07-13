@@ -3,6 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -15,18 +16,11 @@ const columnHeaders = [
 ];
 const stdabroad = true;
 const FacultyPaperJournalPublications = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    
+    const FetchUrl = `${BASE_URL}/api/facultyachievementspaperpublication/getData`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievementspaperpublication/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievementspaperpublication`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievementspaperpublication`;
 
     return (
         <div>
@@ -37,7 +31,10 @@ const FacultyPaperJournalPublications = () => {
                 columnHeaders={columnHeaders}
                 title="FACULTY ACHIEVEMENTS IN PAPER PUBLICATION IN INTERNATIONAL AND NATIONAL JOURNALS"
                 numberOfColumns={2} 
-                onSubmit={handleSubmit}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

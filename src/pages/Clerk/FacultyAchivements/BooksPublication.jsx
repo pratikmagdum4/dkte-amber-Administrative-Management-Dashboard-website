@@ -15,10 +15,10 @@ const FacultyBooksPublication = () => {
         { key: 'chapter', label: 'Chapter Number' },
     ];
 
-    const FetchUrl = `${BASE_URL}/api/facultyAchievements/getData`;
-    const SubmitUrl = `${BASE_URL}/api/facultyAchievements/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyAchievements`;
-    const UpdateUrl = `${BASE_URL}/api/facultyAchievements`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievementsbookpublication/getData`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievementsbookpublication/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievementsbookpublication`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievementsbookpublication`;
 
     return (
         <div>
