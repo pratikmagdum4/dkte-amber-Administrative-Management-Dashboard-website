@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl }) => {
+const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
     const [rows, setRows] = useState(initialRows);
 
     useEffect(() => {
@@ -26,10 +26,20 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         setRows([...rows, newRow]);
     };
 
-    const handleDeleteRow = (index) => {
-        const newRows = [...rows];
-        newRows.splice(index, 1);
-        setRows(newRows);
+    const handleDeleteRow = async (index) => {
+        const rowToDelete = rows[index];
+        try {
+            await axios.delete(`${DeleteUrl}/${rowToDelete._id}  `, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const newRows = [...rows];
+            newRows.splice(index, 1);
+            setRows(newRows);
+        } catch (error) {
+            console.error('Error deleting row:', error);
+        }
     };
 
     const handleChange = (index, e) => {
@@ -37,6 +47,20 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         const newRows = [...rows];
         newRows[index][name] = value;
         setRows(newRows);
+    };
+
+    const handleUpdateRow = async (index) => {
+        const rowToUpdate = rows[index];
+        try {
+            await axios.put(`${UpdateUrl}/${rowToUpdate._id}`, rowToUpdate, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Row updated successfully');
+        } catch (error) {
+            console.error('Error updating row:', error);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -93,8 +117,15 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                             <td className="border border-zinc-400 px-4 py-2 text-center">
                                 <button
                                     type="button"
+                                    onClick={() => handleUpdateRow(index)}
+                                    className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    type="button"
                                     onClick={() => handleDeleteRow(index)}
-                                    className="bg-red-500 text-white px-4 py-2 rounded"
+                                    className="bg-red-500 text-white px-5 py-2  rounded"
                                 >
                                     Delete
                                 </button>
