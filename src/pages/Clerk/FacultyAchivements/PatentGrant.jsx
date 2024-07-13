@@ -3,6 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { BASE_URL } from '../../../api';
 const initialRows1 = [
     { name: '', title: '', patentno: '', grantdate: '' },
 ];
@@ -16,18 +17,10 @@ const columnHeaders1 = [
 ];
 
 const FacultyPatentGrant = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    const FetchUrl = `${BASE_URL}/api/facultyachievement/patentgrant/getData`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievement/patentgrant/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievement/patentgrant`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievement/patentgrant`;
     return (
         <div>
             <Navbar links={FacultyAchivements}/>
@@ -36,7 +29,10 @@ const FacultyPatentGrant = () => {
                 columnHeaders={columnHeaders1}
                 title="FACULTY ACHIEVEMENTS IN PATENT GRANT"
                 numberOfColumns={4} 
-                onSubmit={handleSubmit}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
            
         </div>

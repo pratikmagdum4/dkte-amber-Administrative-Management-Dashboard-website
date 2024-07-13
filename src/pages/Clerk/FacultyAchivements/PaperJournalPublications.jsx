@@ -17,10 +17,10 @@ const columnHeaders = [
 const stdabroad = true;
 const FacultyPaperJournalPublications = () => {
     
-    const FetchUrl = `${BASE_URL}/api/facultyachievementspaperpublication/getData`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievementspaperpublication/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievementspaperpublication`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievementspaperpublication`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/paperpublication/getData`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/paperpublication/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/paperpublication`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/paperpublication`;
 
     return (
         <div>

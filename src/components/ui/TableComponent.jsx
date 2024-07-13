@@ -85,8 +85,12 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     useEffect(() => {
-        const hasUnsavedChanges = rows.some(row => row.modified);
-        setUnsavedChanges(hasUnsavedChanges);
+        if(rows.length>1)
+        {
+            const hasUnsavedChanges = rows.some(row => row.modified);
+            setUnsavedChanges(hasUnsavedChanges);
+        }
+       
     }, [rows]);
 
     const handleSubmit = async (e) => {
@@ -108,6 +112,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                     },
                 });
                 toast.success('Data submitted successfully');
+                // window.location.reload();
             } catch (error) {
                 console.error('Error submitting data:', error);
                 toast.error('Error submitting data');
