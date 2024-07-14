@@ -6,13 +6,17 @@ import 'react-toastify/dist/ReactToastify.css';
 const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
     const [unsavedChanges, setUnsavedChanges] = useState(false);
-
+    const [initialrowlength, setInitialRowlength] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
                 toast.success('Data fetched successfully');
+                setInitialRowlength(response.data.length);
+                console.log("initialRowlength: " + response.data.length)
+                console.log("initialRowlength saved : " + initialrowlength)
+                console.log()
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
@@ -85,7 +89,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     useEffect(() => {
-        if(rows.length>1)
+        if(rows.length==initialrowlength)
         {
             const hasUnsavedChanges = rows.some(row => row.modified);
             setUnsavedChanges(hasUnsavedChanges);

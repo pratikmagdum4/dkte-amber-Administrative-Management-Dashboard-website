@@ -15,10 +15,10 @@ const columnHeaders = [
 ];
 const stdabroad = true;
 const FacultyOtherSpecial = () => {
-    const FetchUrl = `${BASE_URL}/api/facultyachievementsotherspecial/getData`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievementsotherspecial/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievementsotherspecial`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievementsotherspecial`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/otherspecial/getData`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/otherspecial/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/otherspecial`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/otherspecial`;
     
     return (
         <div>
