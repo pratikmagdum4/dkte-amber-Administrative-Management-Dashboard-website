@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 import './App.css';
 
 import CarouselComponent from './pages/Home/Home.jsx';
-
+import Home1 from './pages/Home/home1.jsx';
 // import StudentSubmissionForm from './pages/Home/Home.jsx';
 // import Footer from './pages/footer/Footer.jsx';
 import ClerkHome from './pages/Clerk/ClerkHome/clerkHome.jsx';
@@ -150,6 +150,8 @@ const App = () => {
         </Route>
 
         <Route path='/display' element={<EnglishArticles />}>
+        </Route>
+        <Route path='/home1' element={<Home1 />}>
         </Route>
 
 

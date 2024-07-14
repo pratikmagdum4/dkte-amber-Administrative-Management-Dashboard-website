@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 //import Navbar from "../../pages/navbar/Navbar";
-//import { StudentAchivements } from '../../../components/varialbles/variables';
+//import { StudentAchivements } from '../../../components/variables/variables';
 
 function DepartmentListing() {
     const navigate = useNavigate();

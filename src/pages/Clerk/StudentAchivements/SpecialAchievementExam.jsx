@@ -1,7 +1,7 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
-import { StudentAchivements } from '../../../components/varialbles/variables';
+import { StudentAchivements } from '../../../components/variables/variables';
 const initialRows1 = [
     { srno: '', name: '', class: '' },
 ];
@@ -13,7 +13,7 @@ const columnHeaders1 = [
 ];
 
 const StudentSpecialAchievements = () => {
-    
+
 
     const handleSubmit = async (data) => {
         try {
@@ -29,12 +29,12 @@ const StudentSpecialAchievements = () => {
     };
     return (
         <div>
-            <Navbar links={StudentAchivements}/>
+            <Navbar links={StudentAchivements} />
             <AchievementsTable
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="GATE EXAM"
-                numberOfColumns={3} 
+                numberOfColumns={3}
                 onSubmit={handleSubmit}
             />
             <AchievementsTable
@@ -42,7 +42,7 @@ const StudentSpecialAchievements = () => {
                 columnHeaders={columnHeaders1}
                 title="NIFT EXAM"
                 numberOfColumns={3}
-                onSubmit={handleSubmit} 
+                onSubmit={handleSubmit}
             />
             <AchievementsTable
                 initialRows={initialRows1}
@@ -55,7 +55,7 @@ const StudentSpecialAchievements = () => {
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="GRE EXAM"
-                numberOfColumns={3} 
+                numberOfColumns={3}
                 onSubmit={handleSubmit}
             />
         </div>

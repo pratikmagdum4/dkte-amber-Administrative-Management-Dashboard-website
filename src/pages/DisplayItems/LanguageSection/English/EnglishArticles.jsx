@@ -1,7 +1,7 @@
 import React from 'react';
 import PersonDetails from '../../../../components/ui/PersonData';
 import Navbar from '../../../navbar/Navbar';
-import { HomeLink } from '../../../../components/varialbles/variables';
+import { HomeLink } from '../../../../components/variables/variables';
 const person = {
     image: 'https://via.placeholder.com/150', // Replace with the actual image URL
     name: 'John Doe',
@@ -15,9 +15,9 @@ const EnglishArticles = () => {
     return (
         <>
             <Navbar links={HomeLink} />
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <PersonDetails person={person} />
-        </div>
+            <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+                <PersonDetails person={person} />
+            </div>
         </>
     );
 };

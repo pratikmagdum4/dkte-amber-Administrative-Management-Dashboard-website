@@ -2,14 +2,14 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/varialbles/variables';
+import { TrainingPlacement } from '../../../components/variables/variables';
 const initialRows = [
     { internationalcompanies: '' },
 ];
 
 const columnHeaders = [
     { key: 'internationalcompanies', label: 'International Companies' },
-   
+
 ];
 
 const stdabroad = true;
@@ -32,7 +32,7 @@ const TextileInternationalCompaniesList = () => {
 
     return (
         <div>
-            <Navbar links={TrainingPlacement}/>
+            <Navbar links={TrainingPlacement} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

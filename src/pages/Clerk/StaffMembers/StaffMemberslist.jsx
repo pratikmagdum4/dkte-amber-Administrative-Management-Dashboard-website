@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { StaffMembers } from '../../../components/varialbles/variables';
+import { StaffMembers } from '../../../components/variables/variables';
 const initialRows = [
     { name: '', title: '', position: '' },
 ];
@@ -16,7 +16,7 @@ const initialRows2 = [
 const columnHeaders = [
     { key: 'name', label: 'Name ' },
     { key: 'position', label: 'Position' },
-    
+
 ];
 const columnHeaders1 = [
     { key: 'ugpgmba', label: 'UG/PG/MBA' },
@@ -43,7 +43,7 @@ const StaffMembersList = () => {
     };
     return (
         <div>
-            <Navbar links={StaffMembers}/>
+            <Navbar links={StaffMembers} />
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -65,7 +65,7 @@ const StaffMembersList = () => {
                 numberOfColumns={2}
                 onSubmit={handleSubmit}
             />
-           
+
         </div>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/varialbles/variables';
+import { StudentAchivements } from '../../../components/variables/variables';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -32,13 +32,13 @@ const StdHigherEducation = () => {
 
     return (
         <div>
-            <Navbar links={StudentAchivements}/>
+            <Navbar links={StudentAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="SELECTED STUDENTS FOR HIGHER EDUCATION ABROAD"
-                numberOfColumns={2} 
+                numberOfColumns={2}
                 onSubmit={handleSubmit}
             />
         </div>

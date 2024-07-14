@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
@@ -11,24 +11,24 @@ const initialRows = [
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
-    
+
 ];
 const stdabroad = true;
 const FacultyOtherSpecial = () => {
-    const FetchUrl = `${BASE_URL}/api/facultyachievements/otherspecial/getData`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/otherspecial/getdata`;
     const SubmitUrl = `${BASE_URL}/api/facultyachievements/otherspecial/submit`;
     const DeleteUrl = `${BASE_URL}/api/facultyachievements/otherspecial`;
     const UpdateUrl = `${BASE_URL}/api/facultyachievements/otherspecial`;
-    
+
     return (
         <div>
-            <Navbar links={FacultyAchivements}/>
+            <Navbar links={FacultyAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="OTHER SPECIAL ACHIEVEMENTS BY FACULTY"
-                numberOfColumns={2} 
+                numberOfColumns={2}
                 SubmitUrl={SubmitUrl}
                 FetchUrl={FetchUrl}
                 DeleteUrl={DeleteUrl}

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import { HomeLink } from "../../components/varialbles/variables";
+import { HomeLink } from "../../components/variables/variables";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";

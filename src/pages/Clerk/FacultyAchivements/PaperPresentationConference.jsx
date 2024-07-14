@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
@@ -16,14 +16,14 @@ const columnHeaders = [
 const stdabroad = true;
 const FacultyPaperPresentation = () => {
 
-    const FetchUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion/getData`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion/getdata`;
     const SubmitUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion/submit`;
     const DeleteUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion`;
     const UpdateUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion`;
-    
+
     return (
         <div>
-            <Navbar FacultyAchivements/>
+            <Navbar FacultyAchivements />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

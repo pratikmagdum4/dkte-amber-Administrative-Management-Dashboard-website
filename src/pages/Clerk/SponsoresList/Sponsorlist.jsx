@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { SponsoresList } from '../../../components/varialbles/variables';
+import { SponsoresList } from '../../../components/variables/variables';
 const initialRows = [
     { srno: '', sponsors: '' },
 ];
@@ -32,7 +32,7 @@ const SponsorListInfo = () => {
 
     return (
         <div>
-            <Navbar links={SponsoresList}/>
+            <Navbar links={SponsoresList} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

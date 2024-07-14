@@ -1,7 +1,5 @@
 import React from 'react'; const Navbar = ({links}) => {
 
-    
-    
 
     return (
         <nav className="bg-black text-white p-4 flex justify-between items-center">
@@ -18,4 +16,6 @@ import React from 'react'; const Navbar = ({links}) => {
             </div>
         </nav>
     );
+
+    
 }; export default Navbar;

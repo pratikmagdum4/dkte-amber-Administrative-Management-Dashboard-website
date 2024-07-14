@@ -4,23 +4,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
+    // const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
+    // const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [initialrowlength, setInitialRowlength] = useState(0);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
-                toast.success('Data fetched successfully');
                 setInitialRowlength(response.data.length);
-                console.log("initialRowlength: " + response.data.length)
-                console.log("initialRowlength saved : " + initialrowlength)
-                console.log()
             } catch (error) {
                 console.error('Error fetching data:', error);
                 setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
-                toast.error('Error fetching data');
             }
         };
 
@@ -34,7 +32,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         }, {});
         newRow.modified = true;
         setRows([...rows, newRow]);
-        toast.success('Row added successfully');
     };
 
     const handleDeleteRow = async (index) => {
@@ -47,7 +44,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                             'Content-Type': 'application/json',
                         },
                     });
-                    toast.success('Row deleted successfully');
                 } catch (error) {
                     console.error('Error deleting row:', error);
                     toast.error('Error deleting row');
@@ -80,7 +76,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                 const newRows = [...rows];
                 newRows[index].modified = false;
                 setRows(newRows);
-                toast.success('Row updated successfully');
             } catch (error) {
                 console.error('Error updating row:', error);
                 toast.error('Error updating row');
@@ -89,13 +84,11 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     useEffect(() => {
-        if(rows.length==initialrowlength)
-        {
+        if (rows.length === initialrowlength) {
             const hasUnsavedChanges = rows.some(row => row.modified);
             setUnsavedChanges(hasUnsavedChanges);
         }
-       
-    }, [rows]);
+    }, [rows, initialrowlength]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -107,8 +100,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         }
 
         if (window.confirm("Are you sure you want to submit?")) {
-            console.log("The rows are ", rows);
-
             try {
                 const response = await axios.post(SubmitUrl, rows, {
                     headers: {
@@ -130,6 +121,7 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
+
 
     return (
         <form onSubmit={handleSubmit} className="p-4">

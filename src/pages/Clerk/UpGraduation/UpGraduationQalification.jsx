@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { UpGraduation } from '../../../components/varialbles/variables';
+import { UpGraduation } from '../../../components/variables/variables';
 const initialRows = [
     { srno: '', name: '', designation: '', course: '' },
 ];
@@ -12,7 +12,7 @@ const columnHeaders = [
     { key: 'name', label: 'Name of the Faculty' },
     { key: 'designation', label: 'Designation' },
     { key: 'course', label: 'Name of the Course' },
-   
+
 ];
 
 const UpGraduationQalificationList = () => {
@@ -30,7 +30,7 @@ const UpGraduationQalificationList = () => {
     };
     return (
         <div>
-            <Navbar links={UpGraduation}/>
+            <Navbar links={UpGraduation} />
             <h1>PH.D. Awarded :-</h1>
             <AchievementsTable
                 initialRows={initialRows}

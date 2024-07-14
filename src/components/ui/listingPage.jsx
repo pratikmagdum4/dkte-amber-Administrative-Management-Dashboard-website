@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import Navbar from '../../pages/navbar/Navbar';
+import { FacultyAchivements } from '../variables/variables'; 
 
-const ListingComponent = ({ buttonNames,url ,title}) => {
+const ListingComponent = ({ buttonNames, url, title }) => {
     const navigate = useNavigate();
     function handleClick(option) {
         navigate(`${url}/${option}`)
     }
+   
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
             <Navbar links={FacultyAchivements} />

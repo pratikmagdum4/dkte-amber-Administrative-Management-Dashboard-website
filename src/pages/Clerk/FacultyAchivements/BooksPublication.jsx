@@ -1,7 +1,7 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 
 const FacultyBooksPublication = () => {
@@ -15,7 +15,7 @@ const FacultyBooksPublication = () => {
         { key: 'chapter', label: 'Chapter Number' },
     ];
 
-    const FetchUrl = `${BASE_URL}/api/facultyachievements/bookpublication/getData`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/bookpublication/getdata`;
     const SubmitUrl = `${BASE_URL}/api/facultyachievements/bookpublication/submit`;
     const DeleteUrl = `${BASE_URL}/api/facultyachievements/bookpublication`;
     const UpdateUrl = `${BASE_URL}/api/facultyachievements/bookpublication`;

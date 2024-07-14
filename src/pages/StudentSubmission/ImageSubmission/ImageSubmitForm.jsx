@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../../navbar/Navbar';
-import { HomeLink } from '../../../components/varialbles/variables';
+import { HomeLink } from '../../../components/variables/variables';
 
 const ImageForm = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +32,6 @@ const ImageForm = () => {
       [name]: files ? files[0] : value,
     });
   };
-
   const validate = () => {
     let errors = {};
 
@@ -98,10 +97,10 @@ const ImageForm = () => {
 
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-      <Navbar links={HomeLink}/>
+      <Navbar links={HomeLink} />
       <h2 className="text-2xl font-bold mb-6">Image Submission Form</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
+        <div>
           <label className="block text-left text-sm font-medium text-gray-700">Student Name:</label>
           <input
             type="text"
@@ -109,9 +108,8 @@ const ImageForm = () => {
             value={formData.stdname}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.stdname ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.stdname ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.stdname && <p className="text-red-500 text-xs mt-1">{errors.stdname}</p>}
         </div>
@@ -123,9 +121,8 @@ const ImageForm = () => {
             value={formData.contact}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.contact ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.contact ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.contact && <p className="text-red-500 text-xs mt-1">{errors.contact}</p>}
         </div>
@@ -137,9 +134,8 @@ const ImageForm = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
@@ -151,9 +147,8 @@ const ImageForm = () => {
             value={formData.prn}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.prn ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.prn ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {<errors className="prn"></errors> && <p className="text-red-500 text-xs mt-1">{errors.prn}</p>}
         </div>
@@ -165,9 +160,8 @@ const ImageForm = () => {
             value={formData.branch}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.branch ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.branch ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.branch && <p className="text-red-500 text-xs mt-1">{errors.branch}</p>}
         </div>
@@ -178,9 +172,8 @@ const ImageForm = () => {
             value={formData.year}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.year ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.year ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           >
             <option value="" disabled>Select Year</option>
             <option value="1">1</option>
@@ -198,9 +191,8 @@ const ImageForm = () => {
             value={formData.title}
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.title ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.title ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
         </div>
@@ -212,9 +204,8 @@ const ImageForm = () => {
             accept="image/*"
             onChange={handleChange}
             required
-            className={`mt-1 block w-full px-3 py-2 border ${
-              errors.image ? 'border-red-500' : 'border-gray-300'
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            className={`mt-1 block w-full px-3 py-2 border ${errors.image ? 'border-red-500' : 'border-gray-300'
+              } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
           />
           {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image}</p>}
         </div>
@@ -225,7 +216,7 @@ const ImageForm = () => {
           Submit
         </button>
       </form>
-    </div>  
+    </div>
   );
 };
 
