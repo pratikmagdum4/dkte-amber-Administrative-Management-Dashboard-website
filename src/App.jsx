@@ -46,6 +46,8 @@ import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
+
+import Home1 from './pages/Home/Home1.jsx'
 const App = () => {
 
 
@@ -55,6 +57,10 @@ const App = () => {
       <Routes>
         <Route path='/' element={<CarouselComponent />}>
         </Route>
+        
+        <Route path='/home' element={<Home1 />}>
+        </Route>
+
         <Route path='/login' element={<LoginPage />}>
         </Route>
         <Route path='/login/clerk' element={<LoginForm2 />}>

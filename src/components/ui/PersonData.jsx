@@ -2,12 +2,12 @@ import React from 'react';
 
 const PersonDetails = ({ person }) => {
     return (
-        <div className="max-w-2xl mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
+        <div className="max-w-l mx-auto p-2 border border-black-300 rounded-lg  mr-6">
             <div className="flex mb-6">
                 <img
                     src={person.image}
                     alt={person.name}
-                    className="w-32 h-32 rounded-full mr-6"
+                    className="w-32 h-32 rounded-full mr-3"
                 />
                 <div className="flex flex-col justify-center">
                     <h1 className="text-2xl font-bold">{person.name}</h1>
