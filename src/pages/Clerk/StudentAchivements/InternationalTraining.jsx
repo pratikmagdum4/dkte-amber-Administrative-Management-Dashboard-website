@@ -3,6 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { StudentAchivements } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -14,19 +15,11 @@ const columnHeaders = [
 ];
 const stdabroad = true;
 const StdInternationalTraining = () => {
+const FetchUrl = `${BASE_URL}/api/studentachievements/internationaltraining/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/studentachievements/internationaltraining/submit`;
+    const DeleteUrl = `${BASE_URL}/api/studentachievements/internationaltraining`;
+    const UpdateUrl = `${BASE_URL}/api/studentachievements/internationaltraining`;
 
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
     return (
         <div>
             <Navbar links={StudentAchivements} />
@@ -36,7 +29,10 @@ const StdInternationalTraining = () => {
                 columnHeaders={columnHeaders}
                 title="STUDENTS INTERNATIONAL TRAINING ATTENDED/ CERTIFICATION BY STUDENTS"
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

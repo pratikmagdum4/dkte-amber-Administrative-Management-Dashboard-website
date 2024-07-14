@@ -4,8 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
-    // const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
-    // const [unsavedChanges, setUnsavedChanges] = useState(false);
+   
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
     const [unsavedChanges, setUnsavedChanges] = useState(false);
     const [initialrowlength, setInitialRowlength] = useState(0);
@@ -84,7 +83,9 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     useEffect(() => {
-        if (rows.length === initialrowlength) {
+        if(rows.length==initialRows.length && rows.length>1)
+        {
+            console.log("hi ther ")
             const hasUnsavedChanges = rows.some(row => row.modified);
             setUnsavedChanges(hasUnsavedChanges);
         }

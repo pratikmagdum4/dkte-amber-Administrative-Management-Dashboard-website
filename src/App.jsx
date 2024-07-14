@@ -16,7 +16,7 @@ import Dropdown2 from './components/ui/dropdown.jsx';
 import CourseList from './pages/Clerk/StudentAchivements/CourseList.jsx';
 import DepartmentListing from './components/ui/departmentlisting.jsx';
 import StudentPaperProject from './pages/Clerk/StudentAchivements/PaperProject.jsx';
-import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievement.jsx';
+import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievementExam.jsx';
 import StdHigherEducation from './pages/Clerk/StudentAchivements/HigherStudies.jsx';
 import StdAppreciationPrize from './pages/Clerk/StudentAchivements/AppreciationPrize.jsx';
 import StdInternationalTraining from './pages/Clerk/StudentAchivements/InternationalTraining.jsx';
