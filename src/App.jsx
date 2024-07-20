@@ -47,6 +47,7 @@ import LoginPage from './pages/login/LoginPage.jsx';
 import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
 import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
+import ArticleList from './pages/Admin/Verification/ArticleVerification/ArticleVerification.jsx';
 const App = () => {
 
 
@@ -156,6 +157,8 @@ const App = () => {
         <Route path='/submit-image' element={<ImageForm />}>
         </Route>
         <Route path='/submit-technical-article' element={<TechnicalArticleForm />}>
+        </Route>
+        <Route path='/articlelist' element={<ArticleList />}>
         </Route>
 
 

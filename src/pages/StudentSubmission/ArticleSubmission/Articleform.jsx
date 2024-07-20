@@ -33,6 +33,8 @@ const ArticleForm = () => {
     Object.keys(formData).forEach(key => {
       formDataObj.append(key, formData[key]);
     });
+    formDataObj.append('Content-type', 'image/png') // tried this
+
     try {
      
       const response = await axios.post(`${BASE_URL}/api/submit/article`, formDataObj, {
