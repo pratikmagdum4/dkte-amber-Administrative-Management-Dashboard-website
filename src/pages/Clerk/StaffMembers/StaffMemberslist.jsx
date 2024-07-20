@@ -16,8 +16,9 @@ const initialRows2 = [
 const columnHeaders = [
     { key: 'name', label: 'Name ' },
     { key: 'position', label: 'Position' },
-
 ];
+
+
 const columnHeaders1 = [
     { key: 'ugpgmba', label: 'UG/PG/MBA' },
     { key: 'count', label: 'Count' },

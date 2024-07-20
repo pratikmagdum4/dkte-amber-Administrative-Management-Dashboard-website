@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
-
+import axios from 'axios';
 const ImageForm = () => {
   const [formData, setFormData] = useState({
     stdname: '',
@@ -89,15 +89,27 @@ const ImageForm = () => {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
-    // You can add your form submission logic here
+
+    try {
+
+      const response = await axios.post('/api/submit', formData);
+      console.log('Server response:', response.data);
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+
+    }
   };
 
   return (
+    <>
+    <Navbar links={HomeLink} />
+    
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-      <Navbar links={HomeLink} />
+      
       <h2 className="text-2xl font-bold mb-6">Image Submission Form</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -217,6 +229,7 @@ const ImageForm = () => {
         </button>
       </form>
     </div>
+    </>
   );
 };
 

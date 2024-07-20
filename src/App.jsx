@@ -46,6 +46,7 @@ import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
+import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
 const App = () => {
 
 
@@ -138,8 +139,7 @@ const App = () => {
         <Route path='/clerk/home/upgraduation' element={<UpGraduationQalificationList />}>
         </Route>
 
-        <Route path='/submit' element={<ArticleForm />}>
-        </Route>
+      
         <Route path='/stdimgform' element={<ImageForm />}>
         </Route>
         <Route path='/auth' element={<AuthButton />}>
@@ -151,7 +151,11 @@ const App = () => {
 
         <Route path='/display' element={<EnglishArticles />}>
         </Route>
-        <Route path='/home1' element={<Home1 />}>
+        <Route path='/submit-article' element={<ArticleForm />}>
+        </Route>
+        <Route path='/submit-image' element={<ImageForm />}>
+        </Route>
+        <Route path='/submit-technical-article' element={<TechnicalArticleForm />}>
         </Route>
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
-
+import axios from 'axios';
 
 const ArticleForm = () => {
   const [formData, setFormData] = useState({
@@ -14,27 +14,37 @@ const ArticleForm = () => {
     year: '',
     language: 'english',
     content: '',
+    selfImage: null,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: files ? files[0] : value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
-    // You can add your form submission logic here
+
+    try {
+     
+      const response = await axios.post('/api/submit', formData);
+      console.log('Server response:', response.data);
+     
+    } catch (error) {
+      console.error('Error submitting form:', error);
+     
+    }
   };
+
 
   return (
     <>
       <Navbar links={HomeLink} />
       <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-
         <h2 className="text-2xl font-bold mb-6">Article Submission Form</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -126,6 +136,17 @@ const ArticleForm = () => {
               required
               className="mt-1 block w-full px-3 py-20 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             ></textarea>
+          </div>
+          <div>
+            <label className="block text-left text-sm font-medium text-gray-700">Self Image:</label>
+            <input
+              type="file"
+              name="selfImage"
+              accept="image/*"
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
           </div>
           <button
             type="submit"
