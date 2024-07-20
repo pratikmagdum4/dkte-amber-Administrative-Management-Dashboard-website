@@ -1,6 +1,6 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
 
 
 const FacultyAchievementLists = () => {

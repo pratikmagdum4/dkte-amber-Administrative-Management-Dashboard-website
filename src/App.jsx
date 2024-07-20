@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'reac
 import './App.css';
 
 import CarouselComponent from './pages/Home/Home.jsx';
-
+import Home1 from './pages/Home/home1.jsx';
 // import StudentSubmissionForm from './pages/Home/Home.jsx';
 // import Footer from './pages/footer/Footer.jsx';
 import ClerkHome from './pages/Clerk/ClerkHome/clerkHome.jsx';
@@ -16,7 +16,7 @@ import Dropdown2 from './components/ui/dropdown.jsx';
 import CourseList from './pages/Clerk/StudentAchivements/CourseList.jsx';
 import DepartmentListing from './components/ui/departmentlisting.jsx';
 import StudentPaperProject from './pages/Clerk/StudentAchivements/PaperProject.jsx';
-import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievement.jsx';
+import StudentSpecialAchievements from './pages/Clerk/StudentAchivements/SpecialAchievementExam.jsx';
 import StdHigherEducation from './pages/Clerk/StudentAchivements/HigherStudies.jsx';
 import StdAppreciationPrize from './pages/Clerk/StudentAchivements/AppreciationPrize.jsx';
 import StdInternationalTraining from './pages/Clerk/StudentAchivements/InternationalTraining.jsx';
@@ -46,6 +46,7 @@ import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
+import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
 const App = () => {
 
 
@@ -138,8 +139,7 @@ const App = () => {
         <Route path='/clerk/home/upgraduation' element={<UpGraduationQalificationList />}>
         </Route>
 
-        <Route path='/submit' element={<ArticleForm />}>
-        </Route>
+      
         <Route path='/stdimgform' element={<ImageForm />}>
         </Route>
         <Route path='/auth' element={<AuthButton />}>
@@ -150,6 +150,12 @@ const App = () => {
         </Route>
 
         <Route path='/display' element={<EnglishArticles />}>
+        </Route>
+        <Route path='/submit-article' element={<ArticleForm />}>
+        </Route>
+        <Route path='/submit-image' element={<ImageForm />}>
+        </Route>
+        <Route path='/submit-technical-article' element={<TechnicalArticleForm />}>
         </Route>
 
 

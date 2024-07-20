@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl }) => {
-    const [rows, setRows] = useState(initialRows);
+const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
+   
+    const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
+    const [unsavedChanges, setUnsavedChanges] = useState(false);
+    const [initialrowlength, setInitialRowlength] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(FetchUrl);
-                setRows(response.data.length > 0 ? response.data : initialRows);
+                setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
+                setInitialRowlength(response.data.length);
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setRows(initialRows); // Set to initialRows if fetching fails
+                setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
             }
         };
 
@@ -23,33 +29,90 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             acc[header.key] = '';
             return acc;
         }, {});
+        newRow.modified = true;
         setRows([...rows, newRow]);
     };
 
-    const handleDeleteRow = (index) => {
-        const newRows = [...rows];
-        newRows.splice(index, 1);
-        setRows(newRows);
+    const handleDeleteRow = async (index) => {
+        if (window.confirm('Are you sure you want to delete this row?')) {
+            const rowToDelete = rows[index];
+            if (rowToDelete._id) {
+                try {
+                    await axios.delete(`${DeleteUrl}/${rowToDelete._id}`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                } catch (error) {
+                    console.error('Error deleting row:', error);
+                    toast.error('Error deleting row');
+                    return;
+                }
+            }
+            const newRows = [...rows];
+            newRows.splice(index, 1);
+            setRows(newRows);
+        }
     };
 
     const handleChange = (index, e) => {
         const { name, value } = e.target;
         const newRows = [...rows];
         newRows[index][name] = value;
+        newRows[index].modified = true;
         setRows(newRows);
     };
 
+    const handleUpdateRow = async (index) => {
+        if (window.confirm("Are you sure you want to update the row")) {
+            const rowToUpdate = rows[index];
+            try {
+                await axios.put(`${UpdateUrl}/${rowToUpdate._id}`, rowToUpdate, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const newRows = [...rows];
+                newRows[index].modified = false;
+                setRows(newRows);
+            } catch (error) {
+                console.error('Error updating row:', error);
+                toast.error('Error updating row');
+            }
+        }
+    };
+
+    useEffect(() => {
+        if(rows.length==initialRows.length && rows.length>1)
+        {
+            console.log("hi ther ")
+            const hasUnsavedChanges = rows.some(row => row.modified);
+            setUnsavedChanges(hasUnsavedChanges);
+        }
+    }, [rows, initialrowlength]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post(SubmitUrl, rows, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error submitting data:', error);
+
+        if (unsavedChanges) {
+            if (window.confirm("There are unsaved changes. Please update the rows before submitting. Do you want to update them?")) {
+                return;
+            }
+        }
+
+        if (window.confirm("Are you sure you want to submit?")) {
+            try {
+                const response = await axios.post(SubmitUrl, rows, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                toast.success('Data submitted successfully');
+                // window.location.reload();
+            } catch (error) {
+                console.error('Error submitting data:', error);
+                toast.error('Error submitting data');
+            }
         }
     };
 
@@ -60,8 +123,10 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
+
     return (
         <form onSubmit={handleSubmit} className="p-4">
+            <ToastContainer />
             <h2 className="text-center font-bold text-xl mb-4">
                 {title}
             </h2>
@@ -93,8 +158,15 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
                             <td className="border border-zinc-400 px-4 py-2 text-center">
                                 <button
                                     type="button"
+                                    onClick={() => handleUpdateRow(index)}
+                                    className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
+                                >
+                                    Update
+                                </button>
+                                <button
+                                    type="button"
                                     onClick={() => handleDeleteRow(index)}
-                                    className="bg-red-500 text-white px-4 py-2 rounded"
+                                    className="bg-red-500 text-white px-5 py-2 rounded"
                                 >
                                     Delete
                                 </button>

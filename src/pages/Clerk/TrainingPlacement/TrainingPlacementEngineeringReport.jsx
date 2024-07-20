@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/varialbles/variables';
+import { TrainingPlacement } from '../../../components/variables/variables';
 const initialRows = [
     { branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
 ];
@@ -43,9 +43,9 @@ const TrainingPlacementEngineeringReport = () => {
     };
     return (
         <div>
-            <Navbar links={TrainingPlacement}/>
+            <Navbar links={TrainingPlacement} />
             <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIES</h1>
-           
+
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}

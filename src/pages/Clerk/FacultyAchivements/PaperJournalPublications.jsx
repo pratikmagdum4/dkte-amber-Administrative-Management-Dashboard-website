@@ -2,7 +2,8 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -10,34 +11,30 @@ const initialRows = [
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
-    // { key: 'prize', label: 'Prize' },
-    // { key: 'date', label: 'Date' }, // Example additional column
+
 ];
+
 const stdabroad = true;
 const FacultyPaperJournalPublications = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/paperpublication/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/paperpublication/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/paperpublication`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/paperpublication`;
 
     return (
         <div>
-            <Navbar links={FacultyAchivements}/>
+            <Navbar links={FacultyAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="FACULTY ACHIEVEMENTS IN PAPER PUBLICATION IN INTERNATIONAL AND NATIONAL JOURNALS"
-                numberOfColumns={2} 
-                onSubmit={handleSubmit}
+                numberOfColumns={2}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

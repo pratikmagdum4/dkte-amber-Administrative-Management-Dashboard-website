@@ -1,6 +1,6 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/varialbles/variables';
+import { StudentAchivements } from '../../../components/variables/variables';
 const StudentAchievementlists = () => {
     const navigate = useNavigate();
     function handleClick(option) {

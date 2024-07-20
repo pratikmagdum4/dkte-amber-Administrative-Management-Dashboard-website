@@ -2,7 +2,9 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
+
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { name: '', workshopname: '' },
 ];
@@ -10,32 +12,28 @@ const initialRows = [
 const columnHeaders = [
     { key: 'name', label: 'Faculty Name' },
     { key: 'workshopname', label: 'Name of Workshop/STTP/FDP' },
-  
+
 ];
 const stdabroad = true;
 const FacultyWorkShop = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+
+    const FetchUrl = `${BASE_URL}/api/facultyachievement/workshop/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievement/workshop/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievement/workshop`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievement/workshop`;
     return (
         <div>
-            <Navbar FacultyAchivements/>
+            <Navbar FacultyAchivements />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="FACULTY ACHIEVEMENTS IN WORKSHOP/STTP/FDP "
-                numberOfColumns={2} 
-                onSubmit={handleSubmit}
+                numberOfColumns={2}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

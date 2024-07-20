@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/varialbles/variables';
+import { FacultyAchivements } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 
 const FacultyBooksPublication = () => {
     const initialRows = [{ name: '', title: '', agency: '', isbnno: '', chapter: '' }];
@@ -14,6 +15,11 @@ const FacultyBooksPublication = () => {
         { key: 'chapter', label: 'Chapter Number' },
     ];
 
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/bookpublication/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/bookpublication/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/bookpublication`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/bookpublication`;
+
     return (
         <div>
             <Navbar links={FacultyAchivements} />
@@ -22,8 +28,10 @@ const FacultyBooksPublication = () => {
                 columnHeaders={columnHeaders}
                 title="FACULTY ACHIEVEMENTS IN BOOKS PUBLICATION"
                 numberOfColumns={5}
-                SubmitUrl="http://localhost:5000/api/facultyAchievements/submit"
-                FetchUrl="http://localhost:5000/api/facultyAchievements/getData"
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

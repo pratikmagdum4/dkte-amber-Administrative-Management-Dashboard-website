@@ -1,6 +1,6 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/varialbles/variables';
+import { TrainingPlacement } from '../../../components/variables/variables';
 
 
 

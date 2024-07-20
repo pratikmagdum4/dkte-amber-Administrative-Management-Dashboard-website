@@ -2,15 +2,15 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/varialbles/variables';
+import { TrainingPlacement } from '../../../components/variables/variables';
 const initialRows = [
-    { srno: '', branch:'',studentforcampus: '', recruitedstd: '', placementpercentage: '' },
+    { srno: '', branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
 ];
 const initialRows1 = [
-    { minmaxavg: '', info:''},
+    { minmaxavg: '', info: '' },
 ];
 const initialRows2 = [
-    { category: '', studentcount:''},
+    { category: '', studentcount: '' },
 ];
 
 const columnHeaders = [
@@ -19,7 +19,7 @@ const columnHeaders = [
     { key: 'studentforcampus', label: 'No. of Students available for campus Recruitment' },
     { key: 'recruitedstd', label: 'No. of Students Recruited through Campus Interviews' },
     { key: 'placementpercentage', label: 'Percentage of Placement' },
-  
+
 ];
 const columnHeaders1 = [
     { key: 'minmaxavg', label: 'Min/Max/Avg' },
@@ -45,7 +45,7 @@ const TrainingPlacementTextileReport = () => {
     };
     return (
         <div>
-            <Navbar links={TrainingPlacement}/>
+            <Navbar links={TrainingPlacement} />
             <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIES</h1>
             <AchievementsTable
                 initialRows={initialRows}
@@ -75,7 +75,7 @@ const TrainingPlacementTextileReport = () => {
                 numberOfColumns={2}
                 onSubmit={handleSubmit}
             />
-            
+
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import DropDownOptions from "../../../components/ui/DropDownToUse"
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/varialbles/variables';
+import { StudentAchivements } from '../../../components/variables/variables';
 function DisplayInstitutes()
 {
 

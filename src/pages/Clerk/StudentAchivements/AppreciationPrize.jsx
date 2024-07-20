@@ -2,7 +2,8 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/varialbles/variables';
+import { StudentAchivements } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
 ];
@@ -10,33 +11,31 @@ const initialRows = [
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
-    // { key: 'prize', label: 'Prize' },
-    // { key: 'date', label: 'Date' }, // Example additional column
+
 ];
 const stdabroad = true;
 const StdAppreciationPrize = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+
+
+    const FetchUrl = `${BASE_URL}/api/studentachievements/appreciationprize/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/studentachievements/appreciationprize/submit`;
+    const DeleteUrl = `${BASE_URL}/api/studentachievements/appreciationprize`;
+    const UpdateUrl = `${BASE_URL}/api/studentachievements/appreciationprize`;
+
+
     return (
         <div>
-            <Navbar links={StudentAchivements}/>
+            <Navbar links={StudentAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title=" STUDENTS APPRECIATOIN PRIZE"
-                numberOfColumns={2} 
-                 onSubmit={handleSubmit}
+                numberOfColumns={2}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

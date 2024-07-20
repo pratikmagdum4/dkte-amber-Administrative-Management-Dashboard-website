@@ -3,7 +3,7 @@ import StudentFormTable from './ScoreRankers'
 import NavBar from '../../pages/navbar/Navbar';
 import { useLocation } from 'react-router-dom';
 import '../../App.css'
-//import { HomeLink } from '../varialbles/variables';
+//import { HomeLink } from '../variables/variables';
 const RankersTables = () => {
 
     const location = useLocation();
@@ -23,15 +23,15 @@ const RankersTables = () => {
         "Second",
         "Third",
     ];
-    const Years3= [
+    const Years3 = [
         "First",
         "Second",
-        
+
     ];
 
     return (
         <>
-            
+
             <div className=''>
 
                 {course == "btech" && Years.map((item) => (
