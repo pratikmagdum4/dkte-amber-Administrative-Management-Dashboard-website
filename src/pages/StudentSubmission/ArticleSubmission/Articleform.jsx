@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
+import { BASE_URL } from '../../../api';
 
 const ArticleForm = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ const ArticleForm = () => {
     contact: '',
     branch: '',
     year: '',
-    language: 'english',
+    language: '',
     content: '',
     selfImage: null,
   });
@@ -28,10 +29,18 @@ const ArticleForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
-
+    const formDataObj = new FormData();
+    Object.keys(formData).forEach(key => {
+      formDataObj.append(key, formData[key]);
+    });
     try {
      
-      const response = await axios.post('/api/submit', formData);
+      const response = await axios.post(`${BASE_URL}/api/submit/article`, formDataObj, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert("Success!");
       console.log('Server response:', response.data);
      
     } catch (error) {
@@ -138,6 +147,9 @@ const ArticleForm = () => {
             ></textarea>
           </div>
           <div>
+            <a href="https://www.imagetotext.io/" target="_blank" className='w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Convert Image to Text here</a>
+</div>
+          <div>
             <label className="block text-left text-sm font-medium text-gray-700">Self Image:</label>
             <input
               type="file"
@@ -148,6 +160,7 @@ const ArticleForm = () => {
               className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
+         
           <button
             type="submit"
             className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
