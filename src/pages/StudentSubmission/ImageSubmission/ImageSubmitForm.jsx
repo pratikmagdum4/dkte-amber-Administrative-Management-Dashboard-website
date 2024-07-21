@@ -106,8 +106,8 @@ const ImageForm = () => {
     });
 
     try {
-      console.log("hi i mhere ")
-      const response = await axios.post(`${BASE_URL}/submit/imgupload`, formDataObj, {
+
+      const response = await axios.post(`${BASE_URL}/api/submit/imgupload`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

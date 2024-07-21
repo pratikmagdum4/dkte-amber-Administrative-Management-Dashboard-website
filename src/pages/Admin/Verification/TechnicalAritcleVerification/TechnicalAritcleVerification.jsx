@@ -4,11 +4,11 @@ import Navbar from '../../../navbar/Navbar';
 import { HomeLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
 
-const ArticleList = () => {
-    const [ArticleList, setArticleList] = useState([]);
+const TechArticleList = () => {
+    const [techArticleList, setTechArticleList] = useState([]);
 
     useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchTechArticles = async () => {
             try {
                 const response = await axios.get(`${BASE_URL}/api/article/get`);
                 const articles = response.data.map(article => ({
@@ -16,13 +16,13 @@ const ArticleList = () => {
                     selfImage: article.selfImage.replace(/^"|"$/g, '') // Remove extra quotes from URL
                 }));
                 console.log(articles[0].selfImage),
-                    setArticleList(articles);
+                    setTechArticleList(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
             }
         };
 
-        fetchArticles();
+        fetchTechArticles();
     }, []);
 
     return (
@@ -30,11 +30,11 @@ const ArticleList = () => {
             <Navbar links={HomeLink} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
-                {ArticleList.length === 0 ? (
+                {techArticleList.length === 0 ? (
                     <p>No articles found.</p>
                 ) : (
                     <div className="space-y-6">
-                            {ArticleList.map((article) => (
+                        {techArticleList.map((article) => (
                             <div key={article._id} className="p-4 border rounded-md shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div className="col-span-1 flex justify-center items-center">
                                     <img
@@ -64,4 +64,4 @@ const ArticleList = () => {
     );
 };
 
-export default ArticleList;
+export default TechArticleList;

@@ -48,6 +48,8 @@ import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
 import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
 import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
 import ArticleList from './pages/Admin/Verification/ArticleVerification/ArticleVerification.jsx';
+import ImgUploadList from './pages/Admin/Verification/ImageVerification/ImageVerification.jsx';
+import TechArticleList from './pages/Admin/Verification/TechnicalAritcleVerification/TechnicalAritcleVerification.jsx';
 const App = () => {
 
 
@@ -160,8 +162,10 @@ const App = () => {
         </Route>
         <Route path='/articlelist' element={<ArticleList />}>
         </Route>
-
-
+        <Route path='/imglist' element={<ImgUploadList />}>
+        </Route>
+        <Route path='/techlist' element={<TechArticleList />}>
+        </Route>
       </Routes>
     </Router>
   )
