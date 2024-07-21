@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from '../../../navbar/Navbar';
-import { HomeLink } from '../../../../components/variables/variables';
-import { BASE_URL } from '../../../../api';
+import Navbar from '../../navbar/Navbar';
+import { HomeLink } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 
-const ArticleList = () => {
-    const [ArticleList, setArticleList] = useState([]);
+const TechArticleDisplayList = () => {
+    const [articleList, setArticleList] = useState([]);
+    const [language, setLanguage] = useState('all');
 
     useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchTechArticles = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/api/article/get`);
+                const response = await axios.get(`${BASE_URL}/api/technical/getverified`, {
+                    params: { language: language !== 'all' ? language : '' }
+                });
                 const articles = response.data.map(article => ({
                     ...article,
-                    selfImage: article.selfImage.replace(/^"|"$/g, '') // Remove extra quotes from URL
+                    selfImage: article.selfImage.replace(/^"|"$/g, '')
                 }));
                 setArticleList(articles);
             } catch (error) {
@@ -21,36 +24,38 @@ const ArticleList = () => {
             }
         };
 
-        fetchArticles();
-    }, []);
-
-    const handleVerify = async (id, isVerified) => {
-        try {
-            await axios.patch(`${BASE_URL}/api/article/verify/${id}`, { isVerified });
-            setArticleList(prevArticles =>
-                prevArticles.map(article =>
-                    article._id === id ? { ...article, isVerified } : article
-                )
-            );
-        } catch (error) {
-            console.error('Error verifying article:', error);
-        }
-    };
+        fetchTechArticles();
+    }, [language]);
 
     return (
         <>
             <Navbar links={HomeLink} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-                <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
-                {ArticleList.length === 0 ? (
+                <h2 className="text-2xl font-bold mb-6">Submitted Technical Articles</h2>
+                <div className="mb-4">
+                    <label htmlFor="language" className="block text-sm font-medium text-gray-700">Filter by Language</label>
+                    <select
+                        id="language"
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value)}
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                    >
+                        <option value="all">All</option>
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="marathi">Marathi</option>
+                       
+                    </select>
+                </div>
+                {articleList.length === 0 ? (
                     <p>No articles found.</p>
                 ) : (
                     <div className="space-y-6">
-                        {ArticleList.map((article) => (
+                        {articleList.map((article) => (
                             <div key={article._id} className="p-4 border rounded-md shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div className="col-span-1 flex justify-center items-center">
                                     <img
-                                        src={article.selfImage}
+                                        src={`${article.selfImage}`}
                                         alt="Self"
                                         className="w-32 h-32 object-cover rounded-full md:w-48 md:h-48"
                                     />
@@ -63,13 +68,6 @@ const ArticleList = () => {
                                     <p className="text-gray-600">Branch: {article.branch}</p>
                                     <p className="text-gray-600">Year: {article.year}</p>
                                     <p className="text-gray-600">Language: {article.language}</p>
-                                    <p className="text-gray-600">Verified: {article.isVerified ? 'Yes' : 'No'}</p>
-                                    <button
-                                        className={`mt-2 px-4 py-2 rounded ${article.isVerified ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`}
-                                        onClick={() => handleVerify(article._id, !article.isVerified)}
-                                    >
-                                        {article.isVerified ? 'Unverify' : 'Verify'}
-                                    </button>
                                 </div>
                                 <div className="col-span-3 mt-4">
                                     <p>{article.content}</p>
@@ -83,4 +81,4 @@ const ArticleList = () => {
     );
 };
 
-export default ArticleList;
+export default TechArticleDisplayList;

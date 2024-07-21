@@ -13,12 +13,15 @@ const ArticleForm = () => {
     contact: '',
     branch: '',
     year: '',
-    language: '',
+    language: 'english',
     content: '',
     selfImage: null,
+    isVerified:false
   });
 
   const handleChange = (e) => {
+    console.log("The changes is for ",e)
+    console.log("The formdata is for ",formData)
     const { name, value, files } = e.target;
     setFormData({
       ...formData,
@@ -70,7 +73,7 @@ const ArticleForm = () => {
             />
             <label className="block text-left text-sm font-medium text-gray-700">PRN:</label>
             <input
-              type="number"
+              type="text"
               name="prn"
               value={formData.prn}
               onChange={handleChange}
@@ -104,15 +107,24 @@ const ArticleForm = () => {
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-            <label className="block text-left text-sm font-medium text-gray-700">Year:</label>
-            <input
-              type="number"
-              name="year"
-              value={formData.year}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            <div>
+              <label className="block text-left text-sm font-medium text-gray-700">Year:</label>
+              <select
+                name="year"
+                value={formData.year}
+                onChange={handleChange}
+                required
+                className={`mt-1 block w-full px-3 py-2 border border-gray-300'
+                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+              >
+                <option value="" disabled>Select Year</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+              
+            </div>
             <label className="block text-left text-sm font-medium text-gray-700">Title:</label>
             <input
               type="text"

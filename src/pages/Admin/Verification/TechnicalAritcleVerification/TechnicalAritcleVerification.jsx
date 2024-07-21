@@ -10,13 +10,12 @@ const TechArticleList = () => {
     useEffect(() => {
         const fetchTechArticles = async () => {
             try {
-                const response = await axios.get(`${BASE_URL}/api/article/get`);
+                const response = await axios.get(`${BASE_URL}/api/technical/get`);
                 const articles = response.data.map(article => ({
                     ...article,
                     selfImage: article.selfImage.replace(/^"|"$/g, '') // Remove extra quotes from URL
                 }));
-                console.log(articles[0].selfImage),
-                    setTechArticleList(articles);
+                setTechArticleList(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
             }
@@ -25,11 +24,24 @@ const TechArticleList = () => {
         fetchTechArticles();
     }, []);
 
+    const handleVerify = async (id, isVerified) => {
+        try {
+            await axios.patch(`${BASE_URL}/api/technical/verify/${id}`, { isVerified });
+            setTechArticleList(prevArticles =>
+                prevArticles.map(article =>
+                    article._id === id ? { ...article, isVerified } : article
+                )
+            );
+        } catch (error) {
+            console.error('Error verifying article:', error);
+        }
+    };
+
     return (
         <>
             <Navbar links={HomeLink} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-                <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
+                <h2 className="text-2xl font-bold mb-6">Submitted Technical Articles</h2>
                 {techArticleList.length === 0 ? (
                     <p>No articles found.</p>
                 ) : (
@@ -51,6 +63,13 @@ const TechArticleList = () => {
                                     <p className="text-gray-600">Branch: {article.branch}</p>
                                     <p className="text-gray-600">Year: {article.year}</p>
                                     <p className="text-gray-600">Language: {article.language}</p>
+                                    <p className="text-gray-600">Verified: {article.isVerified ? 'Yes' : 'No'}</p>
+                                    <button
+                                        className={`mt-2 px-4 py-2 rounded ${article.isVerified ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`}
+                                        onClick={() => handleVerify(article._id, !article.isVerified)}
+                                    >
+                                        {article.isVerified ? 'Unverify' : 'Verify'}
+                                    </button>
                                 </div>
                                 <div className="col-span-3 mt-4">
                                     <p>{article.content}</p>

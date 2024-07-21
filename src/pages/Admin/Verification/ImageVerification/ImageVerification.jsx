@@ -16,20 +16,33 @@ const ImgUploadList = () => {
                 }));
                 setImgUploads(imgUploads);
             } catch (error) {
-                console.error('Error fetching articles:', error);
+                console.error('Error fetching images:', error);
             }
         };
 
         fetchImgUploads();
     }, []);
 
+    const handleVerify = async (id, isVerified) => {
+        try {
+            await axios.patch(`${BASE_URL}/api/imgupload/verify/${id}`, { isVerified });
+            setImgUploads(prevImgUploads =>
+                prevImgUploads.map(imgUpload =>
+                    imgUpload._id === id ? { ...imgUpload, isVerified } : imgUpload
+                )
+            );
+        } catch (error) {
+            console.error('Error verifying image upload:', error);
+        }
+    };
+
     return (
         <>
             <Navbar links={HomeLink} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-                <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
+                <h2 className="text-2xl font-bold mb-6">Submitted Images</h2>
                 {imgUploads.length === 0 ? (
-                    <p>No articles found.</p>
+                    <p>No images found.</p>
                 ) : (
                     <div className="space-y-6">
                         {imgUploads.map((imgUpload) => (
@@ -50,6 +63,13 @@ const ImgUploadList = () => {
                                         <p className="text-gray-600">Branch: {imgUpload.branch}</p>
                                         <p className="text-gray-600">Year: {imgUpload.year}</p>
                                         <p className="text-gray-600">Language: {imgUpload.language}</p>
+                                        <p className="text-gray-600">Verified: {imgUpload.isVerified ? 'Yes' : 'No'}</p>
+                                        <button
+                                            className={`mt-2 px-4 py-2 rounded ${imgUpload.isVerified ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`}
+                                            onClick={() => handleVerify(imgUpload._id, !imgUpload.isVerified)}
+                                        >
+                                            {imgUpload.isVerified ? 'Unverify' : 'Verify'}
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="col-span-1 md:col-span-2">
@@ -60,11 +80,8 @@ const ImgUploadList = () => {
                                                 alt="Uploaded"
                                                 className="w-100 h-100 object-cover rounded-md mt-4" // 100px width and height
                                             />
-                                        )}  
+                                        )}
                                     </div>
-                                    {/* <div className="mt-4">
-                                        <p>{imgUpload.content}</p>
-                                    </div> */}
                                 </div>
                             </div>
                         ))}

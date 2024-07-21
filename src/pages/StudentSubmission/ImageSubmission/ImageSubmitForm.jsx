@@ -14,8 +14,10 @@ const ImageForm = () => {
     branch: '',
     year: '',
     title: '',
-    image: null,
+    imageUrl: null,
     selfImage: null,
+    isVerified: false,
+    imageType:''
   });
 
   const [errors, setErrors] = useState({
@@ -84,7 +86,7 @@ const ImageForm = () => {
       errors.image = 'Image is required';
     } else if (!formData.image.type.startsWith('image/')) {
       errors.image = 'File must be an image';
-    } else if (formData.image.size > 2 * 1024 * 1024) { // 2MB limit
+    } else if (formData.image.size > 10 * 1024 * 1024) { // 2MB limit
       errors.image = 'Image must be less than 2MB';
     }
 
@@ -211,6 +213,20 @@ const ImageForm = () => {
               <option value="4">4</option>
             </select>
             {errors.year && <p className="text-red-500 text-xs mt-1">{errors.year}</p>}
+          </div>
+          <div>
+            <label className="block text-left text-sm font-medium text-gray-700">Image Type Sketch or PhotoGraphy:</label>
+            <select
+              name="imageType"
+              value={formData.imageType}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="sketch">Sketch</option>
+              <option value="photoGraphy">PhotoGraphy</option>
+             
+            </select>
           </div>
           <div>
             <label className="block text-left text-sm font-medium text-gray-700">Title:</label>

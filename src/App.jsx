@@ -45,11 +45,14 @@ import ImageForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm
 import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
 import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
-import EnglishArticles from './pages/DisplayItems/LanguageSection/English/EnglishArticles.jsx';
+import EnglishArticles from './pages/DisplayItems/LanguageSection/DisplayArticles.jsx';
 import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
 import ArticleList from './pages/Admin/Verification/ArticleVerification/ArticleVerification.jsx';
 import ImgUploadList from './pages/Admin/Verification/ImageVerification/ImageVerification.jsx';
 import TechArticleList from './pages/Admin/Verification/TechnicalAritcleVerification/TechnicalAritcleVerification.jsx';
+import ArticleDisplayList from './pages/DisplayItems/LanguageSection/DisplayArticles.jsx';
+import TechArticleDisplayList from './pages/DisplayItems/TechinicalSection/DisplayTechnicalArticles.jsx';
+import ImageDisplayList from './pages/DisplayItems/ImageDisplay/DisplayImages.jsx';
 const App = () => {
 
 
@@ -142,7 +145,7 @@ const App = () => {
         <Route path='/clerk/home/upgraduation' element={<UpGraduationQalificationList />}>
         </Route>
 
-      
+
         <Route path='/stdimgform' element={<ImageForm />}>
         </Route>
         <Route path='/auth' element={<AuthButton />}>
@@ -166,6 +169,11 @@ const App = () => {
         </Route>
         <Route path='/techlist' element={<TechArticleList />}>
         </Route>
+        <Route path='/articledisplaylist' element={<ArticleDisplayList />}>
+        </Route>
+        <Route path='/techarticledisplaylist' element={<TechArticleDisplayList />}>
+        </Route>
+        <Route path='/imgdisplaylist' element={<ImageDisplayList />}></Route>
       </Routes>
     </Router>
   )
