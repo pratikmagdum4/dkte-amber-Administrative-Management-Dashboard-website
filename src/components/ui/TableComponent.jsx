@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useImperativeHandle, forwardRef, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }) => {
-   
+const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
-    const [unsavedChanges, setUnsavedChanges] = useState(false);
-    const [initialrowlength, setInitialRowlength] = useState(0);
+
+    useImperativeHandle(ref, () => ({
+        title,
+        rows
+    }));
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
-                setInitialRowlength(response.data.length);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                // console.error('Error fetching data:', error);
                 setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
             }
         };
@@ -82,33 +83,24 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
         }
     };
 
-    useEffect(() => {
-        if(rows.length==initialRows.length && rows.length>1)
-        {
-            console.log("hi ther ")
-            const hasUnsavedChanges = rows.some(row => row.modified);
-            setUnsavedChanges(hasUnsavedChanges);
-        }
-    }, [rows, initialrowlength]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (unsavedChanges) {
-            if (window.confirm("There are unsaved changes. Please update the rows before submitting. Do you want to update them?")) {
+        const hasUnsavedChanges = rows.some(row => row.modified);
+        if (hasUnsavedChanges) {
+            if (!window.confirm("There are unsaved changes. Do you want to submit them anyway?")) {
                 return;
             }
         }
 
         if (window.confirm("Are you sure you want to submit?")) {
             try {
-                const response = await axios.post(SubmitUrl, rows, {
+                await axios.post(SubmitUrl, rows, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
                 toast.success('Data submitted successfully');
-                // window.location.reload();
             } catch (error) {
                 console.error('Error submitting data:', error);
                 toast.error('Error submitting data');
@@ -122,7 +114,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
     };
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
-
 
     return (
         <form onSubmit={handleSubmit} className="p-4">
@@ -190,6 +181,6 @@ const AchievementsTable = ({ stdabroad, initialRows, columnHeaders, title, numbe
             </button>
         </form>
     );
-};
+});
 
 export default AchievementsTable;

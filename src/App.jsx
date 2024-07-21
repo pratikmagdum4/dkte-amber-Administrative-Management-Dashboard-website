@@ -53,6 +53,8 @@ import TechArticleList from './pages/Admin/Verification/TechnicalAritcleVerifica
 import ArticleDisplayList from './pages/DisplayItems/LanguageSection/DisplayArticles.jsx';
 import TechArticleDisplayList from './pages/DisplayItems/TechinicalSection/DisplayTechnicalArticles.jsx';
 import ImageDisplayList from './pages/DisplayItems/ImageDisplay/DisplayImages.jsx';
+import ProgressTracking from './pages/Admin/TrackClerksProgress/AdminTrack.jsx';
+import FirstYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FirstYearBtechEngineering.jsx';
 const App = () => {
 
 
@@ -68,7 +70,7 @@ const App = () => {
         </Route>
         <Route path='/login/clerk/home' element={<ClerkHome />}>
         </Route>
-        <Route path='/rank' element={<StudentFormTable />}>
+        <Route path='/rank/std' element={<StudentFormTable />}>
         </Route>
         <Route path='/login/clerk/home/studentachievement/courselist/listing/ranktables' element={<RankersTables />}>
         </Route>
@@ -80,69 +82,75 @@ const App = () => {
         {/* </Route> */}
 
 
-        <Route path='/clerk/home/studentachievement' element={<StudentAchievementlists />}>
+        <Route path='/login/clerk/home/studentachievement' element={<StudentAchievementlists />}>
         </Route>
-        <Route path='/clerk/home/studentachievement/courselist/' element={<CourseList />}>
+        <Route path='/login/clerk/home/studentachievement/course-list' element={<CourseList />}>
         </Route>
-        <Route path='/clerk/home/studentachievement/courselist/listing' element={<DepartmentListing />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/exams' element={<StudentSpecialAchievements />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/higherstudies' element={<StdHigherEducation />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
-        </Route>
-        <Route path='/clerk/home/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
+        
+        <Route path='/login/clerk/home/studentachievement/course-list/btech/year1' element={<FirstYearBtechEngineeringTables />}>
         </Route>
 
-        <Route path='/clerk/home/facultyachievement' element={<FacultyAchievementLists />}>
+ 
+
+        <Route path='/login/clerk/home/studentachievement/course-list/listing' element={<RankersTables />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/paperjournalpub' element={<FacultyPaperJournalPublications />}>
+        <Route path='/login/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/bookspublish' element={<FacultyBooksPublication />}>
+        <Route path='/login/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/paperpresentation' element={<FacultyPaperPresentation />}>
+        <Route path='/login/clerk/home/studentachievement/exams' element={<StudentSpecialAchievements />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/patentgrant' element={<FacultyPatentGrant />}>
+        <Route path='/login/clerk/home/studentachievement/higherstudies' element={<StdHigherEducation />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/workshop' element={<FacultyWorkShop />}>
+        <Route path='/login/clerk/home/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/otherspecial' element={<FacultyOtherSpecial />}>
+        <Route path='/login/clerk/home/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
         </Route>
-        <Route path='/clerk/home/facultyachievement/trainingprogram' element={<FacultyTrainingProgram />}>
+
+        <Route path='/login/clerk/home/facultyachievement' element={<FacultyAchievementLists />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/paperjournalpub' element={<FacultyPaperJournalPublications />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/bookspublish' element={<FacultyBooksPublication />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/paperpresentation' element={<FacultyPaperPresentation />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/patentgrant' element={<FacultyPatentGrant />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/workshop' element={<FacultyWorkShop />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/otherspecial' element={<FacultyOtherSpecial />}>
+        </Route>
+        <Route path='/login/clerk/home/facultyachievement/trainingprogram' element={<FacultyTrainingProgram />}>
         </Route>
 
 
-        <Route path='/clerk/home/clubreports' element={<ClubReports />}>
+        <Route path='/login/clerk/home/clubreports' element={<ClubReports />}>
         </Route>
 
-        <Route path='/clerk/home/mainevents/' element={<MainEventTables />}>
+        <Route path='/login/clerk/home/mainevents/' element={<MainEventTables />}>
         </Route>
 
-        <Route path='/clerk/home/trainingplacement/' element={<TrainingPlacementListing />}>
+        <Route path='/login/clerk/home/trainingplacement/' element={<TrainingPlacementListing />}>
         </Route>
-        <Route path='/clerk/home/trainingplacement/textilereport' element={<TrainingPlacementTextileReport />}>
+        <Route path='/login/clerk/home/trainingplacement/textilereport' element={<TrainingPlacementTextileReport />}>
         </Route>
-        <Route path='/clerk/home/trainingplacement/engineeringreport' element={<TrainingPlacementEngineeringReport />}>
+        <Route path='/login/clerk/home/trainingplacement/engineeringreport' element={<TrainingPlacementEngineeringReport />}>
         </Route>
-        <Route path='/clerk/home/trainingplacement/internationalcompanies' element={<TextileInternationalCompaniesList />}>
+        <Route path='/login/clerk/home/trainingplacement/internationalcompanies' element={<TextileInternationalCompaniesList />}>
         </Route>
-        <Route path='/clerk/home/trainingplacement/nationalcompanies' element={<TextileNationalCompaniesList />}>
+        <Route path='/login/clerk/home/trainingplacement/nationalcompanies' element={<TextileNationalCompaniesList />}>
         </Route>
-        <Route path='/clerk/home/trainingplacement/engineeringcompanies' element={<EngineeringCompaniesList />}>
-        </Route>
-
-        <Route path='/clerk/home/sponsorlist' element={<SponsorListInfo />}>
+        <Route path='/login/clerk/home/trainingplacement/engineeringcompanies' element={<EngineeringCompaniesList />}>
         </Route>
 
-        <Route path='/clerk/home/staffmembers' element={<StaffMembersList />}>
+        <Route path='/login/clerk/home/sponsorlist' element={<SponsorListInfo />}>
         </Route>
 
-        <Route path='/clerk/home/upgraduation' element={<UpGraduationQalificationList />}>
+        <Route path='/login/clerk/home/staffmembers' element={<StaffMembersList />}>
+        </Route>
+
+        <Route path='/login/clerk/home/upgraduation' element={<UpGraduationQalificationList />}>
         </Route>
 
 
@@ -174,6 +182,7 @@ const App = () => {
         <Route path='/techarticledisplaylist' element={<TechArticleDisplayList />}>
         </Route>
         <Route path='/imgdisplaylist' element={<ImageDisplayList />}></Route>
+        <Route path='/progresstracking' element={<ProgressTracking />}></Route>
       </Routes>
     </Router>
   )

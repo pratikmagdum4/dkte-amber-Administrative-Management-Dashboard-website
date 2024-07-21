@@ -4,7 +4,7 @@ import { StudentAchivements } from '../../../components/variables/variables';
 const StudentAchievementlists = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/clerk/home/studentachievement/${option}`)
+        navigate(`/login/clerk/home/studentachievement/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">

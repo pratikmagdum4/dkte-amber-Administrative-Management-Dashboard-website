@@ -62,24 +62,38 @@
 
 // export default CourseList;
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../navbar/Navbar";
+import NavBar from "../../navbar/Navbar";
 import { ClerkLink } from "../../../components/variables/variables";
-import ListingComponent from "../../../components/ui/listingPage";
+// import ListingComponent from "../../../components/ui/listingPage";
+
+import { useState } from "react";
+import CourseListingComponent from "../../../components/ui/coursesListYear";
+
 const CourseList = () => {
     const navigate = useNavigate();
-    function handleClick(option) {
-        navigate(`/clerk/home/${option}`)
-    }
+    const [visibleYears, setVisibleYears] = useState(null);
+
     const buttonNames = [
-        { id: 1, label: 'Btech', option: 'achievement1' },
-        { id: 2, label: 'Diploma', option: 'achievement2' },
-        { id: 3, label: 'MBA', option: 'achievement3' },
+        { id: 1, label: 'BTech Engineering', option: '/btech', years: 4 },
+        { id: 2, label: 'BTech Textile', option: '/textile', years: 4 },
+        { id: 3, label: 'Diploma', option: '/diploma', years: 3 },
+        { id: 4, label: 'MBA', option: '/mba', years: 2 },
     ];
+
+    const handleToggleYears = (id) => {
+        setVisibleYears((prev) => (prev === id ? null : id));
+    };
+
     return (
         <>
-            <ListingComponent buttonNames={buttonNames} />
+            <CourseListingComponent
+                buttonNames={buttonNames}
+                visibleYears={visibleYears}
+                handleToggleYears={handleToggleYears}
+            />
         </>
     );
 }
 
 export default CourseList;
+
