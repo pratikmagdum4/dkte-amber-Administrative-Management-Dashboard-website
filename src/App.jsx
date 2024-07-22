@@ -8,7 +8,7 @@ import Home1 from './pages/Home/home1.jsx';
 // import Footer from './pages/footer/Footer.jsx';
 import ClerkHome from './pages/Clerk/ClerkHome/clerkHome.jsx';
 
-import LoginForm2 from './pages/login/login2.jsx';
+import LoginForm2 from './pages/login/ClerkLogin.jsx';
 import StudentFormTable from './components/ui/RankersTables.jsx';
 import RankersTables from './components/ui/RankersTables.jsx';
 import DisplayInstitutes from './pages/Clerk/StudentAchivements/CGPARanks.jsx';
@@ -55,6 +55,7 @@ import TechArticleDisplayList from './pages/DisplayItems/TechinicalSection/Displ
 import ImageDisplayList from './pages/DisplayItems/ImageDisplay/DisplayImages.jsx';
 import ProgressTracking from './pages/Admin/TrackClerksProgress/AdminTrack.jsx';
 import FirstYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FirstYearBtechEngineering.jsx';
+import AdminLoginForm from './pages/login/AdminLogin.jsx';
 const App = () => {
 
 
@@ -66,7 +67,8 @@ const App = () => {
         </Route>
         <Route path='/login' element={<LoginPage />}>
         </Route>
-        <Route path='/login/clerk' element={<LoginForm2 />}>
+        <Route path='/login/clerk' element={<LoginForm2 />}></Route>
+          <Route path='/login/admin' element={<AdminLoginForm />}>
         </Route>
         <Route path='/login/clerk/home' element={<ClerkHome />}>
         </Route>
@@ -78,6 +80,23 @@ const App = () => {
         </Route>
         <Route path='/drop' element={<Dropdown2 />}>
         </Route>
+
+
+        <Route path='/login/admin/home' element={<ProgressTracking />}>
+        </Route>
+        <Route path='/login/admin/home/verify-article' element={<ArticleList />}>
+        </Route>
+        <Route path='/login/admin/home/verify-image' element={<ImgUploadList />}>
+        </Route>
+        <Route path='/login/admin/home/verify-technical-article' element={<TechArticleList />}>
+        </Route>
+        <Route path='/login/admin/home/display-article' element={<ArticleDisplayList />}>
+        </Route>
+        <Route path='/login/admin/home/display-image' element={<ImageDisplayList />}>
+        </Route>
+        <Route path='/login/admin/home/display-technical-article' element={<TechArticleDisplayList />}>
+        </Route>
+        
         {/* <Route path='/login/clerk/home/' element={<homePage />}> */}
         {/* </Route> */}
 

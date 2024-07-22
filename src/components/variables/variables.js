@@ -4,6 +4,24 @@ export const HomeLink = [
   { label: "About Us", url: "/" },
   { label: "Contact", url: "/" },
 ];
+export const AdminHomeLink = [
+  { label: "Home", url: "/" },
+  { label: "Verify", url: "" },
+  { label: "Display", url: "/display" },
+  { label: "Contact", url: "/" },
+];
+export const AdminVerifyLink = [
+  { label: "Home", url: "/" },
+  { label: "Verify", url: "" },
+  { label: "Display", url: "" },
+  { label: "Dashboard", url: "/login/admin/home" },
+];
+export const AdminDisplayLink = [
+  { label: "Home", url: "/" },
+  { label: "Verify", url: "" },
+  { label: "Display", url: "" },
+  { label: "Dashboard", url: "/login/admin/home" },
+];
 export const ClerkNavLink = [
  
   { label: "Home", url: "/" },

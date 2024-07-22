@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { HomeLink } from '../../../components/variables/variables';
+import { AdminDisplayLink, HomeLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 
 const ArticleDisplayList = () => {
@@ -29,7 +29,7 @@ const ArticleDisplayList = () => {
 
     return (
         <>
-            <Navbar links={HomeLink} />
+            <Navbar links={AdminDisplayLink} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
                 <div className="mb-4">

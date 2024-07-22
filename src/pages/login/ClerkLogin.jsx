@@ -41,7 +41,7 @@ function LoginForm2() {
         e.preventDefault();
         console.log("formdata is ", formValues);
         if (formValues.email == "admin@gmail.com" && formValues.password == "admin123") {
-            navigate("/login/adminhome");
+            navigate("/login/admin/home");
         }
         if (formValues.email == "clerk@gmail.com" && formValues.password == "clerk123") {
             console.log("hi hter ")
