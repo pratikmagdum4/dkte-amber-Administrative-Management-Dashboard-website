@@ -6,7 +6,7 @@ import { FacultyAchivements } from '../../../components/variables/variables';
 const FacultyAchievementLists = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/clerk/home/facultyachievement/${option}`)
+        navigate(`/login/clerk/home/facultyachievement/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
