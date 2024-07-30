@@ -56,6 +56,7 @@ import ImageDisplayList from './pages/DisplayItems/ImageDisplay/DisplayImages.js
 import ProgressTracking from './pages/Admin/TrackClerksProgress/AdminTrack.jsx';
 import FirstYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FirstYearBtechEngineering.jsx';
 import AdminLoginForm from './pages/login/AdminLogin.jsx';
+// import MobileNav from './pages/navbar/MobileResponsive.jsx';
 const App = () => {
 
 
@@ -202,6 +203,7 @@ const App = () => {
         </Route>
         <Route path='/imgdisplaylist' element={<ImageDisplayList />}></Route>
         <Route path='/progresstracking' element={<ProgressTracking />}></Route>
+        {/* <Route path='/mobilenav' element={<MobileNav />}></Route> */}
       </Routes>
     </Router>
   )
