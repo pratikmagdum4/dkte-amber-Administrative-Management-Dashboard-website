@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -16,6 +17,8 @@ class ErrorBoundary extends Component {
 
     render() {
         if (this.state.hasError) {
+            alert("Please Refresh the page ")
+            toast.info("Please Refresh the page ")
             return <h1>Something went wrong.</h1>;
         }
 

@@ -56,6 +56,10 @@ import ImageDisplayList from './pages/DisplayItems/ImageDisplay/DisplayImages.js
 import ProgressTracking from './pages/Admin/TrackClerksProgress/AdminTrack.jsx';
 import FirstYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FirstYearBtechEngineering.jsx';
 import AdminLoginForm from './pages/login/AdminLogin.jsx';
+import StudentCgpaFormTable from './components/ui/StudentCgpaForm.jsx';
+import SecondYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/SecondYearBtechEngineering.jsx';
+import ThirdYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/ThirdYearBtechEngineering.jsx';
+import FourthYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FourthYearBtechEngineering.jsx';
 // import MobileNav from './pages/navbar/MobileResponsive.jsx';
 const App = () => {
 
@@ -109,11 +113,15 @@ const App = () => {
         
         <Route path='/login/clerk/home/studentachievement/course-list/btech/year1' element={<FirstYearBtechEngineeringTables />}>
         </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/btech/year2' element={<SecondYearBtechEngineeringTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/btech/year3' element={<ThirdYearBtechEngineeringTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/btech/year4' element={<FourthYearBtechEngineeringTables />}>
+        </Route>
 
  
-
-        <Route path='/login/clerk/home/studentachievement/course-list/listing' element={<RankersTables />}>
-        </Route>
+       
         <Route path='/login/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
         </Route>
         <Route path='/login/clerk/home/studentachievement/paperproject' element={<StudentPaperProject />}>
@@ -125,6 +133,8 @@ const App = () => {
         <Route path='/login/clerk/home/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
         </Route>
         <Route path='/login/clerk/home/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/courselist' element={<CourseList />}>
         </Route>
 
         <Route path='/login/clerk/home/facultyachievement' element={<FacultyAchievementLists />}>
@@ -203,6 +213,7 @@ const App = () => {
         </Route>
         <Route path='/imgdisplaylist' element={<ImageDisplayList />}></Route>
         <Route path='/progresstracking' element={<ProgressTracking />}></Route>
+        <Route path='/StudentCgpaFormTable' element={<StudentCgpaFormTable />}></Route>
         {/* <Route path='/mobilenav' element={<MobileNav />}></Route> */}
       </Routes>
     </Router>

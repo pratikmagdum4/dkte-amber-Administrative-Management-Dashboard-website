@@ -29,6 +29,7 @@ const StudentSpecialAchievements = () => {
         <div>
             <Navbar links={StudentAchivements} />
             <AchievementsTable
+            isStudentSpecial = {true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="GATE EXAM"
@@ -39,6 +40,7 @@ const StudentSpecialAchievements = () => {
                 UpdateUrl={`${UpdateUrl}/gate`}
             />
             <AchievementsTable
+                isStudentSpecial={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="NIFT EXAM"
@@ -49,6 +51,7 @@ const StudentSpecialAchievements = () => {
                 UpdateUrl={`${UpdateUrl}/nift`}
             />
             <AchievementsTable
+                    isStudentSpecial={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="TOEFL EXAM"
@@ -59,6 +62,7 @@ const StudentSpecialAchievements = () => {
                 UpdateUrl={`${UpdateUrl}/toefl`}
             />
             <AchievementsTable
+                    isStudentSpecial={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="GRE EXAM"

@@ -11,11 +11,13 @@ const StudentFormTable = forwardRef(({ title }, ref) => {
     ]);
 
     useEffect(() => {
+        
         const savedStudents = JSON.parse(localStorage.getItem(`${title}-students`));
         if (savedStudents) {
             setStudents(savedStudents);
         }
     }, [title]);
+
 
     const handleChange = (index, field, value) => {
         const newStudents = [...students];

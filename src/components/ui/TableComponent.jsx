@@ -2,9 +2,13 @@ import React, { useState, useImperativeHandle, forwardRef, useEffect } from 'rea
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { Loader } from 'lucide-react';
 
-const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl }, ref) => {
+const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, isStudentSpecial }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
+    const [loading, setLoading] = useState(false);
 
     useImperativeHandle(ref, () => ({
         title,
@@ -14,11 +18,19 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true);
+                if (!isStudentSpecial)
+                {
+                    toast.info("The Data if not visible will be available in a minute ");
+                }
+               
+
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
             } catch (error) {
-                // console.error('Error fetching data:', error);
-                setRows(initialRows.map(row => ({ ...row, modified: false }))); // Set to initialRows if fetching fails
+                setRows(initialRows.map(row => ({ ...row, modified: false }))); // set to initialRows if fetching fails
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -116,70 +128,89 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
     return (
-        <form onSubmit={handleSubmit} className="p-4">
+        <div>
             <ToastContainer />
-            <h2 className="text-center font-bold text-xl mb-4">
-                {title}
-            </h2>
-            <table className="min-w-full border-collapse border border-zinc-400">
-                <thead>
-                    <tr>
-                        {columnsToDisplay.map(header => (
-                            <th key={header.key} className="border border-zinc-400 px-4 py-2">{header.label}</th>
-                        ))}
-                        <th className="border border-zinc-400 px-4 py-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rows.map((row, index) => (
-                        <tr key={index}>
-                            {columnsToDisplay.map(header => (
-                                <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
-                                    <textarea
-                                        name={header.key}
-                                        value={row[header.key]}
-                                        onChange={(e) => handleChange(index, e)}
-                                        className="w-full p-2 border border-zinc-300 rounded resize-none"
-                                        rows="1"
-                                        onInput={(e) => adjustTextareaHeight(e.target)}
-                                        style={{ overflow: 'hidden' }}
-                                    />
-                                </td>
-                            ))}
-                            <td className="border border-zinc-400 px-4 py-2 text-center">
-                                <button
-                                    type="button"
-                                    onClick={() => handleUpdateRow(index)}
-                                    className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
-                                >
-                                    Update
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => handleDeleteRow(index)}
-                                    className="bg-red-500 text-white px-5 py-2 rounded"
-                                >
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <button
-                type="button"
-                onClick={handleAddRow}
-                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-            >
-                Add Row
-            </button>
-            <button
-                type="submit"
-                className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-            >
-                Submit
-            </button>
-        </form>
+           
+                <form onSubmit={handleSubmit} className="p-4">
+                    <h2 className="text-center font-bold text-xl mb-4">
+                        {title}
+                    </h2>
+                    <table className="min-w-full border-collapse border border-zinc-400">
+                        <thead>
+                            <tr>
+                                {columnsToDisplay.map(header => (
+                                    <th key={header.key} className="border border-zinc-400 px-4 py-2">{header.label}</th>
+                                ))}
+                                <th className="border border-zinc-400 px-4 py-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {loading ? (
+                                Array.from({ length: 5 }).map((_, i) => (
+                                    <tr key={i}>
+                                        {columnsToDisplay.map(header => (
+                                            <td key={header.key} className="border border-zinc-400 px-4 py-2">
+                                                <Skeleton height={20} />
+                                            </td>
+                                        ))}
+                                        <td className="border border-zinc-400 px-4 py-2 text-center">
+                                            <Skeleton height={40} width={100} />
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                rows.map((row, index) => (
+                                    <tr key={index}>
+                                        {columnsToDisplay.map(header => (
+                                            <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
+                                                <textarea
+                                                    name={header.key}
+                                                    value={row[header.key]}
+                                                    onChange={(e) => handleChange(index, e)}
+                                                    className="w-full p-2 border border-zinc-300 rounded resize-none"
+                                                    rows="1"
+                                                    onInput={(e) => adjustTextareaHeight(e.target)}
+                                                    style={{ overflow: 'hidden' }}
+                                                />
+                                            </td>
+                                        ))}
+                                        <td className="border border-zinc-400 px-4 py-2 text-center">
+                                            <button
+                                                type="button"
+                                                onClick={() => handleUpdateRow(index)}
+                                                className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
+                                            >
+                                                Update
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDeleteRow(index)}
+                                                className="bg-red-500 text-white px-5 py-2 rounded"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                    <button
+                        type="button"
+                        onClick={handleAddRow}
+                        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Add Row
+                    </button>
+                    <button
+                        type="submit"
+                        className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
+                    >
+                        Submit
+                    </button>
+                </form>
+          
+        </div>
     );
 });
 
