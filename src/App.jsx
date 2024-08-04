@@ -60,6 +60,15 @@ import StudentCgpaFormTable from './components/ui/StudentCgpaForm.jsx';
 import SecondYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/SecondYearBtechEngineering.jsx';
 import ThirdYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/ThirdYearBtechEngineering.jsx';
 import FourthYearBtechEngineeringTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Engineering/FourthYearBtechEngineering.jsx';
+import FirstYearBtechTextileTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Textile/FirstYearBtechTextile.jsx';
+import SecondYearBtechTextileTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Textile/SecondYearBtechTextile.jsx';
+import ThirdYearBtechTextileTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Textile/ThirdYearBtechTextile.jsx';
+import FourthYearBtechTextileTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Btech Textile/FourthYearBtechTextile.jsx';
+import MBASecondYearCgpaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/MBA/SecondYearMba.jsx';
+import MBAFirstYearCgpaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/MBA/FirstYearMba.jsx';
+import FirstYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/FirstYearDiploma.jsx';
+import SecondYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/SecondYearDiploma.jsx';
+import ThirdYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/ThirdYearDiploma.jsx';
 // import MobileNav from './pages/navbar/MobileResponsive.jsx';
 const App = () => {
 
@@ -119,6 +128,29 @@ const App = () => {
         </Route>
         <Route path='/login/clerk/home/studentachievement/course-list/btech/year4' element={<FourthYearBtechEngineeringTables />}>
         </Route>
+
+        <Route path='/login/clerk/home/studentachievement/course-list/textile/year1' element={<FirstYearBtechTextileTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/textile/year2' element={<SecondYearBtechTextileTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/textile/year3' element={<ThirdYearBtechTextileTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/textile/year4' element={<FourthYearBtechTextileTables />}>
+        </Route>
+
+        <Route path='/login/clerk/home/studentachievement/course-list/diploma/year1' element={<FirstYearDiplomaTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/diploma/year2' element={<SecondYearDiplomaTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/diploma/year3' element={<ThirdYearDiplomaTables />}>
+        </Route>
+
+
+        <Route path='/login/clerk/home/studentachievement/course-list/mba/year1' element={<MBAFirstYearCgpaTables />}>
+        </Route>
+        <Route path='/login/clerk/home/studentachievement/course-list/mba/year2' element={<MBASecondYearCgpaTables />}>
+        </Route>
+        
 
  
        

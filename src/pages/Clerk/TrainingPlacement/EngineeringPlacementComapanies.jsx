@@ -3,6 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { TrainingPlacement } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { engineeringcompanies: '' },
 ];
@@ -17,29 +18,26 @@ const stdabroad = true;
 
 
 const EngineeringCompaniesList = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    const FetchUrl = `${BASE_URL}/api/engineering/companies/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/engineering/companies/submit`;
+    const DeleteUrl = `${BASE_URL}/api/engineering/companies`;
+    const UpdateUrl = `${BASE_URL}/api/engineering/companies`;
+
 
     return (
         <div>
             <Navbar links={TrainingPlacement} />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="Engineering Companies"
                 numberOfColumns={1}
-                onSubmit={handleSubmit}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

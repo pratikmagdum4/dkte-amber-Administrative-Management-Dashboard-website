@@ -27,45 +27,49 @@ const columnHeaders2 = [
     { key: 'category', label: 'Category' },
     { key: 'studentcount', label: 'No. of Students ' },
 ];
-
+import { BASE_URL } from '../../../api';
 const TrainingPlacementEngineeringReport = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    const FetchUrl = `${BASE_URL}/api/engineering/placement`;
+    const SubmitUrl = `${BASE_URL}/api/engineering/placement`;
+    const DeleteUrl = `${BASE_URL}/api/engineering/placement`;
+    const UpdateUrl = `${BASE_URL}/api/engineering/placement`;
     return (
         <div>
             <Navbar links={TrainingPlacement} />
-            <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIES</h1>
+            <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIESdfg</h1>
 
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="ENGINEERING DEPARTMENTS"
                 numberOfColumns={4}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/departments/submit`}
+                FetchUrl={`${FetchUrl}/departments/getdata`}
+                DeleteUrl={`${DeleteUrl}/departments`}
+                UpdateUrl={`${UpdateUrl}/departments`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="Package Offered "
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/packageoffered/submit`}
+                FetchUrl={`${FetchUrl}/packageoffered/getdata`}
+                DeleteUrl={`${DeleteUrl}/packageoffered`}
+                UpdateUrl={`${UpdateUrl}/packageoffered`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows2}
                 columnHeaders={columnHeaders2}
                 title="INDUSTRIAL TRAINING "
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/industrialtraining/submit`}
+                FetchUrl={`${FetchUrl}/industrialtraining/getdata`}
+                DeleteUrl={`${DeleteUrl}/industrialtraining`}
+                UpdateUrl={`${UpdateUrl}/industrialtraining`}
             />
         </div>
     );

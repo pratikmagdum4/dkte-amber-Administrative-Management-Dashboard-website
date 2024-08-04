@@ -33,13 +33,18 @@ const initialStudentsState = [
     { rank: 3, stdname: '', cgpa: '', dept: 'AIDS' },
     { rank: 4, stdname: '', cgpa: '', dept: 'AIDS' },
     { rank: 5, stdname: '', cgpa: '', dept: 'AIDS' },
+    { rank: 1, stdname: '', cgpa: '', dept: 'CE' },
+    { rank: 2, stdname: '', cgpa: '', dept: 'CE' },
+    { rank: 3, stdname: '', cgpa: '', dept: 'CE' },
+    { rank: 4, stdname: '', cgpa: '', dept: 'CE' },
+    { rank: 5, stdname: '', cgpa: '', dept: 'CE' },
 ];
 
 const FirstYearBtechEngineeringTables = () => {
 
     const FetchUrl =  `${BASE_URL}/api/btechcgpa/get/first`
     const SubmitUrl =  `${BASE_URL}/api/btechcgpa/submit/first`
-
+    const year = "First"
     return (
         <div>
             <StudentCgpaFormTable
@@ -47,6 +52,7 @@ const FirstYearBtechEngineeringTables = () => {
                 initialState={initialStudentsState}
                 FetchUrl={FetchUrl}
                 SubmitUrl={SubmitUrl}
+                year={year}
             />
         </div>
     );

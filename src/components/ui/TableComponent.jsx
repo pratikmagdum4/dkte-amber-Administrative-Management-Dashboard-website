@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { Loader } from 'lucide-react';
 
-const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, isStudentSpecial }, ref) => {
+const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
     const [loading, setLoading] = useState(false);
 
@@ -19,7 +19,7 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         const fetchData = async () => {
             try {
                 setLoading(true);
-                if (!isStudentSpecial)
+                if (!NotDisplayToast)
                 {
                     toast.info("The Data if not visible will be available in a minute ");
                 }

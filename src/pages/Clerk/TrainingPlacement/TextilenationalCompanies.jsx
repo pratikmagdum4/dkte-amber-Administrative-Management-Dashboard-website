@@ -3,6 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { TrainingPlacement } from '../../../components/variables/variables';
+import { BASE_URL } from '../../../api';
 const initialRows = [
     { nationalcompanies: '' },
 ];
@@ -17,18 +18,10 @@ const stdabroad = true;
 
 
 const TextileNationalCompaniesList = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    const FetchUrl = `${BASE_URL}/api/textile/companies/national/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/textile/companies/national/submit`;
+    const DeleteUrl = `${BASE_URL}/api/textile/companies/national`;
+    const UpdateUrl = `${BASE_URL}/api/textile/companies/national`;
 
     return (
         <div>
@@ -39,7 +32,10 @@ const TextileNationalCompaniesList = () => {
                 columnHeaders={columnHeaders}
                 title="Textile National Companies"
                 numberOfColumns={1}
-                onSubmit={handleSubmit}
+                SubmitUrl={SubmitUrl}
+                FetchUrl={FetchUrl}
+                DeleteUrl={DeleteUrl}
+                UpdateUrl={UpdateUrl}
             />
         </div>
     );

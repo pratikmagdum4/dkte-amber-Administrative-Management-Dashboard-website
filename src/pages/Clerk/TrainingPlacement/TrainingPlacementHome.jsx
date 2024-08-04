@@ -7,7 +7,7 @@ import { TrainingPlacement } from '../../../components/variables/variables';
 const TrainingPlacementListing = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/clerk/home/trainingplacement/${option}`)
+        navigate(`${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">

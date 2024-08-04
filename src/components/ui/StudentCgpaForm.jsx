@@ -6,37 +6,88 @@ import 'jspdf-autotable';
 import Navbar from '../../pages/navbar/Navbar';
 import { ClerkLink } from '../variables/variables';
 
-const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, SubmitUrl }, ref) => {
+const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, SubmitUrl, year, isMba }, ref) => {
     const [students, setStudents] = useState(initialState);
 
+    const titles = {
+        "CSE":"B.Tech Computer Science Engineering",
+        "CSE AI":"B.Tech Computer Science and Engineering (Artificial Intelligence Engineering)",
+        "ENTC":"B.Tech Electronics and Communication Engineering ",
+        "MECH":"B.Tech Mechanical Engineering ",
+        "CE":"B.Tech Civil Engineering ",
+        "ELEC":"B.Tech Electrical Engineering ",
+        "AIDS":"B.Tech Artificial Intelligence and Data Science ",
+        "TT":"B.Tech Textile Technology",
+        "MMTT":"B.Tech Man Made Textile Technology",
+        "FT":"B.Tech Fashion Technology",
+        "TC":"B.Tech Textile Chemistry",
+    }
+    const Years = {
+        "First":"First Year ",
+        "Second":"Second Year ",
+        "Third":"Third Year ",
+        "Fourth":"Fourth Year ",
+    }
+    const getYear = (year) =>{
+        return Years[year] || year;
+    }
+
+    const getTitle = (branch) =>{
+        return titles[branch] || branch;
+    }
     const mergeWithInitialStudents = (fetchedData) => {
         const updatedStudents = initialState.map(initialStudent => {
             const existingStudent = fetchedData.find(
                 student => student.rank === initialStudent.rank && student.dept === initialStudent.dept
             );
+            console.log("Thje exis",existingStudent)
+            return existingStudent ? { ...initialStudent, ...existingStudent } : initialStudent;
+        });
+        
+        console.log("The new are",updatedStudents)
+        return updatedStudents;
+    };
+    const mergeWithInitialStudentsForMba = (fetchedData) => {
+        console.log("Fetched data for MBA:", fetchedData);
+
+        const updatedStudents = initialState.map(initialStudent => {
+            const existingStudent = fetchedData.find(
+                student => student.rank === initialStudent.rank 
+            );
+
+            if (existingStudent) {
+                console.log("Merging data for student:", initialStudent, "with", existingStudent);
+            } else {
+                console.log("No matching student found for:", initialStudent);
+            }
 
             return existingStudent ? { ...initialStudent, ...existingStudent } : initialStudent;
         });
 
+        console.log("The updated MBA students are", updatedStudents);
         return updatedStudents;
     };
 
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-             
                 const response = await axios.get(FetchUrl);
-                console.log("The data received was: " + JSON.stringify(response.data));
-                const mergedStudents = mergeWithInitialStudents(response.data);
-
+                console.log("The data received was: ", response.data);
+                let mergedStudents;
+                
+                    mergedStudents = mergeWithInitialStudents(response.data);
+            
+                // mergedStudents = mergeWithInitialStudentsForMba(response.data);
                 setStudents(mergedStudents);
+                console.log("The students are", mergedStudents);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchStudents();
-    }, [FetchUrl]);
+    }, [FetchUrl, initialState, isMba]);
+
 
     const handleChange = (index, field, value) => {
         const newStudents = [...students];
@@ -115,7 +166,7 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
                                 {index % 5 === 0 && (
                                     <tr className="bg-gray-200">
                                         <td colSpan="3" className="py-2 px-4 border-b text-center font-bold">
-                                            {student.dept}
+                                            {`${getYear(year)}${getTitle(student.dept)}`}
                                         </td>
                                     </tr>
                                 )}

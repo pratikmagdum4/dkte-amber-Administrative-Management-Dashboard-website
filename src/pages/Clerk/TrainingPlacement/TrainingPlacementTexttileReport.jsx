@@ -29,51 +29,59 @@ const columnHeaders2 = [
     { key: 'category', label: 'Category' },
     { key: 'studentcount', label: 'No. of Students ' },
 ];
-
+import { BASE_URL } from '../../../api';
 const TrainingPlacementTextileReport = () => {
-    const handleSubmit = async (data) => {
-        try {
-            const response = await axios.post('https://example.com/api/submit', data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Success:', response.data);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    const FetchUrl = `${BASE_URL}/api/textile/placement`;
+    const SubmitUrl = `${BASE_URL}/api/textile/placement`;
+    const DeleteUrl = `${BASE_URL}/api/textile/placement`;
+    const UpdateUrl = `${BASE_URL}/api/textile/placement`;
     return (
         <div>
             <Navbar links={TrainingPlacement} />
             <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIES</h1>
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="TEXTILE DEPARTMENTS"
                 numberOfColumns={5}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/departments/submit`}
+                FetchUrl={`${FetchUrl}/departments/getdata`}
+                DeleteUrl={`${DeleteUrl}/departments`}
+                UpdateUrl={`${UpdateUrl}/departments`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="Package Offered For Btech Textile "
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/packageoffered/submit`}
+                FetchUrl={`${FetchUrl}/packageoffered/getdata`}
+                DeleteUrl={`${DeleteUrl}/packageoffered`}
+                UpdateUrl={`${UpdateUrl}/packageoffered`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="INTERNATIONAL PLACEMENT &SUMMER INTERNSHIP "
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/international/submit`}
+                FetchUrl={`${FetchUrl}/international/getdata`}
+                DeleteUrl={`${DeleteUrl}/international`}
+                UpdateUrl={`${UpdateUrl}/international`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 initialRows={initialRows2}
                 columnHeaders={columnHeaders2}
                 title="INDUSTRIAL TRAINING "
                 numberOfColumns={2}
-                onSubmit={handleSubmit}
+                SubmitUrl={`${SubmitUrl}/industrialtraining/submit`}
+                FetchUrl={`${FetchUrl}/industrialtraining/getdata`}
+                DeleteUrl={`${DeleteUrl}/industrialtraining`}
+                UpdateUrl={`${UpdateUrl}/industrialtraining`}
             />
 
         </div>
