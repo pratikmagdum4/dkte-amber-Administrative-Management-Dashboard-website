@@ -1,6 +1,7 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
 import { TrainingPlacement } from '../../../components/variables/variables';
+import { Consultativesalesamico1, Facetofaceamico1 } from '../../../assets';
 
 
 
@@ -32,7 +33,7 @@ const TrainingPlacementListing = () => {
                     </button>
 
                 </div>
-                <img src="https://placehold.co/400x300" alt="Group of students" className="mt-8" />
+                <img src={Consultativesalesamico1} alt="Group of students" className="mt-8" />
             </main>
         </div>
     );

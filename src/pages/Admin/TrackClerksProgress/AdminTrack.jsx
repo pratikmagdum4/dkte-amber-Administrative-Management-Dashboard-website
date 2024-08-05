@@ -58,6 +58,7 @@ const ProgressTracking = () => {
                         <p>Total Records Filled: {progressData.MBAClerk}</p>
                         <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                             <div
+                            
                                 className="bg-blue-500 h-full"
                                 style={{ width: `${mbaClerkProgress}%` }}
                             ></div>

@@ -26,6 +26,8 @@ import paymentQR from './paymentQR.jpg';
 
 import Groupdiscussionbro1 from './Group discussion-bro 1.png'
 import Eventscuate1 from './Events-cuate 1.png'
+import Facetofaceamico1 from "./Face to face-amico 1.png";
+import Consultativesalesamico1 from './Consultative sales-amico 1.png'
 export {
   Chart,
   Gmail,
@@ -53,6 +55,8 @@ export {
   paymentQR,
   Groupdiscussionbro1,
   Eventscuate1,
+  Facetofaceamico1,
+  Consultativesalesamico1,
 };
 
 

@@ -23,6 +23,8 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
         "MMTT": "B.Tech Man Made Textile Technology",
         "FT": "B.Tech Fashion Technology",
         "TC": "B.Tech Textile Chemistry",
+        "FyMba":"MBA",
+        "SyMba":"MBA",
     }
     const Years = {
         "First": "First Year ",
