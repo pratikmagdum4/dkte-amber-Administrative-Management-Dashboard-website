@@ -77,9 +77,9 @@ const ImgUploadList = () => {
                                         {imgUpload.imageUrl && (
                                             <div className="flex flex-col items-center">
                                                 <img
-                                                    src={`${imgUpload.imageUrl}`}
+                                                    src={`${imgUpload.  imageUrl}`}
                                                     alt="Uploaded"
-                                                    className="w-1/2 h-25 object-cover rounded-md mt-4"
+                                                    className="w-full h-full object-cover rounded-md mt-4"
                                                 />
                                                 <a
                                                     href={imgUpload.imageUrl}

@@ -57,8 +57,10 @@ const ImageDisplayList = () => {
                                         alt="Self"
                                         className="w-32 h-32 object-cover rounded-full md:w-48 md:h-48"
                                     />
+                                   
                                 </div>
                                 <div className="col-span-2">
+                                    
                                     <h3 className="text-xl font-bold">{image.title}</h3>
                                     <p className="text-gray-600">By {image.stdname}</p>
                                     <p className="text-gray-600">Email: {image.email}</p>
@@ -67,9 +69,11 @@ const ImageDisplayList = () => {
                                     <p className="text-gray-600">Year: {image.year}</p>
                                     <p className="text-gray-600">Type: {image.imageType}</p>
                                 </div>
+                               
                                 <div className="col-span-3 mt-4 flex space-x-4">
+                                   
                                     <a
-                                        href={`${image.selfImage}`}
+                                        href={`${image.imageUrl}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="px-4 py-2 bg-blue-500 text-white rounded"
@@ -77,8 +81,9 @@ const ImageDisplayList = () => {
                                         View
                                     </a>
                                     <a
-                                        href={`${image.selfImage}`}
-                                        download
+                                        href={`${image.imageUrl}`}
+                                        download={`${image.stdname},${image.branch}`}
+                                        target="_blank"
                                         className="px-4 py-2 bg-green-500 text-white rounded"
                                     >
                                         Download

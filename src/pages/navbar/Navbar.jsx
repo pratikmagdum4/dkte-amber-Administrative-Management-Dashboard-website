@@ -59,7 +59,9 @@ const Navbar = ({ links }) => {
         <nav className="bg-black text-white p-4 flex justify-between items-center">
             <div className="flex items-center">
                 
-                <img src={logo} alt="" />
+                <img onClick={()=>{
+                    navigate("/")
+                }} src={logo} alt="" />
                 <span className="text-white text-xl">Ambar</span>
             </div>
             <div className="lg:hidden flex items-center">
