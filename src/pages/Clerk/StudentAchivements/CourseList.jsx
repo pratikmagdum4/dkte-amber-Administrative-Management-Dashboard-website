@@ -63,7 +63,7 @@
 // export default CourseList;
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../navbar/Navbar";
-import { ClerkLink } from "../../../components/variables/variables";
+import { ClerkNavLink } from "../../../components/variables/variables";
 // import ListingComponent from "../../../components/ui/listingPage";
 
 import { useState } from "react";

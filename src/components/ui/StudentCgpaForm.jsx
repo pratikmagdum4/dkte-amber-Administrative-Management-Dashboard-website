@@ -4,7 +4,7 @@ import { BASE_URL } from '../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Navbar from '../../pages/navbar/Navbar';
-import { ClerkLink } from '../variables/variables';
+import { ClerkNavLink } from '../variables/variables';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -153,7 +153,7 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
     return (
         <>
-            <Navbar links={ClerkLink} />
+            <Navbar links={ClerkNavLink} />
             <button onClick={generatePDF} className="mt-4 bg-green-500 text-white py-2 px-4 rounded">
                 Download PDF
             </button>

@@ -3,6 +3,7 @@ import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
 import { BASE_URL } from '../../../api';
+import { toast } from 'react-toastify';
 
 const TechnicalArticleForm = () => {
     const [formData, setFormData] = useState({
@@ -42,6 +43,7 @@ const TechnicalArticleForm = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            toast.success("Successfully submitted")
             console.log('Server response:', response.data);
             alert("Success!");
         } catch (error) {

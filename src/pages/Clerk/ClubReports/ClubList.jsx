@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { ClubList } from '../../../components/variables/variables';
+import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import ErrorBoundary from '../../../components/ErrorBoundry';
 
@@ -24,7 +24,7 @@ const ClubReports = () => {
     return (
 <ErrorBoundary >
         <div> 
-            <Navbar links={ClubList} />
+                <Navbar links={ClerkNavLink} />
             <AchievementsTable
                 NotDisplayToast={true}
                 stdabroad={stdabroad}

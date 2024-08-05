@@ -78,11 +78,13 @@ const ImgUploadList = () => {
                                             <div className="flex flex-col items-center">
                                                 <img
                                                     src={`${imgUpload.  imageUrl}`}
+                                                    
                                                     alt="Uploaded"
                                                     className="w-full h-full object-cover rounded-md mt-4"
                                                 />
                                                 <a
                                                     href={imgUpload.imageUrl}
+                                                    
                                                     download={`${imgUpload.stdname},${imgUpload.branch}`}
                                                     target="_blank"
                                                     className="mt-2 px-4 py-2 bg-green-500 text-white rounded"

@@ -15,6 +15,7 @@ export const AdminVerifyLink = [
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
   { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Notification", url: "/login/admin/home/notification" },
 ];
 export const AdminDisplayLink = [
   { label: "Home", url: "/" },
@@ -26,7 +27,7 @@ export const ClerkNavLink = [
  
   { label: "Home", url: "/" },
   { label: "Login", url: "/login" },
-  { label: "Register", url: "/" },
+  { label: "Notification", url: "/login/clerk/home/notification" },
   { label: "Contact", url: "/" },
 ];
 export const AdminNavLink = [
@@ -36,12 +37,7 @@ export const AdminNavLink = [
   { label: "Contact", url: "/" },
 ];
 
-export const ClerkLink = [
-  { label: "Home", url: "/" },
-  { label: "Login", url: "/login" },
-  { label: "Register", url: "/" },
-  { label: "Contact", url: "/" },
-];
+
 
 export const ClubList = [
   { label: "Home", url: "/" },

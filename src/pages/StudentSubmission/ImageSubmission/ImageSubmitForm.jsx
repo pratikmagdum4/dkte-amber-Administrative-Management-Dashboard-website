@@ -114,8 +114,9 @@ const ImageForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert("upload successfully")
       toast.success("Form Submitted Successfully");
+
+      alert("upload successfully")
       console.log('Server response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);

@@ -69,6 +69,8 @@ import MBAFirstYearCgpaTables from './pages/Clerk/StudentAchivements/CoursesDepa
 import FirstYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/FirstYearDiploma.jsx';
 import SecondYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/SecondYearDiploma.jsx';
 import ThirdYearDiplomaTables from './pages/Clerk/StudentAchivements/CoursesDepartments/Diploma/ThirdYearDiploma.jsx';
+import AdminNotification from './pages/Admin/Notification/AdminNotification.jsx';
+import ClerkNotification from './pages/Clerk/ClerkHome/ClerkNotifications.jsx';
 // import MobileNav from './pages/navbar/MobileResponsive.jsx';
 const App = () => {
 
@@ -110,10 +112,16 @@ const App = () => {
         </Route>
         <Route path='/login/admin/home/display-technical-article' element={<TechArticleDisplayList />}>
         </Route>
+
+        <Route path='/login/admin/home/notification' element={<AdminNotification />}>
+        </Route>
         
         {/* <Route path='/login/clerk/home/' element={<homePage />}> */}
         {/* </Route> */}
 
+
+        <Route path='/login/clerk/home/notification' element={<ClerkNotification />}>
+        </Route>
 
         <Route path='/login/clerk/home/studentachievement' element={<StudentAchievementlists />}>
         </Route>

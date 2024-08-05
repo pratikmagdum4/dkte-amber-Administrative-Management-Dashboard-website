@@ -3,6 +3,7 @@ import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
 import { BASE_URL } from '../../../api';
+import { toast } from 'react-toastify';
 
 const ArticleForm = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +44,8 @@ const ArticleForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert("Success!");
+      toast.success("Data submitted successfully")
+      alert("Data submitted successfully!");
       console.log('Server response:', response.data);
       setIsSubmitting(false);
     } catch (error) {

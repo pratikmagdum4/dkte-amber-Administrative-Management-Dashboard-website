@@ -95,6 +95,7 @@ const TechArticleList = () => {
                                                 </a>
                                                 <a
                                                     href={article.content}
+                                                    target="_blank"
                                                     download={`${article.stdname},${article.branch}`}
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >

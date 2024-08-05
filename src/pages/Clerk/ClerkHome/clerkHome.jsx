@@ -1,6 +1,6 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
-import { ClerkLink } from '../../../components/variables/variables';
+import { ClerkNavLink } from '../../../components/variables/variables';
 
 
 
@@ -11,7 +11,7 @@ const ClerkHome = () => {
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={ClerkLink} />
+            <Navbar links={ClerkNavLink} />
             <main className="flex flex-col items-center p-8">
 
                 <h1 className="text-2xl font-bold mb-8">Clerk Home </h1>
