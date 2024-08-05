@@ -23,33 +23,37 @@ import SampleBarGraph from './SampleBarGraph.png';
 import Interviewer from './Interviewer.png'
 import SignUpLoginHome from './signup_login_home_pic.png';
 import paymentQR from './paymentQR.jpg';
-export {
-    Chart,
-    Gmail,
-    Instagram,
-    MaleUser,
-    CollaborationFemaleMale,
-    interview,
-    Timetable,
-    Twitter,
-    logo,
-    LinkedIn,
 
-    StudentMale,
-    AdministratorMale,
-    interviewComposition,
-    Menu,
-    Facebook,
-    NotVisibleEye,
-    visibleEye,
-    HomePicture,
-    ProfileImage,
-    CameraIcon,
-    SampleBarGraph,
-    Interviewer,
-    SignUpLoginHome,
-    paymentQR,
-}
+import Groupdiscussionbro1 from './Group discussion-bro 1.png'
+import Eventscuate1 from './Events-cuate 1.png'
+export {
+  Chart,
+  Gmail,
+  Instagram,
+  MaleUser,
+  CollaborationFemaleMale,
+  interview,
+  Timetable,
+  Twitter,
+  logo,
+  LinkedIn,
+  StudentMale,
+  AdministratorMale,
+  interviewComposition,
+  Menu,
+  Facebook,
+  NotVisibleEye,
+  visibleEye,
+  HomePicture,
+  ProfileImage,
+  CameraIcon,
+  SampleBarGraph,
+  Interviewer,
+  SignUpLoginHome,
+  paymentQR,
+  Groupdiscussionbro1,
+  Eventscuate1,
+};
 
 
 

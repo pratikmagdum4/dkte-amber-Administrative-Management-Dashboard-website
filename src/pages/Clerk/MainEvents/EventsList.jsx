@@ -5,6 +5,7 @@ import { MainEvents } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { Eventscuate1 } from '../../../assets';
 
 const initialRows = [
     { srno: '', info: '' },
@@ -131,6 +132,7 @@ const MainEventTables = () => {
                     />
                 ))}
             </div>
+         
           
         </div>
     );
