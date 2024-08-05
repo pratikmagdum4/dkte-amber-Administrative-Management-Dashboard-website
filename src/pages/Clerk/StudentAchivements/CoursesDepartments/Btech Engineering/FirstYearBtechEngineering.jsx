@@ -45,6 +45,7 @@ const FirstYearBtechEngineeringTables = () => {
     const FetchUrl =  `${BASE_URL}/api/btechcgpa/get/first`
     const SubmitUrl =  `${BASE_URL}/api/btechcgpa/submit/first`
     const year = "First"
+    
     return (
         <div>
             <StudentCgpaFormTable

@@ -14,7 +14,6 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
     useImperativeHandle(ref, () => ({
         title,
         rows,
-        generatePDF
     }));
 
     useEffect(() => {
@@ -127,44 +126,7 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
-    const generatePDF = () => {
-        const doc = new jsPDF();
-        const pageHeight = doc.internal.pageSize.height;
-        let yOffset = 10; // Start at the top of the page
-
-        const tableColumns = columnHeaders.map(header => ({ title: header.label, dataKey: header.key }));
-        const tableRows = rows.map(row => Object.fromEntries(
-            columnHeaders.map(header => [header.key, row[header.key]])
-        ));
-
-        // Add title
-        doc.setFontSize(16);
-        doc.text(title, 10, yOffset);
-        yOffset += 10; // Increase Y offset for table content
-
-        // Add table with autoTable
-        doc.autoTable({
-            startY: yOffset,
-            head: [tableColumns.map(col => col.title)],
-            body: tableRows.map(row => Object.values(row)),
-            margin: { top: 10, right: 10, bottom: 10, left: 10 },
-            pageBreak: 'auto',
-            styles: { overflow: 'linebreak' },
-            headStyles: { fillColor: [41, 128, 185] },
-            theme: 'grid',
-            didDrawPage: (data) => {
-                // Adjust yOffset for new pages
-                if (data.pageNumber > 1) {
-                    yOffset = 10;
-                }
-            }
-        });
-
-        // Calculate new Y offset after table is drawn
-        yOffset = doc.lastAutoTable.finalY + 20;
-
-        doc.save(`${title.replace(/\s+/g, '_').toLowerCase()}.pdf`);
-    };
+    
 
     return (
         <div>

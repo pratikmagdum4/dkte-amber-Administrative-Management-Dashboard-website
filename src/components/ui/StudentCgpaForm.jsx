@@ -5,34 +5,36 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import Navbar from '../../pages/navbar/Navbar';
 import { ClerkLink } from '../variables/variables';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, SubmitUrl, year, isMba }, ref) => {
     const [students, setStudents] = useState(initialState);
 
     const titles = {
-        "CSE":"B.Tech Computer Science Engineering",
-        "CSE AI":"B.Tech Computer Science and Engineering (Artificial Intelligence Engineering)",
-        "ENTC":"B.Tech Electronics and Communication Engineering ",
-        "MECH":"B.Tech Mechanical Engineering ",
-        "CE":"B.Tech Civil Engineering ",
-        "ELEC":"B.Tech Electrical Engineering ",
-        "AIDS":"B.Tech Artificial Intelligence and Data Science ",
-        "TT":"B.Tech Textile Technology",
-        "MMTT":"B.Tech Man Made Textile Technology",
-        "FT":"B.Tech Fashion Technology",
-        "TC":"B.Tech Textile Chemistry",
+        "CSE": "B.Tech Computer Science Engineering",
+        "CSE AI": "B.Tech Computer Science and Engineering (Artificial Intelligence Engineering)",
+        "ENTC": "B.Tech Electronics and Communication Engineering ",
+        "MECH": "B.Tech Mechanical Engineering ",
+        "CE": "B.Tech Civil Engineering ",
+        "ELEC": "B.Tech Electrical Engineering ",
+        "AIDS": "B.Tech Artificial Intelligence and Data Science ",
+        "TT": "B.Tech Textile Technology",
+        "MMTT": "B.Tech Man Made Textile Technology",
+        "FT": "B.Tech Fashion Technology",
+        "TC": "B.Tech Textile Chemistry",
     }
     const Years = {
-        "First":"First Year ",
-        "Second":"Second Year ",
-        "Third":"Third Year ",
-        "Fourth":"Fourth Year ",
+        "First": "First Year ",
+        "Second": "Second Year ",
+        "Third": "Third Year ",
+        "Fourth": "Fourth Year ",
     }
-    const getYear = (year) =>{
+    const getYear = (year) => {
         return Years[year] || year;
     }
 
-    const getTitle = (branch) =>{
+    const getTitle = (branch) => {
         return titles[branch] || branch;
     }
     const mergeWithInitialStudents = (fetchedData) => {
@@ -40,11 +42,11 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
             const existingStudent = fetchedData.find(
                 student => student.rank === initialStudent.rank && student.dept === initialStudent.dept
             );
-            console.log("Thje exis",existingStudent)
+            console.log("Thje exis", existingStudent)
             return existingStudent ? { ...initialStudent, ...existingStudent } : initialStudent;
         });
-        
-        console.log("The new are",updatedStudents)
+
+        console.log("The new are", updatedStudents)
         return updatedStudents;
     };
     const mergeWithInitialStudentsForMba = (fetchedData) => {
@@ -52,7 +54,7 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
         const updatedStudents = initialState.map(initialStudent => {
             const existingStudent = fetchedData.find(
-                student => student.rank === initialStudent.rank 
+                student => student.rank === initialStudent.rank
             );
 
             if (existingStudent) {
@@ -70,13 +72,16 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
     useEffect(() => {
         const fetchStudents = async () => {
+            toast.info("The Data if not visible will be available in a minute ");
+            console.log("hi i")
             try {
+                toast.info("The Data if not visible will be available in a minute ");
                 const response = await axios.get(FetchUrl);
                 console.log("The data received was: ", response.data);
                 let mergedStudents;
-                
-                    mergedStudents = mergeWithInitialStudents(response.data);
-            
+
+                mergedStudents = mergeWithInitialStudents(response.data);
+
                 // mergedStudents = mergeWithInitialStudentsForMba(response.data);
                 setStudents(mergedStudents);
                 console.log("The students are", mergedStudents);
@@ -148,59 +153,65 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
     return (
         <>
-     <Navbar links={ClerkLink}/>
-        <div className="container mx-auto p-4">
-            <h1 className="text-xl font-bold mb-4">{title}</h1>
-            <form onSubmit={handleSubmit}>
-                <table className="min-w-full bg-white dark:bg-zinc-800">
-                    <thead>
-                        <tr>
-                            <th className="py-2 px-4 border-b">RANK</th>
-                            <th className="py-2 px-4 border-b">STUDENT'S NAME</th>
-                            <th className="py-2 px-4 border-b">CGPA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {students.map((student, index) => (
-                            <React.Fragment key={index}>
-                                {index % 5 === 0 && (
-                                    <tr className="bg-gray-200">
-                                        <td colSpan="3" className="py-2 px-4 border-b text-center font-bold">
-                                            {`${getYear(year)}${getTitle(student.dept)}`}
-                                        </td>
-                                    </tr>
-                                )}
-                                <tr>
-                                    <td className="py-2 px-4 border-b text-center">{student.rank}</td>
-                                    <td className="py-2 px-4 border-b">
-                                        <input
-                                            type="text"
-                                            value={student.stdname}
-                                            onChange={(e) => handleChange(index, 'stdname', e.target.value)}
-                                            className="w-full p-2 border rounded"
-                                        />
-                                    </td>
-                                    <td className="py-2 px-4 border-b">
-                                        <input
-                                            type="text"
-                                            value={student.cgpa}
-                                            onChange={(e) => handleChange(index, 'cgpa', e.target.value)}
-                                            className="w-full p-2 border rounded"
-                                        />
-                                    </td>
-                                </tr>
-                            </React.Fragment>
-                        ))}
-                    </tbody>
-                </table>
-                <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-                    Save
-                </button>
-            </form>
+            <Navbar links={ClerkLink} />
             <button onClick={generatePDF} className="mt-4 bg-green-500 text-white py-2 px-4 rounded">
                 Download PDF
             </button>
-        </div>
+            <div className="container mx-auto p-4">
+                <h1 className="text-xl font-bold mb-4">{title}</h1>
+                <form onSubmit={handleSubmit}>
+                    <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                        Save
+                    </button>
+                    <table className="min-w-full bg-white dark:bg-zinc-800">
+                        <thead>
+                            <tr>
+                                <th className="py-2 px-4 border-b">RANK</th>
+                                <th className="py-2 px-4 border-b">STUDENT'S NAME</th>
+                                <th className="py-2 px-4 border-b">CGPA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {students.map((student, index) => (
+                                <React.Fragment key={index}>
+                                    {index % 5 === 0 && (
+                                        <tr className="bg-gray-200">
+                                            <td colSpan="3" className="py-2 px-4 border-b text-center font-bold">
+                                                {`${getYear(year)}${getTitle(student.dept)}`}
+                                            </td>
+                                        </tr>
+                                    )}
+                                    <tr>
+                                        <td className="py-2 px-4 border-b text-center">{student.rank}</td>
+                                        <td className="py-2 px-4 border-b">
+                                            <input
+                                                type="text"
+                                                value={student.stdname}
+                                                onChange={(e) => handleChange(index, 'stdname', e.target.value)}
+                                                className="w-full p-2 border rounded"
+                                            />
+                                        </td>
+                                        <td className="py-2 px-4 border-b">
+                                            <input
+                                                type="text"
+                                                value={student.cgpa}
+                                                onChange={(e) => handleChange(index, 'cgpa', e.target.value)}
+                                                className="w-full p-2 border rounded"
+                                            />
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
+                            ))}
+                        </tbody>
+                    </table>
+                    <button type="submit" className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                        Save
+                    </button>
+                </form>
+                <button onClick={generatePDF} className="mt-4 bg-green-500 text-white py-2 px-4 rounded">
+                    Download PDF
+                </button>
+            </div>
         </>
     );
 });
