@@ -83,7 +83,10 @@ const StaffMembersList = () => {
 
         doc.save('staff-members-list.pdf');
     };
-
+    const FetchUrl = `${BASE_URL}/api/staffmember`;
+    const SubmitUrl = `${BASE_URL}/api/staffmember`;
+    const DeleteUrl = `${BASE_URL}/api/staffmember`;
+    const UpdateUrl = `${BASE_URL}/api/staffmember`;
     return (
         <div>
             <Navbar links={StaffMembers} />
@@ -96,23 +99,34 @@ const StaffMembersList = () => {
                 columnHeaders={columnHeaders}
                 title="STAFF MEMBERS 2023-2024"
                 numberOfColumns={2}
-                onSubmit={() => { }}
+                SubmitUrl={`${SubmitUrl}/list/submit`}
+                FetchUrl={`${FetchUrl}/list/getdata`}
+                DeleteUrl={`${DeleteUrl}/list`}
+                UpdateUrl={`${UpdateUrl}/list`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 ref={el => tablesRef.current[1] = el}
                 initialRows={initialRows1}
                 columnHeaders={columnHeaders1}
                 title="STAFF MEMBERS 2023-2024 - UG/PG/MBA"
                 numberOfColumns={2}
-                onSubmit={() => { }}
+                SubmitUrl={`${SubmitUrl}/category/submit`}
+                FetchUrl={`${FetchUrl}/category/getdata`}
+                DeleteUrl={`${DeleteUrl}/category`}
+                UpdateUrl={`${UpdateUrl}/category`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 ref={el => tablesRef.current[2] = el}
                 initialRows={initialRows2}
                 columnHeaders={columnHeaders2}
                 title="STAFF MEMBERS 2023-2024 - Position Count"
                 numberOfColumns={2}
-                onSubmit={() => { }}
+                SubmitUrl={`${SubmitUrl}/positioncount/submit`}
+                FetchUrl={`${FetchUrl}/positioncount/getdata`}
+                DeleteUrl={`${DeleteUrl}/positioncount`}
+                UpdateUrl={`${UpdateUrl}/positioncount`}
             />
         </div>
     );

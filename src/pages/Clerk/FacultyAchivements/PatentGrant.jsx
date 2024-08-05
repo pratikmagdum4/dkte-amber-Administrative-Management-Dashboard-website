@@ -17,10 +17,10 @@ const columnHeaders1 = [
 ];
 
 const FacultyPatentGrant = () => {
-    const FetchUrl = `${BASE_URL}/api/facultyachievement/patentgrant/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievement/patentgrant/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievement/patentgrant`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievement/patentgrant`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/patentgrant/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/patentgrant/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/patentgrant`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/patentgrant`;
     return (
         <div>
             <Navbar links={FacultyAchivements} />

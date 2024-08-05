@@ -17,14 +17,15 @@ const columnHeaders = [
 const stdabroad = true;
 const FacultyTrainingProgram = () => {
 
-    const FetchUrl = `${BASE_URL}/api/facultyachievement/trainingprogrammes/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievement/trainingprogrammes/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievement/trainingprogrammes`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievement/trainingprogrammes`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/trainingprogrammes/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/trainingprogrammes/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/trainingprogrammes`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/trainingprogrammes`;
     return (
         <div>
             <Navbar links={FacultyAchivements} />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}

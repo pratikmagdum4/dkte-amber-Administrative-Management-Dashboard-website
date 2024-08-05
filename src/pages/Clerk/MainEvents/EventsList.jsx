@@ -116,6 +116,7 @@ const MainEventTables = () => {
                     }
                 ].map((config, index) => (
                     <AchievementsTable
+                        NotDisplayToast={true}
                         key={index}
                         stdabroad={stdabroad}
                         initialRows={initialRows}

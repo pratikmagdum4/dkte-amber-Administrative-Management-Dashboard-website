@@ -16,10 +16,10 @@ const columnHeaders = [
 const stdabroad = true;
 const FacultyPaperPresentation = () => {
 
-    const FetchUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievement/paperpresentaion`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/paperpresentation/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/paperpresentation/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/paperpresentation`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/paperpresentation`;
 
     return (
         <div>

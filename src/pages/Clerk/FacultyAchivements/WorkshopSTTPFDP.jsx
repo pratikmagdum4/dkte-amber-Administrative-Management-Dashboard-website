@@ -17,10 +17,10 @@ const columnHeaders = [
 const stdabroad = true;
 const FacultyWorkShop = () => {
 
-    const FetchUrl = `${BASE_URL}/api/facultyachievement/workshop/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/facultyachievement/workshop/submit`;
-    const DeleteUrl = `${BASE_URL}/api/facultyachievement/workshop`;
-    const UpdateUrl = `${BASE_URL}/api/facultyachievement/workshop`;
+    const FetchUrl = `${BASE_URL}/api/facultyachievements/workshop/getdata`;
+    const SubmitUrl = `${BASE_URL}/api/facultyachievements/workshop/submit`;
+    const DeleteUrl = `${BASE_URL}/api/facultyachievements/workshop`;
+    const UpdateUrl = `${BASE_URL}/api/facultyachievements/workshop`;
     return (
         <div>
             <Navbar FacultyAchivements />

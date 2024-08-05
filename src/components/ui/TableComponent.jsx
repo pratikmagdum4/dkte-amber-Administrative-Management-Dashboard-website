@@ -4,7 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { Loader } from 'lucide-react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
@@ -12,19 +13,18 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
 
     useImperativeHandle(ref, () => ({
         title,
-        rows
+        rows,
+        generatePDF
     }));
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                if (!NotDisplayToast)
-                {
+                if (!NotDisplayToast) {
                     toast.info("The Data if not visible will be available in a minute ");
                 }
                
-
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
             } catch (error) {
@@ -127,89 +127,126 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
+    const generatePDF = () => {
+        const doc = new jsPDF();
+        const pageHeight = doc.internal.pageSize.height;
+        let yOffset = 10; // Start at the top of the page
+
+        const tableColumns = columnHeaders.map(header => ({ title: header.label, dataKey: header.key }));
+        const tableRows = rows.map(row => Object.fromEntries(
+            columnHeaders.map(header => [header.key, row[header.key]])
+        ));
+
+        // Add title
+        doc.setFontSize(16);
+        doc.text(title, 10, yOffset);
+        yOffset += 10; // Increase Y offset for table content
+
+        // Add table with autoTable
+        doc.autoTable({
+            startY: yOffset,
+            head: [tableColumns.map(col => col.title)],
+            body: tableRows.map(row => Object.values(row)),
+            margin: { top: 10, right: 10, bottom: 10, left: 10 },
+            pageBreak: 'auto',
+            styles: { overflow: 'linebreak' },
+            headStyles: { fillColor: [41, 128, 185] },
+            theme: 'grid',
+            didDrawPage: (data) => {
+                // Adjust yOffset for new pages
+                if (data.pageNumber > 1) {
+                    yOffset = 10;
+                }
+            }
+        });
+
+        // Calculate new Y offset after table is drawn
+        yOffset = doc.lastAutoTable.finalY + 20;
+
+        doc.save(`${title.replace(/\s+/g, '_').toLowerCase()}.pdf`);
+    };
+
     return (
         <div>
             <ToastContainer />
-           
-                <form onSubmit={handleSubmit} className="p-4">
-                    <h2 className="text-center font-bold text-xl mb-4">
-                        {title}
-                    </h2>
-                    <table className="min-w-full border-collapse border border-zinc-400">
-                        <thead>
-                            <tr>
-                                {columnsToDisplay.map(header => (
-                                    <th key={header.key} className="border border-zinc-400 px-4 py-2">{header.label}</th>
-                                ))}
-                                <th className="border border-zinc-400 px-4 py-2">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading ? (
-                                Array.from({ length: 5 }).map((_, i) => (
-                                    <tr key={i}>
-                                        {columnsToDisplay.map(header => (
-                                            <td key={header.key} className="border border-zinc-400 px-4 py-2">
-                                                <Skeleton height={20} />
-                                            </td>
-                                        ))}
-                                        <td className="border border-zinc-400 px-4 py-2 text-center">
-                                            <Skeleton height={40} width={100} />
+            <form onSubmit={handleSubmit} className="p-4">
+                <h2 className="text-center font-bold text-xl mb-4">
+                    {title}
+                </h2>
+                <table className="min-w-full border-collapse border border-zinc-400">
+                    <thead>
+                        <tr>
+                            {columnsToDisplay.map(header => (
+                                <th key={header.key} className="border border-zinc-400 px-4 py-2">{header.label}</th>
+                            ))}
+                            <th className="border border-zinc-400 px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loading ? (
+                            Array.from({ length: 5 }).map((_, i) => (
+                                <tr key={i}>
+                                    {columnsToDisplay.map(header => (
+                                        <td key={header.key} className="border border-zinc-400 px-4 py-2">
+                                            <Skeleton height={20} />
                                         </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                rows.map((row, index) => (
-                                    <tr key={index}>
-                                        {columnsToDisplay.map(header => (
-                                            <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
-                                                <textarea
-                                                    name={header.key}
-                                                    value={row[header.key]}
-                                                    onChange={(e) => handleChange(index, e)}
-                                                    className="w-full p-2 border border-zinc-300 rounded resize-none"
-                                                    rows="1"
-                                                    onInput={(e) => adjustTextareaHeight(e.target)}
-                                                    style={{ overflow: 'hidden' }}
-                                                />
-                                            </td>
-                                        ))}
-                                        <td className="border border-zinc-400 px-4 py-2 text-center">
-                                            <button
-                                                type="button"
-                                                onClick={() => handleUpdateRow(index)}
-                                                className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
-                                            >
-                                                Update
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => handleDeleteRow(index)}
-                                                className="bg-red-500 text-white px-5 py-2 rounded"
-                                            >
-                                                Delete
-                                            </button>
+                                    ))}
+                                    <td className="border border-zinc-400 px-4 py-2 text-center">
+                                        <Skeleton height={40} width={100} />
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            rows.map((row, index) => (
+                                <tr key={index}>
+                                    {columnsToDisplay.map(header => (
+                                        <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
+                                            <textarea
+                                                name={header.key}
+                                                value={row[header.key]}
+                                                onChange={(e) => handleChange(index, e)}
+                                                className="w-full p-2 border border-zinc-300 rounded resize-none"
+                                                rows="1"
+                                                onInput={(e) => adjustTextareaHeight(e.target)}
+                                                style={{ overflow: 'hidden' }}
+                                            />
                                         </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                    <button
-                        type="button"
-                        onClick={handleAddRow}
-                        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-                    >
-                        Add Row
-                    </button>
-                    <button
-                        type="submit"
-                        className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-                    >
-                        Submit
-                    </button>
-                </form>
-          
+                                    ))}
+                                    <td className="border border-zinc-400 px-4 py-2 text-center">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleUpdateRow(index)}
+                                            className="bg-yellow-400 text-white px-4 py-2 rounded mr-2 mb-2"
+                                        >
+                                            Update
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => handleDeleteRow(index)}
+                                            className="bg-red-500 text-white px-5 py-2 rounded"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+                <button
+                    type="button"
+                    onClick={handleAddRow}
+                    className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                    Add Row
+                </button>
+                <button
+                    type="submit"
+                    className="mt-4 ml-4 bg-green-500 text-white px-4 py-2 rounded"
+                >
+                    Submit
+                </button>
+            </form>
         </div>
     );
 });
