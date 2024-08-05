@@ -3,7 +3,7 @@ import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import { BASE_URL } from '../../../api';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/variables/variables';
+import { ClerkNavLink, TrainingPlacement } from '../../../components/variables/variables';
 const initialRows = [
     { internationalcompanies: '' },
 ];
@@ -25,7 +25,7 @@ const TextileInternationalCompaniesList = () => {
 
     return (
         <div>
-            <Navbar links={TrainingPlacement} />
+            <Navbar links={ClerkNavLink} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

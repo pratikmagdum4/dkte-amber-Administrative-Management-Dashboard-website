@@ -1,7 +1,7 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
-import { FacultyAchivements } from '../../../components/variables/variables';
+import { ClerkNavLink, FacultyAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 
 const FacultyBooksPublication = () => {
@@ -22,7 +22,7 @@ const FacultyBooksPublication = () => {
 
     return (
         <div>
-            <Navbar links={FacultyAchivements} />
+            <Navbar links={ClerkNavLink} />
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}

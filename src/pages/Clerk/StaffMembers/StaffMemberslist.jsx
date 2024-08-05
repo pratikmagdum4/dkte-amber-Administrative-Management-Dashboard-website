@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { StaffMembers } from '../../../components/variables/variables';
+import { ClerkNavLink, StaffMembers } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -89,7 +89,7 @@ const StaffMembersList = () => {
     const UpdateUrl = `${BASE_URL}/api/staffmember`;
     return (
         <div>
-            <Navbar links={StaffMembers} />
+            <Navbar links={ClerkNavLink} />
             <button onClick={generatePDF} className="mb-4 mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                 Generate PDF
             </button>

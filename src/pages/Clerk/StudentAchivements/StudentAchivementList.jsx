@@ -1,6 +1,6 @@
 import React from 'react'; import { useNavigate } from 'react-router-dom';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/variables/variables';
+import { ClerkNavLink, StudentAchivements } from '../../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../../assets';
 const StudentAchievementlists = () => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ const StudentAchievementlists = () => {
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={StudentAchivements} />
+            <Navbar links={ClerkNavLink} />
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">Student</h1>
                 <div className="space-y-4 w-full max-w-md">

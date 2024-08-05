@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { TrainingPlacement } from '../../../components/variables/variables';
+import { ClerkNavLink, TrainingPlacement } from '../../../components/variables/variables';
 const initialRows = [
     { branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
 ];
@@ -35,7 +35,7 @@ const TrainingPlacementEngineeringReport = () => {
     const UpdateUrl = `${BASE_URL}/api/engineering/placement`;
     return (
         <div>
-            <Navbar links={TrainingPlacement} />
+            <Navbar links={ClerkNavLink} />
             <h1>REPORT ON TRAINING AND PLACEMENT ACTIVITIESdfg</h1>
 
             <AchievementsTable

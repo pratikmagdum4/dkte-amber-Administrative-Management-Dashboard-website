@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { UpGraduation } from '../../../components/variables/variables';
+import { ClerkNavLink, UpGraduation } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', name: '', designation: '', course: '' },
@@ -25,7 +25,7 @@ const UpGraduationQalificationList = () => {
   
     return (
         <div>
-            <Navbar links={UpGraduation} />
+            <Navbar links={ClerkNavLink} />
             <h1>PH.D. Awarded :-</h1>
             <AchievementsTable
                 initialRows={initialRows}

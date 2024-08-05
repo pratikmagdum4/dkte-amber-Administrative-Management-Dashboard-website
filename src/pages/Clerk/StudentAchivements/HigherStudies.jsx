@@ -2,7 +2,7 @@ import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/variables/variables';
+import { ClerkNavLink, StudentAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 const initialRows = [
     { srno: '', info: '' },
@@ -26,7 +26,7 @@ const StdHigherEducation = () => {
     const UpdateUrl = `${BASE_URL}/api/studentachievements/higherstudies`;
     return (
         <div>
-            <Navbar links={StudentAchivements} />
+            <Navbar links={ClerkNavLink} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

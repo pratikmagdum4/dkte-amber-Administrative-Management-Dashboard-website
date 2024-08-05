@@ -30,6 +30,7 @@ const FirstYearDiplomaTables = () => {
 
     return (
         <div>
+            
             <StudentCgpaFormTable
                 title="First Year Diploma"
                 initialState={initialStudentsState}

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
-import { StudentAchivements } from '../../../components/variables/variables';
+import { ClerkNavLink, StudentAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -64,7 +64,7 @@ const StdAppreciationPrize = () => {
     };
     return (
         <div>
-            <Navbar links={StudentAchivements} />
+            <Navbar links={ClerkNavLink} />
             <button onClick={generatePDF} className="mb-4 mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                 Generate PDF
             </button>

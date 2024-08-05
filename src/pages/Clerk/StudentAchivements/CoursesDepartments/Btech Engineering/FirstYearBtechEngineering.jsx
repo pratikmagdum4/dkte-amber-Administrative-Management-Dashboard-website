@@ -1,6 +1,8 @@
 import React from 'react';
 import StudentCgpaFormTable from '../../../../../components/ui/StudentCgpaForm';
 import { BASE_URL } from '../../../../../api';
+import Navbar from '../../../../navbar/Navbar';
+import { ClerkNavLink } from '../../../../../components/variables/variables';
 
 const initialStudentsState = [
     { rank: 1, stdname: '', cgpa: '', dept: 'CSE' },
@@ -48,6 +50,7 @@ const FirstYearBtechEngineeringTables = () => {
     
     return (
         <div>
+     
             <StudentCgpaFormTable
                 title="First Year BTech"
                 initialState={initialStudentsState}
