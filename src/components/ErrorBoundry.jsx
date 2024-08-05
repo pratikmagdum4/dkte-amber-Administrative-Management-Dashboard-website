@@ -17,9 +17,9 @@ class ErrorBoundary extends Component {
 
     render() {
         if (this.state.hasError) {
-            alert("Please Refresh the page ")
+            // alert("Please Refresh the page ")
             toast.info("Please Refresh the page ")
-            return <h1>Something went wrong.</h1>;
+            return <h1>Something went wrong.Please Refresh the page </h1>;
         }
 
         return this.props.children;

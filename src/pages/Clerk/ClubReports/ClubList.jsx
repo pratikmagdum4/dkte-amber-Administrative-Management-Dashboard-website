@@ -4,13 +4,14 @@ import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { ClubList } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
+import ErrorBoundary from '../../../components/ErrorBoundry';
 
 const initialRows = [
-    { srno: '', info: '' },
+    { info: '' },
 ];
 
 const columnHeaders = [
-    { key: 'srno', label: 'Sr.No.' },
+    // { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
 
 ];
@@ -21,10 +22,11 @@ const ClubReports = () => {
     const DeleteUrl = `${BASE_URL}/api/clubreports`;
     const UpdateUrl = `${BASE_URL}/api/clubreports`;
     return (
-
-        <div>
+<ErrorBoundary >
+        <div> 
             <Navbar links={ClubList} />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -36,6 +38,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/acses`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -47,6 +50,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/aisa`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -58,6 +62,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/eesa`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -69,6 +74,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/comsa`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -80,6 +86,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/cesa`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -91,6 +98,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/iet`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -102,6 +110,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/mesa`}
             />
             <AchievementsTable
+                NotDisplayToast={true}
                 stdabroad={stdabroad}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
@@ -113,6 +122,7 @@ const ClubReports = () => {
                 UpdateUrl={`${UpdateUrl}/taimu`}
             />
         </div>
+        </ErrorBoundary >
     );
 };
 

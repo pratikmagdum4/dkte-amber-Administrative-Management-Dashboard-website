@@ -8,11 +8,11 @@ import 'jspdf-autotable';
 import { Eventscuate1 } from '../../../assets';
 
 const initialRows = [
-    { srno: '', info: '' },
+    {  info: '' },
 ];
 
 const columnHeaders = [
-    { key: 'srno', label: 'Sr.No.' },
+    // { key: 'srno', label: 'Sr.No.' },
     { key: 'info', label: 'Description' },
 ];
 
@@ -33,7 +33,7 @@ const MainEventTables = () => {
         tablesRef.current.forEach((table, index) => {
             const tableColumns = columnHeaders.map(header => ({ title: header.label, dataKey: header.key }));
             const tableRows = table.rows.map(row => ({
-                srno: row.srno,
+                // srno: row.srno,
                 info: row.info
             }));
 
