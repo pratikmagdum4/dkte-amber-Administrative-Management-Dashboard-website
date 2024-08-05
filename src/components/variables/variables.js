@@ -7,8 +7,9 @@ export const HomeLink = [
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
   { label: "Verify", url: "" },
-  { label: "Display", url: "/display" },
-  { label: "Contact", url: "/" },
+  { label: "Display", url: "" },
+  { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Notification", url: "/login/admin/home/notification" },
 ];
 export const AdminVerifyLink = [
   { label: "Home", url: "/" },
@@ -22,6 +23,7 @@ export const AdminDisplayLink = [
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
   { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Notification", url: "/login/admin/home/notification" },
 ];
 export const ClerkNavLink = [
   { label: "Home", url: "/login/clerk/home" },
@@ -31,9 +33,10 @@ export const ClerkNavLink = [
 ];
 export const AdminNavLink = [
   { label: "Home", url: "/" },
-  { label: "Login", url: "/login" },
-  { label: "Register", url: "/" },
-  { label: "Contact", url: "/" },
+  { label: "Verify", url: "" },
+  { label: "Display", url: "" },
+  { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Notification", url: "/login/admin/home/notification" },
 ];
 
 

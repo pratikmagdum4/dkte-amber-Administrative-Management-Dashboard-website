@@ -18,7 +18,7 @@ const MBAFirstYearCgpaTables = () => {
     return (
         <div>
             <StudentCgpaFormTable
-                title="Second Year MBA "
+                title="First Year MBA "
                 initialState={initialStudentsState}
                 FetchUrl={FetchUrl}
                 SubmitUrl={SubmitUrl}
