@@ -98,7 +98,8 @@ const ArticleList = () => {
                                                 </a>
                                                 <a
                                                     href={article.content}
-                                                    download
+                                                    download={`${article.stdname},${article.branch}`}
+                                                    target="_blank"
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
@@ -145,7 +146,8 @@ const ArticleList = () => {
                                                 </a>
                                                 <a
                                                     href={article.content}
-                                                    download
+                                                        target="_blank"
+                                                        download={`${article.stdname},${article.branch}`}
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download

@@ -60,7 +60,6 @@ const TechArticleList = () => {
                             <div key={article._id} className="p-4 border rounded-md shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {isSmallScreen ? (
                                     <>
-                                        
                                         <div className="col-span-2">
                                             <div className="col-span-1 flex justify-center items-center">
                                                 <img
@@ -96,7 +95,7 @@ const TechArticleList = () => {
                                                 </a>
                                                 <a
                                                     href={article.content}
-                                                    download
+                                                    download={`${article.stdname},${article.branch}`}
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
@@ -143,7 +142,8 @@ const TechArticleList = () => {
                                                 </a>
                                                 <a
                                                     href={article.content}
-                                                    download
+                                                    download={`${article.stdname},${article.branch}`}
+                                                        target="_blank"
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download

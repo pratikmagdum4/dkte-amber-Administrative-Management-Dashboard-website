@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
-import { AdminVerifyLink, HomeLink } from '../../../../components/variables/variables';
+import { AdminVerifyLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
 
 const ImgUploadList = () => {
@@ -75,11 +75,21 @@ const ImgUploadList = () => {
                                 <div className="col-span-1 md:col-span-2">
                                     <div className="flex justify-center items-center h-full">
                                         {imgUpload.imageUrl && (
-                                            <img
-                                                src={`${imgUpload.imageUrl}`}
-                                                alt="Uploaded"
-                                                className="w-100 h-100 object-cover rounded-md mt-4" // 100px width and height
-                                            />
+                                            <div className="flex flex-col items-center">
+                                                <img
+                                                    src={`${imgUpload.imageUrl}`}
+                                                    alt="Uploaded"
+                                                    className="w-1/2 h-25 object-cover rounded-md mt-4"
+                                                />
+                                                <a
+                                                    href={imgUpload.imageUrl}
+                                                    download={`${imgUpload.stdname},${imgUpload.branch}`}
+                                                    target="_blank"
+                                                    className="mt-2 px-4 py-2 bg-green-500 text-white rounded"
+                                                >
+                                                    Download
+                                                </a>
+                                            </div>
                                         )}
                                     </div>
                                 </div>
