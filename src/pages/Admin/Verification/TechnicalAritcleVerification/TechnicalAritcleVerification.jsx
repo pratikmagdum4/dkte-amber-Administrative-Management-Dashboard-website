@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
-import { AdminVerifyLink, HomeLink } from '../../../../components/variables/variables';
+import { AdminVerifyLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
 
 const TechArticleList = () => {
@@ -72,7 +72,24 @@ const TechArticleList = () => {
                                     </button>
                                 </div>
                                 <div className="col-span-3 mt-4">
-                                    <p>{article.content}</p>
+                                    <div className="flex space-x-4 mt-2">
+                                        <a
+                                            href={article.content}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="px-4 py-2 bg-blue-500 text-white rounded"
+                                        >
+                                            View
+                                        </a>
+                                        <a
+                                            href={article.content}
+                                            download
+                                            target="_blank"
+                                            className="px-4 py-2 bg-green-500 text-white rounded"
+                                        >
+                                            Download
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         ))}

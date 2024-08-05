@@ -14,10 +14,11 @@ const TechnicalArticleForm = () => {
         branch: '',
         year: '',
         language: 'english',
-        content: '',
+        content: null,
         selfImage: null,
         isVerified: false
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -29,27 +30,26 @@ const TechnicalArticleForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
         console.log('Form Data Submitted:', formData);
         const formDataObj = new FormData();
         Object.keys(formData).forEach(key => {
             formDataObj.append(key, formData[key]);
         });
         try {
-
             const response = await axios.post(`${BASE_URL}/api/submit/technical`, formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
             console.log('Server response:', response.data);
-            alert("success")
-
+            alert("Success!");
         } catch (error) {
             console.error('Error submitting form:', error);
-
+        } finally {
+            setIsSubmitting(false);
         }
     };
-
 
     return (
         <>
@@ -110,8 +110,7 @@ const TechnicalArticleForm = () => {
                                 value={formData.year}
                                 onChange={handleChange}
                                 required
-                                className={`mt-1 block w-full px-3 py-2 border border-gray-300'
-                  } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                                 <option value="" disabled>Select Year</option>
                                 <option value="1">1</option>
@@ -119,7 +118,6 @@ const TechnicalArticleForm = () => {
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-
                         </div>
                         <label className="block text-left text-sm font-medium text-gray-700">Title:</label>
                         <input
@@ -135,7 +133,7 @@ const TechnicalArticleForm = () => {
                         <label className="block text-left text-sm font-medium text-gray-700">Language:</label>
                         <select
                             name="language"
-                            // value={formData.language}
+                            value={formData.language}
                             onChange={handleChange}
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -145,21 +143,6 @@ const TechnicalArticleForm = () => {
                             <option value="marathi">Marathi</option>
                         </select>
                     </div>
-                    <div>
-                        <label className="block text-left text-sm font-medium text-gray-700">Content:</label>
-                        <textarea
-                            name="content"
-                            value={formData.content}
-                            onChange={handleChange}
-                            placeholder='Paste your Article here'
-                            required
-                            className="mt-1 block w-full px-3 py-20 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        ></textarea>
-                    </div>
-                    <div>
-                        <a href="https://www.imagetotext.io/" target="_blank" className='w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Convert Image to Text here</a>
-                    </div>
-                 
                     <div>
                         <label className="block text-left text-sm font-medium text-gray-700">Self Image:</label>
                         <input
@@ -171,11 +154,22 @@ const TechnicalArticleForm = () => {
                             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
                     </div>
+                    <div>
+                        <label className="block text-left text-sm font-medium text-gray-700">Technical Article File:</label>
+                        <input
+                            type="file"
+                            name="content"
+                            onChange={handleChange}
+                            required
+                            className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
                     <button
                         type="submit"
-                        className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        disabled={isSubmitting}
+                        className={`w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${isSubmitting ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
-                        Submit
+                        {isSubmitting ? 'Submitting...' : 'Submit'}
                     </button>
                 </form>
             </div>

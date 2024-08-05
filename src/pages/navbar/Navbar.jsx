@@ -1,51 +1,56 @@
 import React, { useState, useEffect, useRef } from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { logo } from '../../assets';
 const Navbar = ({ links }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState('');
-    const timerRef = useRef(null);
-
-    const handleMouseEnter = (label) => {
-        setActiveDropdown(label);
-        setDropdownVisible(true);
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-        }
-    };
-
-    const handleMouseLeave = () => {
-        timerRef.current = setTimeout(() => {
-            setDropdownVisible(false);
-            setActiveDropdown('');
-        }, 5000);
-    };
+    const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+    const navigate = useNavigate();
 
     const handleClick = (label) => {
-        setActiveDropdown(label);
-        setDropdownVisible(true);
-        if (timerRef.current) {
-            clearTimeout(timerRef.current);
-        }
-        timerRef.current = setTimeout(() => {
+        if (activeDropdown === label && dropdownVisible) {
+            // If the same button is clicked again, close the dropdown
             setDropdownVisible(false);
             setActiveDropdown('');
-        }, 5000);
+        } else {
+            // Open the dropdown for the clicked button
+            setActiveDropdown(label);
+            setDropdownVisible(true);
+        }
     };
 
-    useEffect(() => {
-        return () => {
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-        };
-    }, []);
+    const handleDropdownClick = (label, type) => {
+        if (label === "Submit") {
+            navigate(`/submit-${type}`);
+        } else if (label === "Verify") {
+            navigate(`/login/admin/home/verify-${type}`);
+        } else if (label === "Display") {
+            navigate(`/login/admin/home/display-${type}`);
+        }
+        setDropdownVisible(false); // Close the dropdown after navigation
+    };
 
     const renderDropdown = (label) => {
         return (
             <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg z-10">
-                <a href={`/login/admin/home/${label.toLowerCase()}-article`} className="block px-4 py-2 hover:bg-gray-200">Article</a>
-                <a href={`/login/admin/home/${label.toLowerCase()}-image`} className="block px-4 py-2 hover:bg-gray-200">Image</a>
-                <a href={`/login/admin/home/${label.toLowerCase()}-technical-article`} className="block px-4 py-2 hover:bg-gray-200">Technical Article</a>
+                <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                    onClick={() => handleDropdownClick(label, "article")}
+                >
+                    Article
+                </button>
+                <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                    onClick={() => handleDropdownClick(label, "image")}
+                >
+                    Image
+                </button>
+                <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                    onClick={() => handleDropdownClick(label, "technical-article")}
+                >
+                    Technical Article
+                </button>
             </div>
         );
     };
@@ -53,25 +58,28 @@ const Navbar = ({ links }) => {
     return (
         <nav className="bg-black text-white p-4 flex justify-between items-center">
             <div className="flex items-center">
-                <div className="bg-yellow-500 text-black font-bold px-2 py-1 mr-2">DKTE</div>
-                <span className="text-white">Ambar</span>
+                
+                <img src={logo} alt="" />
+                <span className="text-white text-xl">Ambar</span>
             </div>
-            <div className="flex space-x-4">
+            <div className="lg:hidden flex items-center">
+                <button
+                    className="text-white focus:outline-none"
+                    onClick={() => setMobileMenuVisible(!mobileMenuVisible)}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+            <div className={`lg:flex lg:space-x-4 lg:items-center ${mobileMenuVisible ? 'flex' : 'hidden'} flex-col lg:flex-row absolute lg:relative top-16 lg:top-0 left-0 lg:left-auto w-full lg:w-auto bg-black lg:bg-transparent z-20 lg:z-auto`}>
                 {links && links.map((link, index) => (
                     <div
                         key={index}
-                        className="relative"
-                        onMouseEnter={['Submit', 'Verify', 'Display'].includes(link.label) ? () => handleMouseEnter(link.label) : null}
-                        onMouseLeave={['Submit', 'Verify', 'Display'].includes(link.label) ? handleMouseLeave : null}
-                        onClick={['Submit', 'Verify', 'Display'].includes(link.label) ? () => handleClick(link.label) : null}
+                        className="relative lg:inline-block"
+                        onClick={['Submit', 'Verify', 'Display'].includes(link.label) ? () => handleClick(link.label) : () => navigate(link.url)}
                     >
-                        <a
-                            href={link.url}
-                            className="hover:text-zinc-400"
-                        >
-                            
-                            {link.label}
-                        </a>
+                        <button className="block w-full text-left px-4 py-2 hover:text-zinc-400 lg:inline">{link.label}</button>
                         {dropdownVisible && activeDropdown === link.label && renderDropdown(link.label)}
                     </div>
                 ))}
