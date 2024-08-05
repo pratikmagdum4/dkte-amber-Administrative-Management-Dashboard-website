@@ -6,6 +6,8 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
@@ -23,7 +25,7 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                 if (!NotDisplayToast) {
                     toast.info("The Data if not visible will be available in a minute ");
                 }
-               
+
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
             } catch (error) {
@@ -71,6 +73,13 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         const { name, value } = e.target;
         const newRows = [...rows];
         newRows[index][name] = value;
+        newRows[index].modified = true;
+        setRows(newRows);
+    };
+
+    const handleDateChange = (index, date) => {
+        const newRows = [...rows];
+        newRows[index].deadline = date;
         newRows[index].modified = true;
         setRows(newRows);
     };
@@ -126,8 +135,6 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
 
     const columnsToDisplay = columnHeaders.slice(0, numberOfColumns);
 
-    
-
     return (
         <div>
             <ToastContainer />
@@ -163,15 +170,24 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                                 <tr key={index}>
                                     {columnsToDisplay.map(header => (
                                         <td key={header.key} className={`border border-zinc-400 px-4 py-2 ${stdabroad && header.key === 'srno' ? 'w-1/6' : stdabroad && header.key === 'info' ? 'w-5/6' : ''}`}>
-                                            <textarea
-                                                name={header.key}
-                                                value={row[header.key]}
-                                                onChange={(e) => handleChange(index, e)}
-                                                className="w-full p-2 border border-zinc-300 rounded resize-none"
-                                                rows="1"
-                                                onInput={(e) => adjustTextareaHeight(e.target)}
-                                                style={{ overflow: 'hidden' }}
-                                            />
+                                            {header.key === 'deadline' ? (
+                                                <DatePicker
+                                                    selected={row[header.key]}
+                                                    onChange={(date) => handleDateChange(index, date)}
+                                                    dateFormat="yyyy-MM-dd"
+                                                    className="w-full p-2 border border-zinc-300 rounded"
+                                                />
+                                            ) : (
+                                                <textarea
+                                                    name={header.key}
+                                                    value={row[header.key]}
+                                                    onChange={(e) => handleChange(index, e)}
+                                                    className="w-full p-2 border border-zinc-300 rounded resize-none"
+                                                    rows="1"
+                                                    onInput={(e) => adjustTextareaHeight(e.target)}
+                                                    style={{ overflow: 'hidden' }}
+                                                />
+                                            )}
                                         </td>
                                     ))}
                                     <td className="border border-zinc-400 px-4 py-2 text-center">

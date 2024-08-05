@@ -24,8 +24,7 @@ export const AdminDisplayLink = [
   { label: "Dashboard", url: "/login/admin/home" },
 ];
 export const ClerkNavLink = [
- 
-  { label: "Home", url: "/" },
+  { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
   { label: "Contact", url: "/" },
