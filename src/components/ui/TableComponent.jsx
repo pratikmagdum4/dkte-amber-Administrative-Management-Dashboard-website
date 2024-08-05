@@ -174,7 +174,7 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                                                 <DatePicker
                                                     selected={row[header.key]}
                                                     onChange={(date) => handleDateChange(index, date)}
-                                                    dateFormat="yyyy-MM-dd"
+                                                    dateFormat="dd-MM-yyyy"
                                                     className="w-full p-2 border border-zinc-300 rounded"
                                                 />
                                             ) : (

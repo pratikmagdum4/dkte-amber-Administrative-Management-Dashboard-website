@@ -1,15 +1,18 @@
-// src/pages/Clerk/ClerkHome/ClerkNotifications.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
+import { format } from 'date-fns';
+
+const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return format(date, 'yyyy-MM-dd '); // Customize the format as needed
+};
 
 const ClerkNotification = () => {
     const [notifications, setNotifications] = useState([
-        { id: 1, note: 'Submit project report', deadline: '2024-08-10' },
-        { id: 2, note: 'Attend meeting with advisor', deadline: '2024-08-12' },
-        { id: 3, note: 'Complete online course', deadline: '2024-08-15' }
+      
     ]);
 
     useEffect(() => {
@@ -38,10 +41,10 @@ const ClerkNotification = () => {
                     {notifications.length === 0 ? (
                         <h1>No notifications</h1>
                     ) : (
-                        notifications.map((notification) => (
+                        notifications.slice().reverse().map((notification) => (
                             <div key={notification.id} className="bg-white p-4 rounded shadow">
                                 <p className="text-lg font-semibold">{notification.note}</p>
-                                <p className="text-sm text-gray-500">Deadline: {notification.deadline}</p>
+                                <p className="text-sm text-gray-500">Deadline: {formatDateTime(notification.deadline)}</p>
                             </div>
                         ))
                     )}
