@@ -6,7 +6,7 @@ import { Groupdiscussionbro1 } from '../../../assets';
 const FacultyAchievementLists = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/login/clerk/home/facultyachievement/${option}`)
+        navigate(`/login/clerk/deptlist/deptlogin/home/facultyachievement/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">

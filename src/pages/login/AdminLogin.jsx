@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate } from 'react-router';
+import { BASE_URL } from '../../api';
 const links = [
     { label: 'Home', url: '/' },
     { label: 'Login', url: '/login' },
@@ -51,20 +52,20 @@ function AdminLoginForm() {
         // console.log("The form is ",formValues)
         try {
             // const response = await studentLogin(formValues)
-            const response = await fetch('https://your-api-endpoint.com/submit', {
+            const response = await fetch(`${BASE_URL}/api/login/admin`, {
                 method: 'POST',
                 body: formValues,
             });
-            // const { data, token } = response.data;
-            // const { id: studentId, name, role } = data;
-            // localStorage.setItem("studentId", studentId);
-            // localStorage.setItem("stdAuthToken", token);
+            const { data, token } = response.data;
+            const { id: studentId, name, role } = data;
+            localStorage.setItem("studentId", studentId);
+            localStorage.setItem("stdAuthToken", token);
 
-            // if (response.data) {
-            //     dispatch(authenticate(true));
-            //     dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
+            if (response.data) {
+                dispatch(authenticate(true));
+                dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
             navigate('/admin/home');
-
+            }
         } catch (error) {
             // if (error.response.data.msg) {
             //     // setUserExists(false)

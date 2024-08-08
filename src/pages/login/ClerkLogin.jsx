@@ -4,7 +4,10 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
+import { BASE_URL } from '../../api';
+import { isAuthenticated, setUserInfo } from '../../redux/auth';
+import { useDispatch } from 'react-redux';
 const links = [
     { label: 'Home', url: '/' },
     { label: 'Login', url: '/login' },
@@ -13,6 +16,10 @@ const links = [
 ];
 
 function LoginForm2() {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const department = location.state?.department || 'Default Department';
+
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -29,51 +36,35 @@ function LoginForm2() {
     });
 
     const fields = [
-        { name: "email", label: "email", type: "email" },
-        { name: "password", label: "password", type: "password" },
+        { name: "email", label: "Email", type: "email" },
+        { name: "password", label: "Password", type: "password" },
     ]
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
     const onSubmit = async (e) => {
-        // setLoading(true);
         e.preventDefault();
         console.log("formdata is ", formValues);
-        if (formValues.email == "admin@gmail.com" && formValues.password == "admin123") {
-            navigate("/login/admin/home");
-        }
-        if (formValues.email == "clerk@gmail.com" && formValues.password == "clerk123") {
-            console.log("hi hter ")
-            navigate("/login/clerk/home");
-            return;
-        }
-        // console.log("The form is ",formValues)
+
         try {
-            // const response = await studentLogin(formValues)
-            const response = await fetch('https://your-api-endpoint.com/submit', {
-                method: 'POST',
-                body: formValues,
-            });
-            // const { data, token } = response.data;
-            // const { id: studentId, name, role } = data;
-            // localStorage.setItem("studentId", studentId);
-            // localStorage.setItem("stdAuthToken", token);
+            const response = await axios.post(`${BASE_URL}/api/login/clerk/${department}`, formValues);
 
-            // if (response.data) {
-            //     dispatch(authenticate(true));
-            //     dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
-            navigate('/clerk/home');
+            const { data, token } = response.data;
+            // const {  name, role, department } = data;
 
+            // localStorage.setItem("clerkId", clerkId);
+            localStorage.setItem("clerkAuthToken", token);
+
+            if (response.data) {
+                dispatch(isAuthenticated(true));
+                navigate('home');
+            }
         } catch (error) {
-            // if (error.response.data.msg) {
-            //     // setUserExists(false)
-            //     // setLoading(false)
-            //     // toast.error(error.response.data.msg)
-            // }
             console.error("Error submitting form:", error);
         }
-    };
+    }
+
     const handleForgotPasswordSubmit = async (e) => {
         e.preventDefault();
 

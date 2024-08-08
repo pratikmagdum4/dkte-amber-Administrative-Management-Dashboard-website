@@ -7,7 +7,7 @@ import { ClerkNavLink } from '../../../components/variables/variables';
 const ClerkHome = () => {
     const navigate = useNavigate();
     function handleClick(option) {
-        navigate(`/login/clerk/home/${option}`)
+        navigate(`/login/clerk/deptlist/deptlogin/home/${option}`)
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../pages/navbar/Navbar';
 import { FacultyAchivements } from '../variables/variables'; 
+import { Groupdiscussionbro1 } from '../../assets';
 
 const ListingComponent = ({ buttonNames, url, title,handleClick }) => {
     // const navigate = useNavigate();
@@ -26,7 +27,7 @@ const ListingComponent = ({ buttonNames, url, title,handleClick }) => {
                         </button>
                     ))}
                 </div>
-                <img src="https://placehold.co/400x300" alt="Group of students" className="mt-8" />
+                <img src={Groupdiscussionbro1} alt="Group of students" className="mt-8" />
             </main>
         </div>
     );

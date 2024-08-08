@@ -2,6 +2,7 @@ export const HomeLink = [
   { label: "Login", url: "/login" },
   { label: "Submit", url: "" },
   { label: "About Us", url: "/" },
+  { label: "SignUp", url: "/signup" },
   { label: "Contact", url: "/" },
 ];
 export const AdminHomeLink = [

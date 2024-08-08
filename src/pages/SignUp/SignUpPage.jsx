@@ -7,9 +7,10 @@ import { LogIn } from "lucide-react";
 const links = [
     { label: 'Home', url: '/' },
     { label: 'Register', url: '/' },
+    { label: 'login', url: '/login' },
     { label: 'Contact', url: '/' },
-   ];
-function LoginPage() {
+];
+function SignUpPage() {
 
     const [isSmallScreen, setIsSmallerScreen] = useState(false);
 
@@ -30,22 +31,22 @@ function LoginPage() {
             <div className={isSmallScreen ? "flex flex-col items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-y-4" : "flex flex-row items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-x-8"}>
                 <AuthButton
                     imageUrl={AdministratorMale}
-                    altText="Clerk Login"
-                    buttonText={"Clerk Login"}
+                    altText="Clerk Signup"
+                    buttonText={"Clerk SignUp"}
 
-                    buttonUrl={"/login/clerk/deptlist"}
+                    buttonUrl={"/signup/clerk"}
                     isSmallScreen={isSmallScreen}
                 />
-                <AuthButton
+                {/* <AuthButton
                     imageUrl={AdministratorMale}
                     altText={"Admin Login"}
                     buttonText={"Admin Login"}
 
-                    buttonUrl="/login/admin"
+                    buttonUrl="/signup/admin"
                     isSmallScreen={isSmallScreen}
                     className={isSmallScreen ? "text-sm" : ""}
-                />
-                
+                /> */}
+
             </div>
             <div className="bg-zinc-100 flex justify-center">
                 {/* <img src={SignUpLoginHome} alt="" /> */}
@@ -54,4 +55,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default SignUpPage;

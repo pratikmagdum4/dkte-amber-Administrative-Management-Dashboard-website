@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../pages/navbar/Navbar';
-import { FacultyAchivements } from '../variables/variables';
+import { FacultyAchivements } from '../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 
-const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleToggleYears }) => {
+const ClerkLoginDepartmentListingComponent = ({ title }) => {
     const navigate = useNavigate();
+    const [visibleDepts, setVisibleDepts] = useState(null);
+
+    const buttonNames = [
+        { id: 1, label: 'BTech Engineering', options: ["CSE", "CSE-AIML", "AIDS", "ENTC", "ELEC", "MECH", "CIVIL"] },
+        { id: 2, label: 'BTech Textile', options: ["TT", "MMTT", "FT", "TC"] },
+        { id: 3, label: 'Diploma', options: ["Diploma"] },
+        { id: 4, label: 'MBA', options: ["MBA"] }
+    ];
 
     const handleClick = (option) => {
-        navigate(`/login/clerk/deptlist/deptlogin/home/studentachievement/course-list${option}`);
+        navigate(`/login/clerk/deptlist/deptlogin`, { state: { department: option } });
+    };
+
+    const handleToggleDepts = (id) => {
+        setVisibleDepts((prev) => (prev === id ? null : id));
     };
 
     return (
-        <>
         <div className="min-h-screen bg-white dark:bg-zinc-900">
             <Navbar links={FacultyAchivements} />
-
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">{title}</h1>
                 <div className="space-y-4 w-full max-w-md">
@@ -23,19 +33,19 @@ const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleT
                         <div key={btnName.id}>
                             <button
                                 className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full"
-                                onClick={() => handleToggleYears(btnName.id)}
+                                onClick={() => handleToggleDepts(btnName.id)}
                             >
                                 {btnName.label}
                             </button>
-                            {visibleYears === btnName.id && (
+                            {visibleDepts === btnName.id && (
                                 <div className="mt-2 space-y-2">
-                                    {Array.from({ length: btnName.years }, (_, i) => (
+                                    {btnName.options.map((option, index) => (
                                         <button
-                                            key={i}
+                                            key={index}
                                             className="bg-blue-500 text-white py-1 px-2 rounded-lg w-full"
-                                            onClick={() => handleClick(`${btnName.option}/year${i + 1}`)}
+                                            onClick={() => handleClick(option)}
                                         >
-                                            Year {i + 1}
+                                            {option}
                                         </button>
                                     ))}
                                 </div>
@@ -44,11 +54,9 @@ const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleT
                     ))}
                 </div>
             </main>
-                <img src={Groupdiscussionbro1} alt="" />
+            <img src={Groupdiscussionbro1} alt="" />
         </div>
-         
-       </>
     );
 };
 
-export default CourseListingComponent;
+export default ClerkLoginDepartmentListingComponent;
