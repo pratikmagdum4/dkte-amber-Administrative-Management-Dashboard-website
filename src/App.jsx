@@ -1,11 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import CarouselComponent from './pages/Home/Home.jsx';
 import Home1 from './pages/Home/home1.jsx';
-// import StudentSubmissionForm from './pages/Home/Home.jsx';
-// import Footer from './pages/footer/Footer.jsx';
 import ClerkHome from './pages/Clerk/ClerkHome/clerkHome.jsx';
 
 import LoginForm2 from './pages/login/ClerkLogin.jsx';
@@ -76,202 +74,84 @@ import ClerkLoginDepartmentListingComponent from './pages/login/LoginClerkList.j
 
 import ClerkSignupPage from './pages/SignUp/ClerkSignUp.jsx';
 import SignUpPage from './pages/SignUp/SignUpPage.jsx';
-// import MobileNav from './pages/navbar/MobileResponsive.jsx';
+
+import PrivateRoute from './components/services/private.js';
+
 const App = () => {
-
-
 
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<CarouselComponent />}>
-        </Route>
-        <Route path='/signup' element={<SignUpPage />}> </Route>
-        <Route path='/signup/clerk' element={<ClerkSignupPage />}> </Route>
-        <Route path='/login' element={<LoginPage />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2 />}></Route>
-        <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent />}></Route>
-
-        <Route path='/login/admin' element={<AdminLoginForm />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home' element={<ClerkHome />}>
-        </Route>
-        <Route path='/rank/std' element={<StudentFormTable />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/ranktables' element={<RankersTables />}>
-        </Route>
-        <Route path='/institute' element={<DisplayInstitutes />}>
-        </Route>
-        <Route path='/drop' element={<Dropdown2 />}>
-        </Route>
-
-
-        <Route path='/login/admin/home' element={<ProgressTracking />}>
-        </Route>
-        <Route path='/login/admin/home/verify-article' element={<ArticleList />}>
-        </Route>
-        <Route path='/login/admin/home/verify-image' element={<ImgUploadList />}>
-        </Route>
-        <Route path='/login/admin/home/verify-technical-article' element={<TechArticleList />}>
-        </Route>
-        <Route path='/login/admin/home/display-article' element={<ArticleDisplayList />}>
-        </Route>
-        <Route path='/login/admin/home/display-image' element={<ImageDisplayList />}>
-        </Route>
-        <Route path='/login/admin/home/display-technical-article' element={<TechArticleDisplayList />}>
-        </Route>
-
-        <Route path='/login/admin/home/notification' element={<AdminNotification />}>
-        </Route>
-
-        {/* <Route path='/login/clerk/home/' element={<homePage />}> */}
-        {/* </Route> */}
-
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/notification' element={<ClerkNotification />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement' element={<StudentAchievementlists />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list' element={<CourseList />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year1' element={<FirstYearBtechEngineeringTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year2' element={<SecondYearBtechEngineeringTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year3' element={<ThirdYearBtechEngineeringTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year4' element={<FourthYearBtechEngineeringTables />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year1' element={<FirstYearBtechTextileTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year2' element={<SecondYearBtechTextileTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year3' element={<ThirdYearBtechTextileTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year4' element={<FourthYearBtechTextileTables />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year1' element={<FirstYearDiplomaTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<SecondYearDiplomaTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year3' element={<ThirdYearDiplomaTables />}>
-        </Route>
-
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year1' element={<MBAFirstYearCgpaTables />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year2' element={<MBASecondYearCgpaTables />}>
-        </Route>
-
-
-
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/paperproject' element={<StudentPaperProject />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/paperproject' element={<StudentPaperProject />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/exams' element={<StudentSpecialAchievements />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/higherstudies' element={<StdHigherEducation />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/appreciationprize' element={<StdAppreciationPrize />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/internationaltraining' element={<StdInternationalTraining />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist' element={<CourseList />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement' element={<FacultyAchievementLists />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/paperjournalpub' element={<FacultyPaperJournalPublications />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/bookspublish' element={<FacultyBooksPublication />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/paperpresentation' element={<FacultyPaperPresentation />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/patentgrant' element={<FacultyPatentGrant />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/workshop' element={<FacultyWorkShop />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/otherspecial' element={<FacultyOtherSpecial />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/trainingprogram' element={<FacultyTrainingProgram />}>
-        </Route>
-
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/clubreports' element={<ClubReports />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/mainevents/' element={<MainEventTables />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/' element={<TrainingPlacementListing />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/textilereport' element={<TrainingPlacementTextileReport />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/engineeringreport' element={<TrainingPlacementEngineeringReport />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/internationalcompanies' element={<TextileInternationalCompaniesList />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/nationalcompanies' element={<TextileNationalCompaniesList />}>
-        </Route>
-        <Route path='/login/clerk/deptlist/deptlogin/home/trainingplacement/engineeringcompanies' element={<EngineeringCompaniesList />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/sponsorlist' element={<SponsorListInfo />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/staffmembers' element={<StaffMembersList />}>
-        </Route>
-
-        <Route path='/login/clerk/deptlist/deptlogin/home/upgraduation' element={<UpGraduationQalificationList />}>
-        </Route>
-
-
-        <Route path='/stdimgform' element={<ImageForm />}>
-        </Route>
-        <Route path='/auth' element={<AuthButton />}>
-        </Route>
-        <Route path='/log' element={<LoginPage />}>
-        </Route>
-        <Route path='/dash' element={<Dashboard />}>
-        </Route>
-
-        <Route path='/display' element={<EnglishArticles />}>
-        </Route>
-        <Route path='/submit-article' element={<ArticleForm />}>
-        </Route>
-        <Route path='/submit-image' element={<ImageForm />}>
-        </Route>
-        <Route path='/submit-technical-article' element={<TechnicalArticleForm />}>
-        </Route>
-        <Route path='/articlelist' element={<ArticleList />}>
-        </Route>
-        <Route path='/imglist' element={<ImgUploadList />}>
-        </Route>
-        <Route path='/techlist' element={<TechArticleList />}>
-        </Route>
-        <Route path='/articledisplaylist' element={<ArticleDisplayList />}>
-        </Route>
-        <Route path='/techarticledisplaylist' element={<TechArticleDisplayList />}>
-        </Route>
-        <Route path='/imgdisplaylist' element={<ImageDisplayList />}></Route>
-        <Route path='/progresstracking' element={<ProgressTracking />}></Route>
-        <Route path='/StudentCgpaFormTable' element={<StudentCgpaFormTable />}></Route>
-
-
-        <Route path='*' element={<ErrorPage />}></Route>
-        {/* <Route path='/mobilenav' element={<MobileNav />}></Route> */}
-
+        <Route path='/' element={<CarouselComponent  />} />
+        <Route path='/signup' element={<SignUpPage  />} />
+        <Route path='/signup/clerk'  element={<ClerkSignupPage  />} />
+        <Route path='/login'  element={<LoginPage  />} />
+        <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2  />} />
+        <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent  />} />
+        <Route path='/login/admin' element={<AdminLoginForm  />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home' element={<PrivateRoute element={<ClerkHome />} allowedRoles={["clerk"]} />} />
+        <Route path='/rank/std' element={<PrivateRoute element={<StudentFormTable />} allowedRoles={[]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/ranktables' element={<PrivateRoute element={<RankersTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/institute' element={<PrivateRoute element={<DisplayInstitutes />} allowedRoles={[]} />} />
+        <Route path='/drop' element={<PrivateRoute element={<Dropdown2 />} allowedRoles={[]} />} />
+        <Route path='/login/admin/home' element={<PrivateRoute element={<ProgressTracking />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/verify-article' element={<PrivateRoute element={<ArticleList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/verify-image' element={<PrivateRoute element={<ImgUploadList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/verify-technical-article' element={<PrivateRoute element={<TechArticleList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/display-article' element={<PrivateRoute element={<ArticleDisplayList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/display-image' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/display-technical-article' element={<PrivateRoute element={<TechArticleDisplayList />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/notification' element={<PrivateRoute element={<AdminNotification />} allowedRoles={["admin"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/departments' element={<PrivateRoute element={<DepartmentListing />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist' element={<PrivateRoute element={<CourseList />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/paperproject' element={<PrivateRoute element={<StudentPaperProject />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/exams' element={<PrivateRoute element={<StudentSpecialAchievements />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/higherstudies' element={<PrivateRoute element={<StdHigherEducation />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/appreciationprize' element={<PrivateRoute element={<StdAppreciationPrize />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/internationaltraining' element={<PrivateRoute element={<StdInternationalTraining />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement' element={<PrivateRoute element={<StudentAchievementlists />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/bookspublish' element={<PrivateRoute element={<FacultyBooksPublication />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/paperjournalpub' element={<PrivateRoute element={<FacultyPaperJournalPublications />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/patentgrant' element={<PrivateRoute element={<FacultyPatentGrant />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/paperpresentation' element={<PrivateRoute element={<FacultyPaperPresentation />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/workshop' element={<PrivateRoute element={<FacultyWorkShop />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/otherspecial' element={<PrivateRoute element={<FacultyOtherSpecial />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement/trainingprogram' element={<PrivateRoute element={<FacultyTrainingProgram />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/facultyachievement' element={<PrivateRoute element={<FacultyAchievementLists />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/clubreports' element={<PrivateRoute element={<ClubReports />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/mainevents' element={<PrivateRoute element={<MainEventTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement' element={<PrivateRoute element={<TrainingPlacementListing />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement/engineering/report' element={<PrivateRoute element={<TrainingPlacementEngineeringReport />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement/textile/nationalcompanies' element={<PrivateRoute element={<TextileNationalCompaniesList />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement/textile/internationalcompanies' element={<PrivateRoute element={<TextileInternationalCompaniesList />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement/textile/report' element={<PrivateRoute element={<TrainingPlacementTextileReport />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/placement/engineering/companies' element={<PrivateRoute element={<EngineeringCompaniesList />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/sponsorlist' element={<PrivateRoute element={<SponsorListInfo />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/staffmembers' element={<PrivateRoute element={<StaffMembersList />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/upgraduation' element={<PrivateRoute element={<UpGraduationQalificationList />} allowedRoles={["clerk"]} />} />
+        <Route path='/article/submit' element={<PrivateRoute element={<ArticleForm />} allowedRoles={[]} />} />
+        <Route path='/img/submit' element={<PrivateRoute element={<ImageForm />} allowedRoles={[]} />} />
+        <Route path='/notification' element={<PrivateRoute element={<AuthButton />} allowedRoles={[]} />} />
+        <Route path='/home' element={<PrivateRoute element={<Home1 />} allowedRoles={[]} />} />
+        <Route path='/error' element={<PrivateRoute element={<ErrorPage />} allowedRoles={[]} />} />
+        <Route path='/imagegallery' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={[]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year1' element={<PrivateRoute element={<FirstYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year2' element={<PrivateRoute element={<SecondYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year3' element={<PrivateRoute element={<ThirdYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year4' element={<PrivateRoute element={<FourthYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year1' element={<PrivateRoute element={<FirstYearBtechTextileTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year2' element={<PrivateRoute element={<SecondYearBtechTextileTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year3' element={<PrivateRoute element={<ThirdYearBtechTextileTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year4' element={<PrivateRoute element={<FourthYearBtechTextileTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year1' element={<PrivateRoute element={<MBAFirstYearCgpaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year2' element={<PrivateRoute element={<MBASecondYearCgpaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year1' element={<PrivateRoute element={<FirstYearDiplomaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<SecondYearDiplomaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<ThirdYearDiplomaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/notification' element={<PrivateRoute element={<ClerkNotification />} allowedRoles={["clerk"]} />} />
       </Routes>
     </Router>
-  )
+  );
+};
 
-}
-
-export default App
+export default App;

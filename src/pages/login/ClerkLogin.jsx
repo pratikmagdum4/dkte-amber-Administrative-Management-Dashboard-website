@@ -6,8 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate, useLocation } from 'react-router';
 import { BASE_URL } from '../../api';
-import { isAuthenticated, setUserInfo } from '../../redux/auth';
+import { authenticate, setUserInfo } from '../../redux/auth';
 import { useDispatch } from 'react-redux';
+import Loading from '../../components/ui/Loader'; 
 const links = [
     { label: 'Home', url: '/' },
     { label: 'Login', url: '/login' },
@@ -25,7 +26,8 @@ function LoginForm2() {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [userExists, setUserExists] = useState(true);
-
+    const [loading, setLoading] = useState(false);
+    const [invalidCredentials, setInvalidCredentials] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -46,22 +48,43 @@ function LoginForm2() {
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log("formdata is ", formValues);
-
+        setLoading(true);
         try {
             const response = await axios.post(`${BASE_URL}/api/login/clerk/${department}`, formValues);
+console.log("the response is ",response);
+console.log("the role is ",response.data.role);
 
-            const { data, token } = response.data;
-            // const {  name, role, department } = data;
-
-            // localStorage.setItem("clerkId", clerkId);
-            localStorage.setItem("clerkAuthToken", token);
-
+            // const { data, token } = response.data;
+            // const { name, role, department } = data;
+            // console.log("the data is ",data);
+// console.log(" im in ")
+            // // localStorage.setItem("clerkId", clerkId);
+            // localStorage.setItem("clerkAuthToken", token);
+           
             if (response.data) {
-                dispatch(isAuthenticated(true));
+                const role = response.data.role;
+                const token = response.data.token;
+                dispatch(setUserInfo({ Role: role, token: token }))
+                // dispatch(setUserInfo({ user: data, token, Name: name, Role: role }));
+                // dispatch(authenticate(true));
                 navigate('home');
             }
         } catch (error) {
-            console.error("Error submitting form:", error);
+            // console.log("the msg is ", error.response.data.message)
+            if (error.response.data.message ==="Clerk doesn't exist")
+            {
+                setUserExists(false);
+                alert("Clerk doesn't exist")
+                toast.error(error.response.data.message)
+            }
+            if (error.response.data.message === "Invalid credentials") {
+                console.log("hi invalid ")
+                setInvalidCredentials(true);
+                alert("Invalid credentials")
+                toast.error(error.response.data.message)
+            }
+            // console.error("Error submitting form:", error);
+            setLoading(false);
         }
     }
 
@@ -74,6 +97,10 @@ function LoginForm2() {
     };
 
     return (
+        <>
+            {loading  ? (
+                <Loading links={links} />
+            ) : (
         <div>
             <Navbar links={links} />
             <ToastContainer position="top-center" autoClose={2000} />
@@ -82,7 +109,7 @@ function LoginForm2() {
             ) : (
                 <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col ">
                     <div className="bg-zinc-800 p-8 rounded-lg w-96 ">
-                        <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">{title}</h2>
+                        <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">Clerk Login</h2>
 
                         <form onSubmit={onSubmit} className="">
                             {fields.map(field => (
@@ -114,22 +141,27 @@ function LoginForm2() {
                                     </div>
                                 </div>
                             ))}
-                            {!userExists && (
+                            {/* {!userExists && (
                                 <div className="text-red-500 text-center pb-3">
                                     User does not exist
                                 </div>
                             )}
+                                            {invalidCredentials && (
+                                                <div className="text-red-500 text-center pb-3">
+                                                    Invalid Credentials
+                                                </div>
+                                            )} */}
                             <div className="flex justify-center">
                                 <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Login
                                 </button>
-                                <button
+                                {/* <button
                                     type="button"
                                     className="ml-2 text-sm text-yellow-500 hover:text-yellow-600 focus:outline-none"
                                     onClick={() => setShowForgotPassword(true)}
                                 >
                                     Forgot Password?
-                                </button>
+                                </button> */}
                             </div>
                             <div className='flex justify-center pt-6'>
                                 <button
@@ -168,6 +200,8 @@ function LoginForm2() {
             )}
             <img src={interviewComposition} alt="Interview Composition" />
         </div>
+        )}
+        </>
     );
 }
 

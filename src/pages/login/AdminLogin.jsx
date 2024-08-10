@@ -6,20 +6,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate } from 'react-router';
 import { BASE_URL } from '../../api';
-const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Login', url: '/login' },
-    { label: 'Register', url: '/' },
-    { label: 'Contact', url: '/' },
-];
+import Loading from '../../components/ui/Loader';
+import { authenticate, setUserInfo } from '../../redux/auth';
+import { useDispatch } from 'react-redux';
+import { HomeLink } from '../../components/variables/variables';
+
 
 function AdminLoginForm() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [userExists, setUserExists] = useState(true);
-
+    const [loading, setLoading] = useState(false);
+    const [invalidCredentials, setInvalidCredentials] = useState(false);
+   
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -38,61 +40,77 @@ function AdminLoginForm() {
         setFormValues({ ...formValues, [name]: value });
     };
     const onSubmit = async (e) => {
-        // setLoading(true);
+        setLoading(true);
         e.preventDefault();
         console.log("formdata is ", formValues);
-        if (formValues.email == "admin@gmail.com" && formValues.password == "admin123") {
-            navigate("/login/admin/home");
-        }
-        // if (formValues.email == "clerk@gmail.com" && formValues.password == "clerk123") {
-        //     console.log("hi hter ")
-        //     navigate("/login/clerk/home");
-        //     return;
-        // }
-        // console.log("The form is ",formValues)
-        try {
-            // const response = await studentLogin(formValues)
-            const response = await fetch(`${BASE_URL}/api/login/admin`, {
-                method: 'POST',
-                body: formValues,
-            });
-            const { data, token } = response.data;
-            const { id: studentId, name, role } = data;
-            localStorage.setItem("studentId", studentId);
-            localStorage.setItem("stdAuthToken", token);
 
+        // Hardcoded admin check (can be removed if not needed)
+       
+
+        try {
+            // Use Axios to send the POST request
+            console.log("hi im in ")
+            const response = await axios.post(`${BASE_URL}/api/login/admin`, formValues);
+
+            // Destructure the response data
+            console.log("the resposne is ", response.data.result._id)
+            const { data } = response.data;
+            const { _id, name } = response.data;
+            console.log("the response is ",response)
+            // Store the data in localStorage
+            
+           
             if (response.data) {
+                const role = response.data.role;
+                const token = response.data.token;
+                localStorage.setItem("adminAuthToken", token);
+
                 dispatch(authenticate(true));
-                dispatch(setUserInfo({ user: data, token, Uid: studentId, Name: name, Role: role }));
-            navigate('/admin/home');
+                dispatch(setUserInfo({ user: data, token, Uid:_id, Name: name, Role: role }));
+                console.log("the role is ",role)
+                console.log("i mhere ")
+                navigate('home');
             }
         } catch (error) {
-            // if (error.response.data.msg) {
-            //     // setUserExists(false)
-            //     // setLoading(false)
-            //     // toast.error(error.response.data.msg)
-            // }
+            if (error.response.data.message === "Admin doesn't exist") {
+                setUserExists(false);
+                alert("Admin doesn't exist")
+                toast.error(error.response.data.message)
+            }
+            if (error.response.data.message === "Invalid credentials") {
+                console.log("hi invalid ")
+                setInvalidCredentials(true);
+                alert("Invalid credentials")
+                toast.error(error.response.data.message)
+            }
+
+            setLoading(false);
+
             console.error("Error submitting form:", error);
         }
     };
+
     const handleForgotPasswordSubmit = async (e) => {
         e.preventDefault();
-
         console.log("Forgot Password email submitted:", forgotPasswordEmail);
         setShowForgotPassword(false);
         toast.success('Password reset instructions sent to your email');
     };
 
     return (
+        <>
+            {loading ? (<Loading links={HomeLink}/>):
+        
+        (
         <div>
-            <Navbar links={links} />
+            <Navbar links={HomeLink} />
             <ToastContainer position="top-center" autoClose={2000} />
             {fields === "undefined" ? (
                 <div>Empty fields</div>
             ) : (
                 <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col ">
                     <div className="bg-zinc-800 p-8 rounded-lg w-96 ">
-                        <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">{title}</h2>
+                        <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">Admin Login </h2>
 
                         <form onSubmit={onSubmit} className="">
                             {fields.map(field => (
@@ -124,11 +142,16 @@ function AdminLoginForm() {
                                     </div>
                                 </div>
                             ))}
-                            {!userExists && (
+                            {/* {!userExists && (
                                 <div className="text-red-500 text-center pb-3">
                                     User does not exist
                                 </div>
-                            )}
+                            )} */}
+                            {/* {invalidCredentials && (
+                                <div className="text-red-500 text-center pb-3">
+                                    Invalid Credentials
+                                </div>
+                            )} */}
                             <div className="flex justify-center">
                                 <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Login
@@ -178,6 +201,8 @@ function AdminLoginForm() {
             )}
             <img src={interviewComposition} alt="Interview Composition" />
         </div>
+                )}
+        </>
     );
 }
 

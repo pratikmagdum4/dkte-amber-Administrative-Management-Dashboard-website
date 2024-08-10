@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logo } from '../../assets';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../redux/auth';
 const Navbar = ({ links }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState('');
     const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
     const navigate = useNavigate();
-
+    const timeoutRef = useRef(null);
+    const dispatch = useDispatch();
     const handleClick = (label) => {
         if (activeDropdown === label && dropdownVisible) {
-            // If the same button is clicked again, close the dropdown
             setDropdownVisible(false);
             setActiveDropdown('');
         } else {
-            // Open the dropdown for the clicked button
             setActiveDropdown(label);
             setDropdownVisible(true);
         }
@@ -30,7 +31,26 @@ const Navbar = ({ links }) => {
         setDropdownVisible(false); // Close the dropdown after navigation
     };
 
+    const handleLogout = () => {
+        dispatch(logOut()); 
+        navigate("/"); // Redirect to the homepage or login page
+        setDropdownVisible(false);
+    };
+
     const renderDropdown = (label) => {
+        if (label === "Logout") {
+            return (
+                <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg z-10">
+                    <button
+                        className="block w-full text-left px-4 py-2 hover:bg-red-500 hover:text-white"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
+                </div>
+            );
+        }
+
         return (
             <div className="absolute top-full left-0 mt-2 bg-white text-black rounded-md shadow-lg z-10">
                 <button
@@ -58,10 +78,11 @@ const Navbar = ({ links }) => {
     return (
         <nav className="bg-black text-white p-4 flex justify-between items-center">
             <div className="flex items-center">
-                
-                <img onClick={()=>{
-                    navigate("/")
-                }} src={logo} alt="" />
+                <img
+                    onClick={() => {
+                        navigate("/");
+                    }}
+                    src={logo} alt="" />
                 <span className="text-white text-xl">Ambar</span>
             </div>
             <div className="lg:hidden flex items-center">
@@ -79,7 +100,7 @@ const Navbar = ({ links }) => {
                     <div
                         key={index}
                         className="relative lg:inline-block"
-                        onClick={['Submit', 'Verify', 'Display'].includes(link.label) ? () => handleClick(link.label) : () => navigate(link.url)}
+                        onClick={['Submit', 'Verify', 'Display', 'Logout'].includes(link.label) ? () => handleClick(link.label) : () => navigate(link.url)}
                     >
                         <button className="block w-full text-left px-4 py-2 hover:text-zinc-400 lg:inline">{link.label}</button>
                         {dropdownVisible && activeDropdown === link.label && renderDropdown(link.label)}

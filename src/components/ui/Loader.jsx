@@ -1,13 +1,17 @@
+import Navbar from '../../pages/navbar/Navbar';
 import '../styles/loading.css';
 
-const Loader = () =>{
+const Loading = ({links}) =>{
 
     return (
+        <>
+            <Navbar links ={links}  />
         <div className='loader'> 
             Loading
             <span></span>
         </div>
+        </>
     )
 }
 
-export default Loader;
+export default Loading;

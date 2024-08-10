@@ -30,7 +30,7 @@ const ClerkHome = () => {
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("mainevents")}>
                         Main Events
                     </button>
-                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("trainingplacement")}>
+                    <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("placement")}>
                         Reports on Training & Placement Activities
                     </button>
                     <button className="bg-yellow-500 text-black py-2 px-4 rounded-lg w-full" onClick={() => handleClick("sponsorlist")}>

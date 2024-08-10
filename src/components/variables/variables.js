@@ -27,10 +27,14 @@ export const AdminDisplayLink = [
   { label: "Notification", url: "/login/admin/home/notification" },
 ];
 export const ClerkNavLink = [
-  { label: "Home", url: "/login/clerk/home" },
+  { label: "Home", url: "/login/clerk/deptlist/deptlogin/home" },
   { label: "Login", url: "/login" },
-  { label: "Notification", url: "/login/clerk/home/notification" },
+  {
+    label: "Notification",
+    url: "/login/clerk/deptlist/deptlogin/home/notification",
+  },
   { label: "Contact", url: "/" },
+  { label: "Logout", url: "/" },
 ];
 export const AdminNavLink = [
   { label: "Home", url: "/" },

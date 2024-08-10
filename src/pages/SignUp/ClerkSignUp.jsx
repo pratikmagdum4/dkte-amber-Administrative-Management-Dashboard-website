@@ -5,10 +5,10 @@ import { FacultyAchivements } from '../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { isAuthenticated, setUserInfo } from '../../redux/auth.js';
+import { authenticate, setUserInfo } from '../../redux/auth.js';
 import axios from 'axios';
 import { BASE_URL } from '../../api/index.js';
-
+import Loader from '../../components/ui/Loader.jsx';
 const ClerkSignupPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ClerkSignupPage = () => {
 
     const handleSubmit = async (e) => {
         setLoading(true);
-
+    console.log("the loading is ",loading)
         e.preventDefault();
         try {
             //  Axios POST    
@@ -56,10 +56,10 @@ const ClerkSignupPage = () => {
             if (response.data) {
                 toast.success("Login successful!");
                 console.log("data is", response.data.data)
-                dispatch(isAuthenticated(true));
+                dispatch(authenticate(true));
                 // dispatch(setUserInfo({ user: response.data.data, token, Uid: response.data.data.id, Name: response.data.data.name, Role: response.data.data.role }));
 
-                navigate('/login/admin/home');
+                navigate('/login/clerk/deptlist');
                 console.log("stored i guess ")
 
 
@@ -69,9 +69,9 @@ const ClerkSignupPage = () => {
 
 
         } catch (error) {
-            // if (error.response.data.msg === "User does not exist") {
-            //     setUserExists(false)
-            // }
+
+
+           
             setLoading(false);
             // if (error.response.data.msg === "User does not exist") {
             //     setUserExists(false)
@@ -86,11 +86,17 @@ const ClerkSignupPage = () => {
     };
 
     return (
+        <>
+            {(loading) ? (
+                <Loader links={FacultyAchivements} />
+            ) :(
+                
+           
         <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
             <Navbar links={FacultyAchivements} />
             <div className="flex justify-center items-center flex-grow mt-10">
                 <div className="bg-zinc-800 dark:bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Sign Up</h2>
+                    <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Clerk Sign Up</h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label className="block  text-gray-100">Name</label>
@@ -175,6 +181,8 @@ const ClerkSignupPage = () => {
             </div>
             <img src={Groupdiscussionbro1} alt="Group discussion illustration" className="w-full mt-8" />
         </div>
+            )}
+         </>
     );
 };
 
