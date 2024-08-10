@@ -5,6 +5,13 @@ export const HomeLink = [
   { label: "SignUp", url: "/signup" },
   { label: "Contact", url: "/" },
 ];
+export const LoginNavLink = [
+  { label: "Home", url: "/" },
+  { label: "Submit", url: "" },
+  { label: "About Us", url: "/" },
+  { label: "SignUp", url: "/signup" },
+  { label: "Contact", url: "/" },
+];
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
   { label: "Verify", url: "" },

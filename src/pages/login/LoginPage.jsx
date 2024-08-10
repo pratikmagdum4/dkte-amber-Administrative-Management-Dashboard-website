@@ -3,7 +3,7 @@ import { StudentMale, AdministratorMale, Interviewer, SignUpLoginHome } from '@/
 import Navbar from "../navbar/Navbar";
 import AuthButton from "../../components/ui/AuthButtom";
 import { LogIn } from "lucide-react";
-import { HomeLink } from "../../components/variables/variables";
+import { HomeLink, LoginNavLink } from "../../components/variables/variables";
 
 
 function LoginPage() {
@@ -22,7 +22,7 @@ function LoginPage() {
     return (
         <div>
             <div>
-                <Navbar links={HomeLink} />
+                <Navbar links={LoginNavLink} />
             </div>
             <div className={isSmallScreen ? "flex flex-col items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-y-4" : "flex flex-row items-center justify-center h-screen bg-zinc-100 dark:bg-zinc-800 space-x-8"}>
                 <AuthButton
