@@ -82,7 +82,8 @@ const Navbar = ({ links }) => {
                     onClick={() => {
                         navigate("/");
                     }}
-                    src={logo} alt="" />
+                    src={logo} alt="" 
+                    style={{ cursor: 'pointer' }} />
                 <span className="text-white text-xl">Ambar</span>
             </div>
             <div className="lg:hidden flex items-center">

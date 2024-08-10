@@ -70,7 +70,7 @@ const ClerkSignupPage = () => {
 
         } catch (error) {
 
-
+            alert("Error Submitting Form ,Please try again in a minute")
            
             setLoading(false);
             // if (error.response.data.msg === "User does not exist") {
