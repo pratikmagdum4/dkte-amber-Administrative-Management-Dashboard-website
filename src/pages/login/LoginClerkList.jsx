@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../pages/navbar/Navbar';
-import { FacultyAchivements } from '../../components/variables/variables';
+import { ClerkLoginList, FacultyAchivements } from '../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 
 const ClerkLoginDepartmentListingComponent = ({ title }) => {
@@ -25,9 +25,9 @@ const ClerkLoginDepartmentListingComponent = ({ title }) => {
 
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={FacultyAchivements} />
+            <Navbar links={ClerkLoginList} />
             <main className="flex flex-col items-center p-8">
-                <h1 className="text-2xl font-bold mb-8">{title}</h1>
+                <h1 className="text-2xl font-bold mb-8">Clerk Login </h1>
                 <div className="space-y-4 w-full max-w-md">
                     {buttonNames.map((btnName) => (
                         <div key={btnName.id}>

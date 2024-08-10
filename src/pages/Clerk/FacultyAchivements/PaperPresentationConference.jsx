@@ -23,7 +23,7 @@ const FacultyPaperPresentation = () => {
 
     return (
         <div>
-            <Navbar FacultyAchivements />
+            <Navbar links={FacultyAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

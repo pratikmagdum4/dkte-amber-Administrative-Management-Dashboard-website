@@ -76,6 +76,7 @@ import ClerkSignupPage from './pages/SignUp/ClerkSignUp.jsx';
 import SignUpPage from './pages/SignUp/SignUpPage.jsx';
 
 import PrivateRoute from './components/services/private.js';
+import AdminSignupPage from './pages/SignUp/AdminSignUp.jsx';
 
 const App = () => {
 
@@ -85,6 +86,7 @@ const App = () => {
         <Route path='/' element={<CarouselComponent  />} />
         <Route path='/signup' element={<SignUpPage  />} />
         <Route path='/signup/clerk'  element={<ClerkSignupPage  />} />
+        <Route path='/signup/admin' element={<AdminSignupPage  />} />
         <Route path='/login'  element={<LoginPage  />} />
         <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2  />} />
         <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent  />} />

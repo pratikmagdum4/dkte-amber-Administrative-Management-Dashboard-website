@@ -1,7 +1,7 @@
 import React from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
-import { AdminNavLink, FacultyAchivements } from '../../../components/variables/variables';
+import { AdminNavLink, AdminNotificationLink, FacultyAchivements } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 
 const AdminNotification = () => {
@@ -20,7 +20,7 @@ const AdminNotification = () => {
 
     return (
         <div>
-            <Navbar links={AdminNavLink} />
+            <Navbar links={AdminNotificationLink} />
             <AchievementsTable
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}

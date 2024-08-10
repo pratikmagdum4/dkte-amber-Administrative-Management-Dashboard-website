@@ -58,7 +58,7 @@ const ClerkSignupPage = () => {
                 console.log("data is", response.data.data)
                 dispatch(authenticate(true));
                 // dispatch(setUserInfo({ user: response.data.data, token, Uid: response.data.data.id, Name: response.data.data.name, Role: response.data.data.role }));
-
+                alert("Signup successful")
                 navigate('/login/clerk/deptlist');
                 console.log("stored i guess ")
 

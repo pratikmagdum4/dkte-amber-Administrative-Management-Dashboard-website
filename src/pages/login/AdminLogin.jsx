@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,8 +7,8 @@ import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate } from 'react-router';
 import { BASE_URL } from '../../api';
 import Loading from '../../components/ui/Loader';
-import { authenticate, setUserInfo } from '../../redux/auth';
-import { useDispatch } from 'react-redux';
+import { authenticate, selectCurrentRole, setUserInfo } from '../../redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import { HomeLink } from '../../components/variables/variables';
 
 
@@ -21,7 +21,20 @@ function AdminLoginForm() {
     const [userExists, setUserExists] = useState(true);
     const [loading, setLoading] = useState(false);
     const [invalidCredentials, setInvalidCredentials] = useState(false);
-   
+
+    const selector = useSelector(selectCurrentRole);
+    useEffect(() => {
+        // Check if the user is already logged in
+        const token = localStorage.getItem('adminAuthToken');
+        console.log("The toke is", token);
+        console.log("selector is ",selector)
+        // if (token) {
+        //     navigate('/login/admin/home');
+        // }
+        if (selector=="admin") {
+            navigate('/login/admin/home');
+        }
+    }, [navigate]);
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -156,13 +169,13 @@ function AdminLoginForm() {
                                 <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Login
                                 </button>
-                                <button
+                                {/* <button
                                     type="button"
                                     className="ml-2 text-sm text-yellow-500 hover:text-yellow-600 focus:outline-none"
                                     onClick={() => setShowForgotPassword(true)}
                                 >
                                     Forgot Password?
-                                </button>
+                                </button> */}
                             </div>
                             <div className='flex justify-center pt-6'>
                                 <button

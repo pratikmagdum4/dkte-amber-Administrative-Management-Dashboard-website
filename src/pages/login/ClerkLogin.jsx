@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,15 +6,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
 import { useNavigate, useLocation } from 'react-router';
 import { BASE_URL } from '../../api';
-import { authenticate, setUserInfo } from '../../redux/auth';
-import { useDispatch } from 'react-redux';
+import { authenticate, selectCurrentRole, setUserInfo } from '../../redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/ui/Loader'; 
-const links = [
-    { label: 'Home', url: '/' },
-    { label: 'Login', url: '/login' },
-    { label: 'Register', url: '/' },
-    { label: 'Contact', url: '/' },
-];
+import { ClerkLoginList } from '../../components/variables/variables';
 
 function LoginForm2() {
     const dispatch = useDispatch();
@@ -28,6 +23,17 @@ function LoginForm2() {
     const [userExists, setUserExists] = useState(true);
     const [loading, setLoading] = useState(false);
     const [invalidCredentials, setInvalidCredentials] = useState(false);
+    const selector = useSelector(selectCurrentRole)
+    useEffect(() => {
+        // Check if the user is already logged in
+        const token = localStorage.getItem('clerkAuthToken');
+        // if (token) {
+        //     navigate('/login/clerk/deptlist/deptlogin/home');
+        // }
+        if (selector ==="clerk") {
+            navigate('/login/clerk/deptlist/deptlogin/home');
+        }
+    }, [navigate]);
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -99,10 +105,10 @@ console.log("the role is ",response.data.role);
     return (
         <>
             {loading  ? (
-                <Loading links={links} />
+                <Loading links={ClerkLoginList} />
             ) : (
         <div>
-            <Navbar links={links} />
+                        <Navbar links={ClerkLoginList} />
             <ToastContainer position="top-center" autoClose={2000} />
             {fields === "undefined" ? (
                 <div>Empty fields</div>

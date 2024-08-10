@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
-import { FacultyAchivements } from '../../components/variables/variables';
+import { AdminSingupLinks, FacultyAchivements } from '../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -53,12 +53,12 @@ const AdminSignupPage = () => {
                 toast.success("Login successful!");
                 console.log("data is", response.data.data)
                 dispatch(authenticate(true));
-
-                navigate('/login/admin');
-                console.log("stored i guess ")
                 alert("SignUp is Successful");
                 toast.success("SignUp is Successful")
-                
+                navigate('/login/admin');
+                console.log("stored i guess ")
+               
+
             } 
 
 
@@ -82,12 +82,12 @@ const AdminSignupPage = () => {
     return (
         <>
             {(loading) ? (
-                <Loading links={FacultyAchivements} />
+                <Loading links={AdminSingupLinks} />
             ) : (
 
 
                 <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
-                    <Navbar links={FacultyAchivements} />
+                        <Navbar links={AdminSingupLinks} />
                     <div className="flex justify-center items-center flex-grow mt-10">
                         <div className="bg-zinc-800 dark:bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
                             <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Admin Sign Up</h2>

@@ -23,7 +23,7 @@ const FacultyWorkShop = () => {
     const UpdateUrl = `${BASE_URL}/api/facultyachievements/workshop`;
     return (
         <div>
-            <Navbar FacultyAchivements />
+            <Navbar links={FacultyAchivements} />
             <AchievementsTable
                 stdabroad={stdabroad}
                 initialRows={initialRows}

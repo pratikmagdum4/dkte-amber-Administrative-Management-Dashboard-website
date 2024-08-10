@@ -95,6 +95,8 @@ export const authSlice = createSlice({
 
             // Remove auth state from localStorage
             localStorage.removeItem("authState");
+            localStorage.removeItem("clerkAuthToken");
+            localStorage.removeItem("adminAuthToken");
         }
     }
 });
