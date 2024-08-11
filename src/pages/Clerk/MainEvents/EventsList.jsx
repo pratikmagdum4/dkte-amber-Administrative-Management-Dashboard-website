@@ -5,6 +5,8 @@ import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 const initialRows = [
     { info: '' },
@@ -18,7 +20,7 @@ const stdabroad = true;
 
 const MainEventTables = () => {
     const tablesRef = useRef([]);
-
+    const dept  = useSelector(selectCurrentDept)
     const FetchUrl = `${BASE_URL}/api/mainevents/getdata`;
     const SubmitUrl = `${BASE_URL}/api/mainevents/submit`;
     const DeleteUrl = `${BASE_URL}/api/mainevents`;
@@ -35,7 +37,7 @@ const MainEventTables = () => {
                             heading: columnHeaders.label,
                         }),
 
-                        
+
                         new Table({
                             rows: [
                                 new TableRow({
@@ -75,35 +77,35 @@ const MainEventTables = () => {
                     {
                         title: "TESTVISION 2K24 AND FASHIONAVA 2K24",
                         fetchUrl: `${FetchUrl}/testvis`,
-                        submitUrl: `${SubmitUrl}/testvis`,
+                        submitUrl: `${SubmitUrl}/testvis/${dept}`,
                         deleteUrl: `${DeleteUrl}/testvis`,
                         updateUrl: `${UpdateUrl}/testvis`
                     },
                     {
                         title: "TECHSYMPOSIUM 2K24",
                         fetchUrl: `${FetchUrl}/techsym`,
-                        submitUrl: `${SubmitUrl}/techsym`,
+                        submitUrl: `${SubmitUrl}/techsym/${dept}`,
                         deleteUrl: `${DeleteUrl}/techsym`,
                         updateUrl: `${UpdateUrl}/techsym`
                     },
                     {
                         title: "ALUNMI GET-TOGETHER 2023-24",
                         fetchUrl: `${FetchUrl}/alunmi`,
-                        submitUrl: `${SubmitUrl}/alunmi`,
+                        submitUrl: `${SubmitUrl}/alunmi/${dept}`,
                         deleteUrl: `${DeleteUrl}/alunmi`,
                         updateUrl: `${UpdateUrl}/alunmi`
                     },
                     {
                         title: "ENTREPRENEURSHIP DEVELOPMENT CELL",
                         fetchUrl: `${FetchUrl}/enterdevop`,
-                        submitUrl: `${SubmitUrl}/enterdevop`,
+                        submitUrl: `${SubmitUrl}/enterdevop/${dept}`,
                         deleteUrl: `${DeleteUrl}/enterdevop`,
                         updateUrl: `${UpdateUrl}/enterdevop`
                     },
                     {
                         title: "CAREER GUIDANCE CELL",
                         fetchUrl: `${FetchUrl}/career`,
-                        submitUrl: `${SubmitUrl}/career`,
+                        submitUrl: `${SubmitUrl}/career/${dept}`,
                         deleteUrl: `${DeleteUrl}/career`,
                         updateUrl: `${UpdateUrl}/career`
                     }

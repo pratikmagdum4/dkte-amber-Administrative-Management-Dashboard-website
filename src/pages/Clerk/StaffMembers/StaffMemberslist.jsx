@@ -6,6 +6,8 @@ import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 // Initial rows and column headers
 const initialRows = [
@@ -34,44 +36,45 @@ const columnHeaders2 = [
     { key: 'namecat', label: 'Name/Category' },
     { key: 'positioncount', label: 'Position/Count' },
 ];
-
 // Table configurations
-const tableConfigs = [
-    {
-        initialRows: initialRows,
-        columnHeaders: columnHeaders,
-        title: "STAFF MEMBERS 2023-2024",
-        fetchUrl: `${BASE_URL}/api/staffmember/list/getdata`,
-        submitUrl: `${BASE_URL}/api/staffmember/list/submit`,
-        deleteUrl: `${BASE_URL}/api/staffmember/list`,
-        updateUrl: `${BASE_URL}/api/staffmember/list`,
-        numberOfColumns: 3,
-    },
-    {
-        initialRows: initialRows1,
-        columnHeaders: columnHeaders1,
-        title: "STAFF MEMBERS 2023-2024 - UG/PG/MBA",
-        fetchUrl: `${BASE_URL}/api/staffmember/category/getdata`,
-        submitUrl: `${BASE_URL}/api/staffmember/category/submit`,
-        deleteUrl: `${BASE_URL}/api/staffmember/category`,
-        updateUrl: `${BASE_URL}/api/staffmember/category`,
-        numberOfColumns: 2,
-    },
-    {
-        initialRows: initialRows2,
-        columnHeaders: columnHeaders2,
-        title: "STAFF MEMBERS 2023-2024 - Position Count",
-        fetchUrl: `${BASE_URL}/api/staffmember/positioncount/getdata`,
-        submitUrl: `${BASE_URL}/api/staffmember/positioncount/submit`,
-        deleteUrl: `${BASE_URL}/api/staffmember/positioncount`,
-        updateUrl: `${BASE_URL}/api/staffmember/positioncount`,
-        numberOfColumns: 2,
-    },
-];
+
 
 const StaffMembersList = () => {
-    const tablesRef = useRef([]);
+    const dept = useSelector(selectCurrentDept)
 
+    const tablesRef = useRef([]);
+    const tableConfigs = [
+        {
+            initialRows: initialRows,
+            columnHeaders: columnHeaders,
+            title: "STAFF MEMBERS 2023-2024",
+            fetchUrl: `${BASE_URL}/api/staffmember/list/getdata`,
+            submitUrl: `${BASE_URL}/api/staffmember/list/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/staffmember/list`,
+            updateUrl: `${BASE_URL}/api/staffmember/list`,
+            numberOfColumns: 3,
+        },
+        {
+            initialRows: initialRows1,
+            columnHeaders: columnHeaders1,
+            title: "STAFF MEMBERS 2023-2024 - UG/PG/MBA",
+            fetchUrl: `${BASE_URL}/api/staffmember/category/getdata`,
+            submitUrl: `${BASE_URL}/api/staffmember/category/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/staffmember/category`,
+            updateUrl: `${BASE_URL}/api/staffmember/category`,
+            numberOfColumns: 2,
+        },
+        {
+            initialRows: initialRows2,
+            columnHeaders: columnHeaders2,
+            title: "STAFF MEMBERS 2023-2024 - Position Count",
+            fetchUrl: `${BASE_URL}/api/staffmember/positioncount/getdata`,
+            submitUrl: `${BASE_URL}/api/staffmember/positioncount/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/staffmember/positioncount`,
+            updateUrl: `${BASE_URL}/api/staffmember/positioncount`,
+            numberOfColumns: 2,
+        },
+    ];
     // Generate PDF document
     const generatePDF = () => {
         const doc = new jsPDF();

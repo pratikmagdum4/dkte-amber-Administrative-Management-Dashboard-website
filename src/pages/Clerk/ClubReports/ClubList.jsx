@@ -7,6 +7,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
 import ErrorBoundary from '../../../components/ErrorBoundry';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 const initialRows = [
     { info: '' },
@@ -29,7 +31,7 @@ const tableConfigs = [
 
 const ClubReports = () => {
     const tablesRef = useRef([]);
-
+    const dept = useSelector(selectCurrentDept)
     const FetchUrl = `${BASE_URL}/api/clubreports/getdata`;
     const SubmitUrl = `${BASE_URL}/api/clubreports/submit`;
     const DeleteUrl = `${BASE_URL}/api/clubreports`;
@@ -106,7 +108,7 @@ const ClubReports = () => {
                         columnHeaders={columnHeaders}
                         title={config.title}
                         numberOfColumns={2}
-                        SubmitUrl={`${SubmitUrl}/${config.endpoint}`}
+                        SubmitUrl={`${SubmitUrl}/${config.endpoint}/${dept}`}
                         FetchUrl={`${FetchUrl}/${config.endpoint}`}
                         DeleteUrl={`${DeleteUrl}/${config.endpoint}`}
                         UpdateUrl={`${UpdateUrl}/${config.endpoint}`}

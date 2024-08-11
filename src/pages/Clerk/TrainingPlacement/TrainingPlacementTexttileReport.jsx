@@ -7,6 +7,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
 import ErrorBoundary from '../../../components/ErrorBoundry';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 const initialRows = [
     { srno: '', branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
@@ -38,51 +40,52 @@ const columnHeaders2 = [
     { key: 'studentcount', label: 'No. of Students' },
 ];
 
-const tableConfigs = [
-    {
-        title: "TEXTILE DEPARTMENTS",
-        initialRows: initialRows,
-        columnHeaders: columnHeaders,
-        fetchUrl: `${BASE_URL}/api/textile/placement/departments/getdata`,
-        submitUrl: `${BASE_URL}/api/textile/placement/departments/submit`,
-        deleteUrl: `${BASE_URL}/api/textile/placement/departments`,
-        updateUrl: `${BASE_URL}/api/textile/placement/departments`,
-        numberOfColumns: 5,
-    },
-    {
-        title: "Package Offered For Btech Textile",
-        initialRows: initialRows1,
-        columnHeaders: columnHeaders1,
-        fetchUrl: `${BASE_URL}/api/textile/placement/packageoffered/getdata`,
-        submitUrl: `${BASE_URL}/api/textile/placement/packageoffered/submit`,
-        deleteUrl: `${BASE_URL}/api/textile/placement/packageoffered`,
-        updateUrl: `${BASE_URL}/api/textile/placement/packageoffered`,
-        numberOfColumns: 2,
-    },
-    {
-        title: "INTERNATIONAL PLACEMENT & SUMMER INTERNSHIP",
-        initialRows: initialRows1,
-        columnHeaders: columnHeaders1,
-        fetchUrl: `${BASE_URL}/api/textile/placement/international/getdata`,
-        submitUrl: `${BASE_URL}/api/textile/placement/international/submit`,
-        deleteUrl: `${BASE_URL}/api/textile/placement/international`,
-        updateUrl: `${BASE_URL}/api/textile/placement/international`,
-        numberOfColumns: 2,
-    },
-    {
-        title: "INDUSTRIAL TRAINING",
-        initialRows: initialRows2,
-        columnHeaders: columnHeaders2,
-        fetchUrl: `${BASE_URL}/api/textile/placement/industrialtraining/getdata`,
-        submitUrl: `${BASE_URL}/api/textile/placement/industrialtraining/submit`,
-        deleteUrl: `${BASE_URL}/api/textile/placement/industrialtraining`,
-        updateUrl: `${BASE_URL}/api/textile/placement/industrialtraining`,
-        numberOfColumns: 2,
-    },
-];
 
 const TrainingPlacementTextileReport = () => {
     const tablesRef = useRef([]);
+    const dept = useSelector(selectCurrentDept)
+    const tableConfigs = [
+        {
+            title: "TEXTILE DEPARTMENTS",
+            initialRows: initialRows,
+            columnHeaders: columnHeaders,
+            fetchUrl: `${BASE_URL}/api/textile/placement/departments/getdata`,
+            submitUrl: `${BASE_URL}/api/textile/placement/departments/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/textile/placement/departments`,
+            updateUrl: `${BASE_URL}/api/textile/placement/departments`,
+            numberOfColumns: 5,
+        },
+        {
+            title: "Package Offered For Btech Textile",
+            initialRows: initialRows1,
+            columnHeaders: columnHeaders1,
+            fetchUrl: `${BASE_URL}/api/textile/placement/packageoffered/getdata`,
+            submitUrl: `${BASE_URL}/api/textile/placement/packageoffered/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/textile/placement/packageoffered`,
+            updateUrl: `${BASE_URL}/api/textile/placement/packageoffered`,
+            numberOfColumns: 2,
+        },
+        {
+            title: "INTERNATIONAL PLACEMENT & SUMMER INTERNSHIP",
+            initialRows: initialRows1,
+            columnHeaders: columnHeaders1,
+            fetchUrl: `${BASE_URL}/api/textile/placement/international/getdata`,
+            submitUrl: `${BASE_URL}/api/textile/placement/international/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/textile/placement/international`,
+            updateUrl: `${BASE_URL}/api/textile/placement/international`,
+            numberOfColumns: 2,
+        },
+        {
+            title: "INDUSTRIAL TRAINING",
+            initialRows: initialRows2,
+            columnHeaders: columnHeaders2,
+            fetchUrl: `${BASE_URL}/api/textile/placement/industrialtraining/getdata`,
+            submitUrl: `${BASE_URL}/api/textile/placement/industrialtraining/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/textile/placement/industrialtraining`,
+            updateUrl: `${BASE_URL}/api/textile/placement/industrialtraining`,
+            numberOfColumns: 2,
+        },
+    ];
 
     const generatePDF = () => {
         const doc = new jsPDF();

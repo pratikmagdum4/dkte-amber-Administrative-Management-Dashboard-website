@@ -8,6 +8,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 const initialRows1 = [
     { srno: '', name: '', class: '' },
@@ -21,7 +23,7 @@ const columnHeaders1 = [
 
 const StudentSpecialAchievements = () => {
     const tablesRef = useRef([]);
-
+const dept = useSelector(selectCurrentDept)
     const FetchUrl = `${BASE_URL}/api/studentachievements/specialachievements/getdata`;
     const SubmitUrl = `${BASE_URL}/api/studentachievements/specialachievements/submit`;
     const DeleteUrl = `${BASE_URL}/api/studentachievements/specialachievements`;
@@ -83,28 +85,28 @@ const StudentSpecialAchievements = () => {
         {
             title: "GATE EXAM",
             fetchUrl: `${FetchUrl}/gate`,
-            submitUrl: `${SubmitUrl}/gate`,
+            submitUrl: `${SubmitUrl}/gate/${dept}`,
             deleteUrl: `${DeleteUrl}/gate`,
             updateUrl: `${UpdateUrl}/gate`,
         },
         {
             title: "NIFT EXAM",
             fetchUrl: `${FetchUrl}/nift`,
-            submitUrl: `${SubmitUrl}/nift`,
+            submitUrl: `${SubmitUrl}/nift/${dept}`,
             deleteUrl: `${DeleteUrl}/nift`,
             updateUrl: `${UpdateUrl}/nift`,
         },
         {
             title: "TOEFL EXAM",
             fetchUrl: `${FetchUrl}/toefl`,
-            submitUrl: `${SubmitUrl}/toefl`,
+            submitUrl: `${SubmitUrl}/toefl/${dept}`,
             deleteUrl: `${DeleteUrl}/toefl`,
             updateUrl: `${UpdateUrl}/toefl`,
         },
         {
             title: "GRE EXAM",
             fetchUrl: `${FetchUrl}/gre`,
-            submitUrl: `${SubmitUrl}/gre`,
+            submitUrl: `${SubmitUrl}/gre/${dept}`,
             deleteUrl: `${DeleteUrl}/gre`,
             updateUrl: `${UpdateUrl}/gre`,
         }

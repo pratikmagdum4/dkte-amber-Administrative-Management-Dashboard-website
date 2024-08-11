@@ -7,6 +7,8 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
 import ErrorBoundary from '../../../components/ErrorBoundry';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 
 const initialRows = [
     { branch: '', studentforcampus: '', recruitedstd: '', placementpercentage: '' },
@@ -37,42 +39,43 @@ const columnHeaders2 = [
     { key: 'studentcount', label: 'No. of Students' },
 ];
 
-const tableConfigs = [
-    {
-        title: "ENGINEERING DEPARTMENTS",
-        initialRows: initialRows,
-        columnHeaders: columnHeaders,
-        fetchUrl: `${BASE_URL}/api/engineering/placement/departments/getdata`,
-        submitUrl: `${BASE_URL}/api/engineering/placement/departments/submit`,
-        deleteUrl: `${BASE_URL}/api/engineering/placement/departments`,
-        updateUrl: `${BASE_URL}/api/engineering/placement/departments`,
-        numberOfColumns: 4,
-    },
-    {
-        title: "Package Offered",
-        initialRows: initialRows1,
-        columnHeaders: columnHeaders1,
-        fetchUrl: `${BASE_URL}/api/engineering/placement/packageoffered/getdata`,
-        submitUrl: `${BASE_URL}/api/engineering/placement/packageoffered/submit`,
-        deleteUrl: `${BASE_URL}/api/engineering/placement/packageoffered`,
-        updateUrl: `${BASE_URL}/api/engineering/placement/packageoffered`,
-        numberOfColumns: 2,
-    },
-    {
-        title: "INDUSTRIAL TRAINING",
-        initialRows: initialRows2,
-        columnHeaders: columnHeaders2,
-        fetchUrl: `${BASE_URL}/api/engineering/placement/industrialtraining/getdata`,
-        submitUrl: `${BASE_URL}/api/engineering/placement/industrialtraining/submit`,
-        deleteUrl: `${BASE_URL}/api/engineering/placement/industrialtraining`,
-        updateUrl: `${BASE_URL}/api/engineering/placement/industrialtraining`,
-        numberOfColumns: 2,
-    },
-];
+
 
 const TrainingPlacementEngineeringReport = () => {
     const tablesRef = useRef([]);
-
+    const dept = useSelector(selectCurrentDept)
+    const tableConfigs = [
+        {
+            title: "ENGINEERING DEPARTMENTS",
+            initialRows: initialRows,
+            columnHeaders: columnHeaders,
+            fetchUrl: `${BASE_URL}/api/engineering/placement/departments/getdata`,
+            submitUrl: `${BASE_URL}/api/engineering/placement/departments/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/engineering/placement/departments`,
+            updateUrl: `${BASE_URL}/api/engineering/placement/departments`,
+            numberOfColumns: 4,
+        },
+        {
+            title: "Package Offered",
+            initialRows: initialRows1,
+            columnHeaders: columnHeaders1,
+            fetchUrl: `${BASE_URL}/api/engineering/placement/packageoffered/getdata`,
+            submitUrl: `${BASE_URL}/api/engineering/placement/packageoffered/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/engineering/placement/packageoffered`,
+            updateUrl: `${BASE_URL}/api/engineering/placement/packageoffered`,
+            numberOfColumns: 2,
+        },
+        {
+            title: "INDUSTRIAL TRAINING",
+            initialRows: initialRows2,
+            columnHeaders: columnHeaders2,
+            fetchUrl: `${BASE_URL}/api/engineering/placement/industrialtraining/getdata`,
+            submitUrl: `${BASE_URL}/api/engineering/placement/industrialtraining/submit/${dept}`,
+            deleteUrl: `${BASE_URL}/api/engineering/placement/industrialtraining`,
+            updateUrl: `${BASE_URL}/api/engineering/placement/industrialtraining`,
+            numberOfColumns: 2,
+        },
+    ];
     const generatePDF = () => {
         const doc = new jsPDF();
         let yOffset = 10;
