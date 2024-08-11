@@ -14,6 +14,7 @@ const ProgressTracking = () => {
         facultyAchievementPatentGrantCount: 0,
         facultyAchievementBookPublicationCount: 0
     });
+    const [sp,setSp] = useState(0);
 
     useEffect(() => {
         const fetchProgressData = async () => {
@@ -21,6 +22,13 @@ const ProgressTracking = () => {
             try {
                 const response = await axios.get(`${BASE_URL}/api/progress`);
                 setProgressData(response.data);
+            } catch (error) {
+                console.error('Error fetching progress data:', error);
+            }
+            try {
+                const response = await axios.get(`${BASE_URL}/api/progress/clerk/CSE`);
+                setSp(response.data)
+                // setProgressData(response.data);
             } catch (error) {
                 console.error('Error fetching progress data:', error);
             }
@@ -35,6 +43,7 @@ const ProgressTracking = () => {
 
     const diplomaClerkProgress = getProgressPercentage(progressData.DiplomaClerk, TOTAL_RECORDS_Diploma);
     const mbaClerkProgress = getProgressPercentage(progressData.MBAClerk, TOTAL_RECORDS_MBA);
+    const cseClerk = getProgressPercentage(sp.totalSponsors, TOTAL_RECORDS_MBA);
 
     return (
         <>
@@ -42,6 +51,17 @@ const ProgressTracking = () => {
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Progress Tracking</h2>
                 <div className="space-y-4">
+                    <div className="p-4 border rounded-md shadow-sm">
+                        <h3 className="text-xl font-bold">CSE Clerk Sponsors</h3>
+                        <p>Total Records Filled: {sp.totalSponsors}</p>
+                        <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                            <div
+                                className="bg-blue-500 h-full"
+                                style={{ width: `${cseClerk}%` }}
+                            ></div>
+                        </div>
+                        <p>{cseClerk.toFixed(2)}% completed</p>
+                    </div>
                     <div className="p-4 border rounded-md shadow-sm">
                         <h3 className="text-xl font-bold">Diploma Clerk</h3>
                         <p>Total Records Filled: {progressData.DiplomaClerk}</p>
