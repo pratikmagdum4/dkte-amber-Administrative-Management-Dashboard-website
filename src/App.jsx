@@ -135,7 +135,7 @@ const App = () => {
         <Route path='/img/submit' element={<PrivateRoute element={<ImageForm />} allowedRoles={[]} />} />
         <Route path='/notification' element={<PrivateRoute element={<AuthButton />} allowedRoles={[]} />} />
         <Route path='/home' element={<PrivateRoute element={<Home1 />} allowedRoles={[]} />} />
-        <Route path='/error' element={<PrivateRoute element={<ErrorPage />} allowedRoles={[]} />} />
+        {/* <Route path='/error' element={<PrivateRoute element={<ErrorPage />} allowedRoles={[]} />} /> */}
         <Route path='/imagegallery' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={[]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year1' element={<PrivateRoute element={<FirstYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year2' element={<PrivateRoute element={<SecondYearBtechEngineeringTables />} allowedRoles={["clerk"]} />} />
