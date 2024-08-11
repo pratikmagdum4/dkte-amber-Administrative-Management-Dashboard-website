@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
-import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { ClerkNavLink, StaffMembers } from '../../../components/variables/variables';
+import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
 
+// Initial rows and column headers
 const initialRows = [
     { name: '', title: '', position: '' },
 ];
@@ -20,7 +21,7 @@ const initialRows2 = [
 ];
 
 const columnHeaders = [
-    { key: 'name', label: 'Name ' },
+    { key: 'name', label: 'Name' },
     { key: 'position', label: 'Position' },
 ];
 
@@ -34,25 +35,59 @@ const columnHeaders2 = [
     { key: 'positioncount', label: 'Position/Count' },
 ];
 
+// Table configurations
+const tableConfigs = [
+    {
+        initialRows: initialRows,
+        columnHeaders: columnHeaders,
+        title: "STAFF MEMBERS 2023-2024",
+        fetchUrl: `${BASE_URL}/api/staffmember/list/getdata`,
+        submitUrl: `${BASE_URL}/api/staffmember/list/submit`,
+        deleteUrl: `${BASE_URL}/api/staffmember/list`,
+        updateUrl: `${BASE_URL}/api/staffmember/list`,
+        numberOfColumns: 3,
+    },
+    {
+        initialRows: initialRows1,
+        columnHeaders: columnHeaders1,
+        title: "STAFF MEMBERS 2023-2024 - UG/PG/MBA",
+        fetchUrl: `${BASE_URL}/api/staffmember/category/getdata`,
+        submitUrl: `${BASE_URL}/api/staffmember/category/submit`,
+        deleteUrl: `${BASE_URL}/api/staffmember/category`,
+        updateUrl: `${BASE_URL}/api/staffmember/category`,
+        numberOfColumns: 2,
+    },
+    {
+        initialRows: initialRows2,
+        columnHeaders: columnHeaders2,
+        title: "STAFF MEMBERS 2023-2024 - Position Count",
+        fetchUrl: `${BASE_URL}/api/staffmember/positioncount/getdata`,
+        submitUrl: `${BASE_URL}/api/staffmember/positioncount/submit`,
+        deleteUrl: `${BASE_URL}/api/staffmember/positioncount`,
+        updateUrl: `${BASE_URL}/api/staffmember/positioncount`,
+        numberOfColumns: 2,
+    },
+];
+
 const StaffMembersList = () => {
     const tablesRef = useRef([]);
 
+    // Generate PDF document
     const generatePDF = () => {
         const doc = new jsPDF();
-        const pageHeight = doc.internal.pageSize.height;
-        let yOffset = 10; // Start at the top of the page
+        let yOffset = 10;
 
         tablesRef.current.forEach((table, index) => {
             if (table) {
-                const tableColumns = table.columnHeaders.map(header => ({ title: header.label, dataKey: header.key }));
+                const tableColumns = table.columns.map(header => ({ title: header.label, dataKey: header.key }));
                 const tableRows = table.rows.map(row => Object.fromEntries(
-                    table.columnHeaders.map(header => [header.key, row[header.key]])
+                    table.columns.map(header => [header.key, row[header.key]])
                 ));
 
                 // Add title
                 doc.setFontSize(16);
                 doc.text(table.title, 10, yOffset);
-                yOffset += 10; // Increase Y offset for table content
+                yOffset += 10;
 
                 // Add table with autoTable
                 doc.autoTable({
@@ -65,69 +100,69 @@ const StaffMembersList = () => {
                     headStyles: { fillColor: [41, 128, 185] },
                     theme: 'grid',
                     didDrawPage: (data) => {
-                        // Adjust yOffset for new pages
                         if (data.pageNumber > 1) {
                             yOffset = 10;
                         }
                     }
                 });
 
-                // Calculate new Y offset after table is drawn
                 yOffset = doc.lastAutoTable.finalY + 20;
 
                 if (index < tablesRef.current.length - 1) {
-                    doc.addPage(); // Add new page for the next table
+                    doc.addPage();
                 }
             }
         });
 
         doc.save('staff-members-list.pdf');
     };
-    const FetchUrl = `${BASE_URL}/api/staffmember`;
-    const SubmitUrl = `${BASE_URL}/api/staffmember`;
-    const DeleteUrl = `${BASE_URL}/api/staffmember`;
-    const UpdateUrl = `${BASE_URL}/api/staffmember`;
+
+    // Generate Word document
+    const generateWord = () => {
+        const tables = tablesRef.current.map(table => ({
+            title: table.title,
+            rows: table.rows,
+            columns: table.columns,
+        }));
+        generateMultipleWordDocument(tables, 'StaffMembersList');
+    };
+
     return (
         <div>
             <Navbar links={ClerkNavLink} />
-            <button onClick={generatePDF} className="mb-4 mt-4 bg-purple-500 text-white px-4 py-2 rounded">
-                Generate PDF
-            </button>
-            <AchievementsTable
-                ref={el => tablesRef.current[0] = el}
-                initialRows={initialRows}
-                columnHeaders={columnHeaders}
-                title="STAFF MEMBERS 2023-2024"
-                numberOfColumns={2}
-                SubmitUrl={`${SubmitUrl}/list/submit`}
-                FetchUrl={`${FetchUrl}/list/getdata`}
-                DeleteUrl={`${DeleteUrl}/list`}
-                UpdateUrl={`${UpdateUrl}/list`}
-            />
-            <AchievementsTable
-                NotDisplayToast={true}
-                ref={el => tablesRef.current[1] = el}
-                initialRows={initialRows1}
-                columnHeaders={columnHeaders1}
-                title="STAFF MEMBERS 2023-2024 - UG/PG/MBA"
-                numberOfColumns={2}
-                SubmitUrl={`${SubmitUrl}/category/submit`}
-                FetchUrl={`${FetchUrl}/category/getdata`}
-                DeleteUrl={`${DeleteUrl}/category`}
-                UpdateUrl={`${UpdateUrl}/category`}
-            />
-            <AchievementsTable
-                NotDisplayToast={true}
-                ref={el => tablesRef.current[2] = el}
-                initialRows={initialRows2}
-                columnHeaders={columnHeaders2}
-                title="STAFF MEMBERS 2023-2024 - Position Count"
-                numberOfColumns={2}
-                SubmitUrl={`${SubmitUrl}/positioncount/submit`}
-                FetchUrl={`${FetchUrl}/positioncount/getdata`}
-                DeleteUrl={`${DeleteUrl}/positioncount`}
-                UpdateUrl={`${UpdateUrl}/positioncount`}
-            />
+            <div className="mb-4">
+                <button onClick={generatePDF} className="bg-purple-500 mt-4 text-white px-4 py-2 rounded">
+                    Generate PDF
+                </button>
+                <button onClick={generateWord} className="bg-blue-500 mt-4 text-white px-4 py-2 rounded ml-4">
+                    Generate Word Document
+                </button>
+            </div>
+            <div>
+                {tableConfigs.map((config, index) => (
+                    <AchievementsTable
+                        NotDisplayToast={true}
+                        key={index}
+                        ref={el => {
+                            if (el) {
+                                tablesRef.current[index] = {
+                                    title: config.title,
+                                    rows: el.rows,
+                                    columns: config.columnHeaders, // Use the specific columnHeaders from config
+                                };
+                            }
+                        }}
+                        initialRows={config.initialRows}
+                        columnHeaders={config.columnHeaders}
+                        title={config.title}
+                        numberOfColumns={config.numberOfColumns}
+                        SubmitUrl={config.submitUrl}
+                        FetchUrl={config.fetchUrl}
+                        DeleteUrl={config.deleteUrl}
+                        UpdateUrl={config.updateUrl}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

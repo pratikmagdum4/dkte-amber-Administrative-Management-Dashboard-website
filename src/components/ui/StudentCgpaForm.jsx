@@ -7,6 +7,9 @@ import Navbar from '../../pages/navbar/Navbar';
 import { ClerkNavLink } from '../variables/variables';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { saveAs } from 'file-saver';
+import { generateMultipleWordDocument } from '../../utils/wordDocumentGenerateMultiple';
 
 const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, SubmitUrl, year, isMba }, ref) => {
     const [students, setStudents] = useState(initialState);
@@ -23,84 +26,62 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
         "MMTT": "B.Tech Man Made Textile Technology",
         "FT": "B.Tech Fashion Technology",
         "TC": "B.Tech Textile Chemistry",
-        "FyMba":"MBA",
-        "SyMba":"MBA",
-    }
+        "FyMba": "MBA",
+        "SyMba": "MBA",
+    };
+
     const Years = {
         "First": "First Year ",
         "Second": "Second Year ",
         "Third": "Third Year ",
         "Fourth": "Fourth Year ",
-    }
+    };
+
     const getYear = (year) => {
         return Years[year] || year;
-    }
+    };
 
     const getTitle = (branch) => {
         return titles[branch] || branch;
-    }
+    };
+
     const mergeWithInitialStudents = (fetchedData) => {
-        const updatedStudents = initialState.map(initialStudent => {
+        return initialState.map(initialStudent => {
             const existingStudent = fetchedData.find(
                 student => student.rank === initialStudent.rank && student.dept === initialStudent.dept
             );
-            console.log("Thje exis", existingStudent)
             return existingStudent ? { ...initialStudent, ...existingStudent } : initialStudent;
         });
-
-        console.log("The new are", updatedStudents)
-        return updatedStudents;
     };
-    const mergeWithInitialStudentsForMba = (fetchedData) => {
-        console.log("Fetched data for MBA:", fetchedData);
 
-        const updatedStudents = initialState.map(initialStudent => {
+    const mergeWithInitialStudentsForMba = (fetchedData) => {
+        return initialState.map(initialStudent => {
             const existingStudent = fetchedData.find(
                 student => student.rank === initialStudent.rank
             );
-
-            if (existingStudent) {
-                console.log("Merging data for student:", initialStudent, "with", existingStudent);
-            } else {
-                console.log("No matching student found for:", initialStudent);
-            }
-
             return existingStudent ? { ...initialStudent, ...existingStudent } : initialStudent;
         });
-
-        console.log("The updated MBA students are", updatedStudents);
-        return updatedStudents;
     };
 
     useEffect(() => {
         const fetchStudents = async () => {
             toast.info("The Data if not visible will be available in a minute ");
-            console.log("hi i")
             try {
-                toast.info("The Data if not visible will be available in a minute ");
                 const response = await axios.get(FetchUrl);
-                console.log("The data received was: ", response.data);
                 let mergedStudents;
-
                 mergedStudents = mergeWithInitialStudents(response.data);
-
-                // mergedStudents = mergeWithInitialStudentsForMba(response.data);
                 setStudents(mergedStudents);
-                console.log("The students are", mergedStudents);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-
         fetchStudents();
     }, [FetchUrl, initialState, isMba]);
-
 
     const handleChange = (index, field, value) => {
         const newStudents = [...students];
         newStudents[index][field] = value;
         setStudents(newStudents);
-        console.log("The student array is ", newStudents);
     };
 
     useImperativeHandle(ref, () => ({
@@ -109,9 +90,7 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const dataToSend = { students };
-        console.log("The data is ", dataToSend);
         try {
             await axios.post(SubmitUrl, dataToSend);
             alert('Data saved successfully!');
@@ -123,17 +102,13 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
     const generatePDF = () => {
         const doc = new jsPDF();
-
         const departments = [...new Set(students.map(student => student.dept))];
 
         departments.forEach((dept, deptIndex) => {
             const deptStudents = students.filter(student => student.dept === dept);
-
-            // Add title before the table
             doc.setFontSize(16);
             doc.text(dept, 10, 10);
 
-            // Add table with autoTable
             doc.autoTable({
                 startY: 20,
                 head: [['Rank', 'Student Name', 'CGPA']],
@@ -152,12 +127,107 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
 
         doc.save('Student-CGPA.pdf');
     };
+   
+
+    const generateWord = () => {
+        const departments = [...new Set(students.map(student => student.dept))];
+
+        const sections = departments.map(dept => {
+            const deptStudents = students.filter(student => student.dept === dept);
+
+            const rows = deptStudents.map(student => (
+                new Paragraph({
+                    children: [
+                        new TextRun({ text: student.rank.toString(), bold: false, size: 24 }),
+                        new TextRun({ text: '\t' }),
+                        new TextRun({ text: student.stdname, bold: false, size: 24 }),
+                        new TextRun({ text: '\t' }),
+                        new TextRun({ text: student.cgpa.toString(), bold: false, size: 24 }),
+                    ],
+                })
+            ));
+
+            return {
+                children: [
+                    new Paragraph({
+                        children: [
+                            new TextRun({ text: dept, bold: true, size: 24 }),
+                        ],
+                    }),
+                    new Paragraph({ text: ' ' }), // Empty line for spacing
+                    new Paragraph({
+                        children: [
+                            new TextRun({ text: 'Rank', bold: true, size: 24 }),
+                            new TextRun({ text: '\t' }),
+                            new TextRun({ text: "Student's Name", bold: true, size: 24 }),
+                            new TextRun({ text: '\t' }),
+                            new TextRun({ text: 'CGPA', bold: true, size: 24 }),
+                        ],
+                    }),
+                    new Paragraph({ text: ' ' }), // Empty line for spacing
+                    ...rows,
+                ],
+            };
+        });
+
+        const doc = new Document({
+            creator: "Your Name or App Name",
+            title: "Student CGPA Report",
+            description: "A document containing student CGPA data by department.",
+            sections: sections,
+        });
+
+        Packer.toBlob(doc).then(blob => {
+            saveAs(blob, 'Student-CGPA.docx');
+        });
+    };
+
+    // const generateWord = () => {
+    //     const departments = [...new Set(students.map(student => student.dept))];
+    //     const doc = new Document();
+
+    //     departments.forEach(dept => {
+    //         const deptStudents = students.filter(student => student.dept === dept);
+    //         doc.addSection({
+    //             properties: {},
+    //             children: [
+    //                 new Paragraph({
+    //                     children: [
+    //                         new TextRun({ text: dept, bold: true, size: 24 }),
+    //                     ],
+    //                 }),
+    //                 new Paragraph({
+    //                     children: [
+    //                         new TextRun({ text: 'Rank', bold: true }),
+    //                         new TextRun({ text: 'Student Name', bold: true, underline: true }),
+    //                         new TextRun({ text: 'CGPA', bold: true, underline: true }),
+    //                     ],
+    //                     spacing: { after: 200 },
+    //                 }),
+    //                 ...deptStudents.map(student => new Paragraph({
+    //                     children: [
+    //                         new TextRun(student.rank),
+    //                         new TextRun(student.stdname),
+    //                         new TextRun(student.cgpa),
+    //                     ],
+    //                 })),
+    //             ],
+    //         });
+    //     });
+
+    //     Packer.toBlob(doc).then(blob => {
+    //         saveAs(blob, 'Student-CGPA.docx');
+    //     });
+    // };
 
     return (
         <>
             <Navbar links={ClerkNavLink} />
             <button onClick={generatePDF} className="mt-4 bg-green-500 text-white py-2 px-4 rounded">
                 Download PDF
+            </button>
+            <button onClick={generateWord} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded ml-4">
+                Download Word Document
             </button>
             <div className="container mx-auto p-4">
                 <h1 className="text-xl font-bold mb-4">{title}</h1>
@@ -210,9 +280,6 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
                         Save
                     </button>
                 </form>
-                <button onClick={generatePDF} className="mt-4 bg-green-500 text-white py-2 px-4 rounded">
-                    Download PDF
-                </button>
             </div>
         </>
     );

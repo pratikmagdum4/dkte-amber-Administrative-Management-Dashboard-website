@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
 import { ClerkNavLink, UpGraduation } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
+import { generateWordDocument } from '../../../utils/generate';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
 const initialRows = [
     { srno: '', name: '', designation: '', course: '' },
 ];
@@ -17,17 +20,32 @@ const columnHeaders = [
 ];
 
 const UpGraduationQalificationList = () => {
-
+    const dept = useSelector(selectCurrentDept)
+    const tableRef = useRef(null);
     const FetchUrl = `${BASE_URL}/api/upgraduation/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/upgraduation/submit`;
+    const SubmitUrl = `${BASE_URL}/api/upgraduation/submit/${dept}`;
     const DeleteUrl = `${BASE_URL}/api/upgraduation`;
     const UpdateUrl = `${BASE_URL}/api/upgraduation`;
-  
+
+    const handleGenerateWord = () => {
+        const table = tableRef.current;
+        if (table) {
+            const rows = table.rows;
+            generateWordDocument(
+                "UPGRADATION OF FACULTY",
+                rows,
+                columnHeaders,
+                'Faculty_Upgraduation_qualification'
+            );
+        }
+    };
     return (
         <div>
             <Navbar links={ClerkNavLink} />
-            <h1>PH.D. Awarded :-</h1>
+          
+            <button onClick={handleGenerateWord} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">Generate Word Document</button>
             <AchievementsTable
+                ref={tableRef}
                 initialRows={initialRows}
                 columnHeaders={columnHeaders}
                 title="CONGRATULATION ON UPGRADATION OF QUALIFICATION 2023-24"

@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
-import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { ClerkNavLink, StudentAchivements } from '../../../components/variables/variables';
+import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import ErrorBoundary from '../../../components/ErrorBoundry';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+
+import { generateMultipleWordDocument } from '../../../utils/wordDocumentGenerateMultiple';
 
 const initialRows1 = [
     { srno: '', name: '', class: '' },
@@ -28,7 +29,7 @@ const StudentSpecialAchievements = () => {
 
     const generatePDF = () => {
         const doc = new jsPDF();
-        let yOffset = 10; // Initial Y offset for the first title
+        let yOffset = 10;
 
         tablesRef.current.forEach((table, index) => {
             const tableColumns = columnHeaders1.map(header => ({ title: header.label, dataKey: header.key }));
@@ -38,12 +39,10 @@ const StudentSpecialAchievements = () => {
                 class: row.class
             }));
 
-            // Add title before the table
             doc.setFontSize(16);
             doc.text(table.title, 10, yOffset);
-            yOffset += 10; // Increase Y offset for table content
+            yOffset += 10;
 
-            // Add table with autoTable
             doc.autoTable({
                 startY: yOffset,
                 head: [tableColumns.map(col => col.title)],
@@ -54,23 +53,30 @@ const StudentSpecialAchievements = () => {
                 headStyles: { fillColor: [41, 128, 185] },
                 theme: 'grid',
                 didDrawPage: (data) => {
-                    // Check if it's a new page, reset Y offset for new page
                     if (data.pageNumber > 1) {
                         yOffset = 10;
                     }
                 }
             });
 
-            // Calculate new Y offset after table is drawn
             yOffset = doc.lastAutoTable.finalY + 20;
 
             if (index < tablesRef.current.length - 1) {
                 doc.addPage();
-                yOffset = 10; // Reset Y offset for new page title
+                yOffset = 10;
             }
         });
 
         doc.save('Students-Special-Achievement-exam.pdf');
+    };
+
+    const generateWord = () => {
+        const tables = tablesRef.current.map(table => ({
+            title: table.title,
+            rows: table.rows,
+            columns: columnHeaders1,
+        }));
+        generateMultipleWordDocument(tables, 'Students-Special-Achievement-exam');
     };
 
     const tableConfigs = [
@@ -108,9 +114,12 @@ const StudentSpecialAchievements = () => {
         <ErrorBoundary>
             <div>
                 <Navbar links={ClerkNavLink} />
-             <  button onClick={generatePDF} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
-                Generate PDF
-            </button>
+                <button onClick={generatePDF} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
+                    Generate PDF
+                </button>
+                <button onClick={generateWord} className="mt-4 bg-green-500 text-white px-4 py-2 rounded ml-4">
+                    Generate Word Document
+                </button>
                 {tableConfigs.map((config, index) => (
                     <AchievementsTable
                         key={index}

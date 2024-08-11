@@ -6,6 +6,9 @@ import { ClerkNavLink, StudentAchivements } from '../../../components/variables/
 import { BASE_URL } from '../../../api';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { useSelector } from 'react-redux';
+import { selectCurrentDept } from '../../../redux/auth';
+import { generateWordDocument } from '../../../utils/generate';
 
 const initialRows = [
     { name: '', event: '', prize: '', date: '' },
@@ -20,62 +23,29 @@ const columnHeaders = [
 const StudentPaperProject = () => {
     const tableRef = useRef(null);
 
-    const generatePDF = () => {
-        const doc = new jsPDF();
-        const table = tableRef.current;
-        
-        const pageHeight = doc.internal.pageSize.height;
-        let yOffset = 10; // Start at the top of the page
-
-        if (table) {
-           
-            const tableColumns = columnHeaders.map(header => ({ title: header.label, dataKey: header.key }));
-            const tableRows = table.rows.map(row => ({
-                name: row.name,
-                event: row.event,
-                prize: row.prize
-            }));
-           
-            // Add title
-            doc.setFontSize(16);
-            doc.text('STUDENTS ACHIEVEMENTS IN PAPER/PROJECT PRESENTATION CONTESTS', 10, yOffset);
-            yOffset += 10; // Increase Y offset for table content
-
-            // Add table with autoTable
-            doc.autoTable({
-                startY: yOffset,
-                head: [tableColumns.map(col => col.title)],
-                body: tableRows.map(row => Object.values(row)),
-                margin: { top: 10, right: 10, bottom: 10, left: 10 },
-                pageBreak: 'auto',
-                styles: { overflow: 'linebreak' },
-                headStyles: { fillColor: [41, 128, 185] },
-                theme: 'grid',
-                didDrawPage: (data) => {
-                    // Adjust yOffset for new pages
-                    if (data.pageNumber > 1) {
-                        yOffset = 10;
-                    }
-                }
-            });
-
-            // Calculate new Y offset after table is drawn
-            yOffset = doc.lastAutoTable.finalY + 20;
-
-            doc.save('Paper-Presentation.pdf');
-        }
-    };
+    const dept = useSelector(selectCurrentDept)
 
     const FetchUrl = `${BASE_URL}/api/studentachievements/paperproject/getdata`;
-    const SubmitUrl = `${BASE_URL}/api/studentachievements/paperproject/submit`;
+    const SubmitUrl = `${BASE_URL}/api/studentachievements/paperproject/submit/${dept}`;
     const DeleteUrl = `${BASE_URL}/api/studentachievements/paperproject`;
     const UpdateUrl = `${BASE_URL}/api/studentachievements/paperproject`;
-
+    const handleGenerateWord = () => {
+        const table = tableRef.current;
+        if (table) {
+            const rows = table.rows;
+            generateWordDocument(
+                "STUDENTS ACHIEVEMENTS IN PAPER/PROJECT PRESENTATION CONTESTS",
+                rows,
+                columnHeaders,
+                'Student_achievements_paper_project'
+            );
+        }
+    };
     return (
         <div>
             <Navbar links={ClerkNavLink} />
-            <button onClick={generatePDF} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
-                Generate PDF
+            <button onClick={handleGenerateWord} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
+                Generate  Word Document
             </button>
             <AchievementsTable
                 initialRows={initialRows}
@@ -88,7 +58,7 @@ const StudentPaperProject = () => {
                 UpdateUrl={UpdateUrl}
                 ref={tableRef}
             />
-            
+
         </div>
     );
 };

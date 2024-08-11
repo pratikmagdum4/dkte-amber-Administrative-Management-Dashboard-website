@@ -59,7 +59,7 @@ function LoginForm2() {
             const response = await axios.post(`${BASE_URL}/api/login/clerk/${department}`, formValues);
 console.log("the response is ",response);
 console.log("the role is ",response.data.role);
-
+console.log("the department is ",response.data.result.department);
             // const { data, token } = response.data;
             // const { name, role, department } = data;
             // console.log("the data is ",data);
@@ -70,7 +70,10 @@ console.log("the role is ",response.data.role);
             if (response.data) {
                 const role = response.data.role;
                 const token = response.data.token;
-                dispatch(setUserInfo({ Role: role, token: token }))
+                const dept = response.data.result.department;
+                const uid = response.data.result._id;
+                const name = response.data.result.name;
+                dispatch(setUserInfo({ Role: role, token: token,Dept:dept,Uid:uid,Name:name }))
                 // dispatch(setUserInfo({ user: data, token, Name: name, Role: role }));
                 // dispatch(authenticate(true));
                 navigate('home');

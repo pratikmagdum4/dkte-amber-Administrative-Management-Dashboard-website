@@ -8,10 +8,14 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentDept, selectCurrentRole } from '../../redux/auth';
 
 const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
     const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const dept = useSelector(selectCurrentDept);
 
     useImperativeHandle(ref, () => ({
         title,
