@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentDept, selectCurrentRole } from '../../redux/auth';
 
 const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
-    const [rows, setRows] = useState(initialRows.map(row => ({ ...row, modified: false })));
+    const [rows, setRows] = useState(initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const dept = useSelector(selectCurrentDept);
@@ -31,9 +31,9 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                 }
 
                 const response = await axios.get(FetchUrl);
-                setRows(response.data.length > 0 ? response.data.map(row => ({ ...row, modified: false })) : initialRows.map(row => ({ ...row, modified: false })));
+                setRows(response.data.length > 0 ? response.data.map((row, index) => ({ ...row, srno: index + 1, modified: false })) : initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));
             } catch (error) {
-                setRows(initialRows.map(row => ({ ...row, modified: false }))); // set to initialRows if fetching fails
+                setRows(initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false }))); // set to initialRows if fetching fails
             } finally {
                 setLoading(false);
             }
@@ -47,6 +47,7 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
             acc[header.key] = '';
             return acc;
         }, {});
+        newRow.srno = rows.length + 1; // Assign the next srno
         newRow.modified = true;
         setRows([...rows, newRow]);
     };
@@ -69,7 +70,11 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
             }
             const newRows = [...rows];
             newRows.splice(index, 1);
-            setRows(newRows);
+
+            // Update srno for remaining rows and ensure data integrity
+            // const updatedRows = newRows.map((row, i) => ({ ...row, srno: i + 1 }));
+
+            // setRows(updatedRows);
         }
     };
 
