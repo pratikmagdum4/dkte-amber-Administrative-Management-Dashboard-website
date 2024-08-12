@@ -117,7 +117,7 @@ const AdminSignupPage = () => {
                                 <div>
                                     <label className="block text-gray-100 dark:text-gray-300">Password</label>
                                     <input
-                                        type="tel"
+                                        type="text"
                                         name="password"
                                         value={formValues.password}
                                         onChange={handleChange}
