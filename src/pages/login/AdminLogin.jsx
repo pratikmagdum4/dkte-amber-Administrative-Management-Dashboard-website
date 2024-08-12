@@ -9,7 +9,7 @@ import { BASE_URL } from '../../api';
 import Loading from '../../components/ui/Loader';
 import { authenticate, selectCurrentRole, setUserInfo } from '../../redux/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { HomeLink } from '../../components/variables/variables';
+import { HomeLink, LoginNavLink } from '../../components/variables/variables';
 
 
 function AdminLoginForm() {
@@ -112,11 +112,11 @@ function AdminLoginForm() {
 
     return (
         <>
-            {loading ? (<Loading links={HomeLink}/>):
+            {loading ? (<Loading links={LoginNavLink}/>):
         
         (
         <div>
-            <Navbar links={HomeLink} />
+                        <Navbar links={LoginNavLink} />
             <ToastContainer position="top-center" autoClose={2000} />
             {fields === "undefined" ? (
                 <div>Empty fields</div>

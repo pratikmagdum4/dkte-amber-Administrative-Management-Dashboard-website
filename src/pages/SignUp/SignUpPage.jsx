@@ -3,17 +3,29 @@ import { StudentMale, AdministratorMale, Interviewer, SignUpLoginHome } from '@/
 import Navbar from "../navbar/Navbar";
 import AuthButton from "../../components/ui/AuthButtom";
 import { LogIn } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentRole } from "../../redux/auth";
 // import { Navlink } from "@/components/variables/formVariables";
 const links = [
     { label: 'Home', url: '/' },
-    { label: 'Register', url: '/' },
+  
     { label: 'login', url: '/login' },
     { label: 'Contact', url: '/' },
 ];
 function SignUpPage() {
 
     const [isSmallScreen, setIsSmallerScreen] = useState(false);
-
+    const navigate = useNavigate();
+    const role = useSelector(selectCurrentRole)
+    useEffect(() => {
+        if (role === "clerk") {
+            navigate("/login/clerk/deptlist/deptlogin/home")
+        }
+        if (role === "admin") {
+            navigate("/login/admin/home")
+        }
+    }, [role]);
     useEffect(() => {
         const checkScreenSize = () => {
             setIsSmallerScreen(window.innerWidth <= 600);
