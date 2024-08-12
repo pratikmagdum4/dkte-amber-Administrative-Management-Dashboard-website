@@ -84,6 +84,9 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<CarouselComponent  />} />
+        <Route path='/submit-article' element={<ArticleForm  />} />
+        <Route path='/submit-image' element={<ImageForm  />} />
+        <Route path='/submit-technical-article' element={<TechnicalArticleForm  />} />
         <Route path='/signup' element={<SignUpPage  />} />
         <Route path='/signup/clerk'  element={<ClerkSignupPage  />} />
         <Route path='/signup/admin' element={<AdminSignupPage  />} />
