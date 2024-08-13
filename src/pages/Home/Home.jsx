@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 import { HomeLink } from "../../components/variables/variables";
@@ -23,7 +23,11 @@ const CarouselComponent = () => {
     autoplay: true,
     autoplaySpeed: 2000,
   };
+useEffect(()=>{
 
+    
+
+},[]);
   return (
     <>
      <Navbar links={HomeLink}/>

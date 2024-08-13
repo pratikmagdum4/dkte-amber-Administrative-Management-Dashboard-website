@@ -103,6 +103,7 @@ const AdminNotification = () => {
                         <option value="ENTC">ENTC</option>
                         <option value="CSE-AIML">CSE-AIML</option>
                         <option value="CIVIL">CIVIL</option>
+                        <option value="MECH">MECH</option>
                         <option value="TT">TT</option>
                         <option value="MMTT">MMTT</option>
                         <option value="FT">FT</option>

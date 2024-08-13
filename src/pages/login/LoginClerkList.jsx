@@ -10,7 +10,7 @@ const ClerkLoginDepartmentListingComponent = ({ title }) => {
 
     const buttonNames = [
         { id: 1, label: 'BTech Engineering', options: ["CSE", "CSE-AIML", "AIDS", "ENTC", "ELEC", "MECH", "CIVIL"] },
-        { id: 2, label: 'BTech Textile', options: ["TT", "MMTT", "FT", "TC"] },
+        { id: 2, label: 'BTech Textile', options: ["TT", "MMTT", "FT", "TC","TP"] },
         { id: 3, label: 'Diploma', options: ["Diploma"] },
         { id: 4, label: 'MBA', options: ["MBA"] }
     ];
