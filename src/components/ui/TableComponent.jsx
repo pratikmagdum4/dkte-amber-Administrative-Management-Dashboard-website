@@ -62,19 +62,25 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                             'Content-Type': 'application/json',
                         },
                     });
+                    toast.success('Row deleted successfully from the server.');
                 } catch (error) {
                     console.error('Error deleting row:', error);
-                    toast.error('Error deleting row');
-                    return;
+                    toast.error('Error deleting row from the server.');
+                    return; // Exit the function if deletion fails
                 }
+            } else {
+                // toast.info('Row deleted locally.');
             }
+
+            // Remove the row from the local state
             const newRows = [...rows];
             newRows.splice(index, 1);
 
-            // Update srno for remaining rows and ensure data integrity
-            // const updatedRows = newRows.map((row, i) => ({ ...row, srno: i + 1 }));
+            // Update srno for remaining rows
+            const updatedRows = newRows.map((row, i) => ({ ...row, srno: i + 1 }));
 
-            // setRows(updatedRows);
+            // Update the state
+            setRows(updatedRows);
         }
     };
 
