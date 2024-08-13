@@ -11,210 +11,179 @@ import { authenticate, selectCurrentRole, setUserInfo } from '../../redux/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { HomeLink, LoginNavLink } from '../../components/variables/variables';
 
-
 function AdminLoginForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
-    const [userExists, setUserExists] = useState(true);
     const [loading, setLoading] = useState(false);
-    const [invalidCredentials, setInvalidCredentials] = useState(false);
 
     const selector = useSelector(selectCurrentRole);
+
     useEffect(() => {
-        // Check if the user is already logged in
         const token = localStorage.getItem('adminAuthToken');
-        console.log("The toke is", token);
-        console.log("selector is ",selector)
-        // if (token) {
-        //     navigate('/login/admin/home');
-        // }
-        if (selector=="admin") {
+        if (selector === "admin") {
             navigate('/login/admin/home');
         }
-    }, [navigate]);
+    }, [navigate, selector]);
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-    const title = "Login";
+
     const [formValues, setFormValues] = useState({
         email: "",
         password: ""
     });
 
     const fields = [
-        { name: "email", label: "email", type: "email" },
-        { name: "password", label: "password", type: "password" },
-    ]
+        { name: "email", label: "Email", type: "email" },
+        { name: "password", label: "Password", type: "password" },
+    ];
+    const handleForgotPassClick = () =>{
+        setShowForgotPassword(true);
+        setForgotPasswordEmail('');
+    }
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
-    const onSubmit = async (e) => {
-        setLoading(true);
-        e.preventDefault();
-        console.log("formdata is ", formValues);
 
-        // Hardcoded admin check (can be removed if not needed)
-       
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
 
         try {
-            // Use Axios to send the POST request
-            console.log("hi im in ")
             const response = await axios.post(`${BASE_URL}/api/login/admin`, formValues);
-
-            // Destructure the response data
-            console.log("the resposne is ", response.data.result._id)
-            const { data } = response.data;
-            const { _id, name } = response.data;
-            console.log("the response is ",response)
-            // Store the data in localStorage
-            
-           
-            if (response.data) {
-                const role = response.data.role;
-                const token = response.data.token;
-                localStorage.setItem("adminAuthToken", token);
-
-                dispatch(authenticate(true));
-                dispatch(setUserInfo({ user: data, token, Uid:_id, Name: name, Role: role }));
-                console.log("the role is ",role)
-                console.log("i mhere ")
-                navigate('home');
-            }
+            const { data, token, result } = response.data;
+            console.log("the resoines is ",response)
+            const name = response.data.result.name;
+            const role = response.data.role;
+            localStorage.setItem("adminAuthToken", token);
+            const id = response.data.result.id;
+            dispatch(authenticate(true));
+            dispatch(setUserInfo({ user: data, token, Uid: id, Name: name, Role: role }));
+            navigate('/login/admin/home');
+            // navigate('home');
         } catch (error) {
-            if (error.response.data.message === "Admin doesn't exist") {
-                setUserExists(false);
-                alert("Admin doesn't exist")
-                toast.error(error.response.data.message)
+            if (error.response) {
+                const message = error.response.data.message;
+                if (message === "Admin doesn't exist" || message === "Invalid credentials") {
+                    toast.error(message);
+                }
             }
-            if (error.response.data.message === "Invalid credentials") {
-                console.log("hi invalid ")
-                setInvalidCredentials(true);
-                alert("Invalid credentials")
-                toast.error(error.response.data.message)
-            }
-
+        } finally {
             setLoading(false);
-
-            console.error("Error submitting form:", error);
         }
     };
 
     const handleForgotPasswordSubmit = async (e) => {
         e.preventDefault();
-        console.log("Forgot Password email submitted:", forgotPasswordEmail);
-        setShowForgotPassword(false);
-        toast.success('Password reset instructions sent to your email');
+        try {
+            await axios.post(`${BASE_URL}/api/admin/forgot-password`, { email: forgotPasswordEmail });
+            setShowForgotPassword(false);
+            toast.success('Password reset instructions sent to your email');
+            setForgotPasswordEmail('');
+           
+        } catch (error) {
+            toast.error('Failed to send password reset email');
+        }
     };
 
     return (
         <>
-            {loading ? (<Loading links={LoginNavLink}/>):
-        
-        (
-        <div>
-                        <Navbar links={LoginNavLink} />
-            <ToastContainer position="top-center" autoClose={2000} />
-            {fields === "undefined" ? (
-                <div>Empty fields</div>
+            {loading ? (
+                <Loading links={LoginNavLink} />
             ) : (
-                <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col ">
-                    <div className="bg-zinc-800 p-8 rounded-lg w-96 ">
-                        <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">Admin Login </h2>
-
-                        <form onSubmit={onSubmit} className="">
-                            {fields.map(field => (
-                                <div key={field.name} className="mb-4 text-center">
-                                    <label htmlFor={field.name} className="block text-white mb-2">{field.label}:</label>
-                                    <div className="relative">
+                <div>
+                    <Navbar links={LoginNavLink} />
+                    <ToastContainer position="top-center" autoClose={2000} />
+                    <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col">
+                        <div className="bg-zinc-800 p-8 rounded-lg w-96">
+                            <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">Admin Login</h2>
+                            <form onSubmit={onSubmit} className="">
+                                {fields.map(field => (
+                                    <div key={field.name} className="mb-4 text-center">
+                                        <label htmlFor={field.name} className="block text-white mb-2">{field.label}:</label>
+                                        <div className="relative">
+                                            <input
+                                                type={field.name === 'password' && !showPassword ? 'password' : 'text'}
+                                                id={field.name}
+                                                name={field.name}
+                                                value={formValues[field.name]}
+                                                onChange={handleChange}
+                                                className="input-field font-bold p-1 focus:border-yellow-500 focus:ring-yellow-500 text-black"
+                                                required
+                                            />
+                                            {field.name === 'password' && (
+                                                <button
+                                                    type="button"
+                                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
+                                                    onClick={togglePasswordVisibility}
+                                                >
+                                                    {showPassword ? (
+                                                        <img src={visibleEye} alt="Hide Password" className="h-6 w-6" />
+                                                    ) : (
+                                                        <img src={NotVisibleEye} alt="Show Password" className="h-6 w-6" />
+                                                    )}
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="flex justify-center">
+                                    <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Login
+                                    </button>
+                                </div>
+                                <div className='flex justify-center pt-6'>
+                                    <button
+                                        type="button"
+                                        className="ml-2 text-lg text-yellow-500 hover:text-yellow-600 focus:outline-none"
+                                        onClick={() => navigate('/signup')}
+                                    >
+                                        Register
+                                    </button>
+                                </div>
+                                <div className='flex justify-center pt-6'>
+                                    <button
+                                        type="button"
+                                        className="ml-2 text-lg text-yellow-500 hover:text-yellow-600 focus:outline-none"
+                                            onClick={() => handleForgotPassClick()}
+                                    >
+                                        Forgot Password
+                                    </button>
+                                </div>
+                               
+                            </form>
+                            {showForgotPassword && (
+                                <form onSubmit={handleForgotPasswordSubmit}>
+                                    <div className="mt-4 text-center">
                                         <input
-                                            type={field.name === 'password' && !showPassword ? 'password' : 'text'}
-                                            id={field.name}
-                                            name={field.name}
-                                            value={formValues[field.name]}
-                                            onChange={handleChange}
+                                            type="email"
+                                            placeholder="Enter your email"
+                                            value={forgotPasswordEmail}
+                                            onChange={(e) => setForgotPasswordEmail(e.target.value)}
                                             className="input-field font-bold p-1 focus:border-yellow-500 focus:ring-yellow-500 text-black"
                                             required
                                         />
-                                        {field.name === 'password' && (
-                                            <button
-                                                type="button"
-                                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
-                                                onClick={togglePasswordVisibility}
-                                            >
-                                                {showPassword ? (
-                                                    <img src={visibleEye} alt="Hide Password" className="h-6 w-6" />
-                                                ) : (
-                                                    <img src={NotVisibleEye} alt="Show Password" className="h-6 w-6" />
-                                                )}
-                                            </button>
-                                        )}
                                     </div>
-                                </div>
-                            ))}
-                            {/* {!userExists && (
-                                <div className="text-red-500 text-center pb-3">
-                                    User does not exist
-                                </div>
-                            )} */}
-                            {/* {invalidCredentials && (
-                                <div className="text-red-500 text-center pb-3">
-                                    Invalid Credentials
-                                </div>
-                            )} */}
-                            <div className="flex justify-center">
-                                <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                    Login
-                                </button>
-                                {/* <button
-                                    type="button"
-                                    className="ml-2 text-sm text-yellow-500 hover:text-yellow-600 focus:outline-none"
-                                    onClick={() => setShowForgotPassword(true)}
-                                >
-                                    Forgot Password?
-                                </button> */}
-                            </div>
-                            <div className='flex justify-center pt-6'>
-                                <button
-                                    type="button"
-                                    className="ml-2 text-lg text-yellow-500 hover:text-yellow-600 focus:outline-none"
-                                    onClick={() => navigate('/signup')}
-                                >
-                                    Register
-                                </button>
-                            </div>
-                        </form>
-                        {showForgotPassword && (
-                            <form onSubmit={handleForgotPasswordSubmit}>
-                                <div className="mt-4 text-center">
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        value={forgotPasswordEmail}
-                                        onChange={(e) => setForgotPasswordEmail(e.target.value)}
-                                        className="input-field font-bold p-1 focus:border-yellow-500 focus:ring-yellow-500 text-black"
-                                        required
-                                    />
-                                </div>
-                                <div className="flex justify-center mt-4">
-                                    <button
-                                        type="submit"
-                                        className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    >
-                                        Reset Password
-                                    </button>
-                                </div>
-                            </form>
-                        )}
+                                    <div className="flex justify-center mt-4">
+                                        <button
+                                            type="submit"
+                                            className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        >
+                                            Reset Password
+                                        </button>
+                                    </div>
+                                </form>
+                            )}
+                        </div>
                     </div>
+                    <img src={interviewComposition} alt="Interview Composition" />
                 </div>
             )}
-            <img src={interviewComposition} alt="Interview Composition" />
-        </div>
-                )}
         </>
     );
 }

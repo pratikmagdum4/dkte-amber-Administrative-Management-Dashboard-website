@@ -42,8 +42,8 @@ import ArticleForm from './pages/StudentSubmission/ArticleSubmission/Articleform
 import ImageForm from './pages/StudentSubmission/ImageSubmission/ImageSubmitForm.jsx';
 import AuthButton from './components/ui/AuthButtom.jsx';
 import LoginPage from './pages/login/LoginPage.jsx';
-import Dashboard from './pages/Admin/Dashboards/Dashboard.jsx';
-import EnglishArticles from './pages/DisplayItems/LanguageSection/DisplayArticles.jsx';
+
+
 import TechnicalArticleForm from './pages/StudentSubmission/TechinicalSubmission/TechinicalForm.jsx';
 import ArticleList from './pages/Admin/Verification/ArticleVerification/ArticleVerification.jsx';
 import ImgUploadList from './pages/Admin/Verification/ImageVerification/ImageVerification.jsx';
@@ -77,6 +77,10 @@ import SignUpPage from './pages/SignUp/SignUpPage.jsx';
 
 import PrivateRoute from './components/services/private.js';
 import AdminSignupPage from './pages/SignUp/AdminSignUp.jsx';
+import AdminProfilePage from './pages/SignUp/AdminSignUp.jsx';
+import AdminProfile from './pages/Admin/Profile/AdminProfile.jsx';
+import ClerkProfile from './pages/Clerk/ClerkHome/ClerkProfilePage.jsx';
+import ResetPassword from './components/ui/ResetPassword.jsx';
 
 const App = () => {
 
@@ -84,6 +88,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<CarouselComponent  />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path='/submit-article' element={<ArticleForm  />} />
         <Route path='/submit-image' element={<ImageForm  />} />
         <Route path='/submit-technical-article' element={<TechnicalArticleForm  />} />
@@ -95,6 +100,7 @@ const App = () => {
         <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent  />} />
         <Route path='/login/admin' element={<AdminLoginForm  />} />
         <Route path='/login/clerk/deptlist/deptlogin/home' element={<PrivateRoute element={<ClerkHome />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/profile' element={<PrivateRoute element={<ClerkProfile />} allowedRoles={["clerk"]} />} />
         <Route path='/rank/std' element={<PrivateRoute element={<StudentFormTable />} allowedRoles={[]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/ranktables' element={<PrivateRoute element={<RankersTables />} allowedRoles={["clerk"]} />} />
         <Route path='/institute' element={<PrivateRoute element={<DisplayInstitutes />} allowedRoles={[]} />} />
@@ -107,6 +113,11 @@ const App = () => {
         <Route path='/login/admin/home/display-image' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={["admin"]} />} />
         <Route path='/login/admin/home/display-technical-article' element={<PrivateRoute element={<TechArticleDisplayList />} allowedRoles={["admin"]} />} />
         <Route path='/login/admin/home/notification' element={<PrivateRoute element={<AdminNotification />} allowedRoles={["admin"]} />} />
+        <Route path='/login/admin/home/profile' element={<PrivateRoute element={<AdminProfile />} allowedRoles={["admin"]} />} />
+
+
+
+
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/departments' element={<PrivateRoute element={<DepartmentListing />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist' element={<PrivateRoute element={<CourseList />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/paperproject' element={<PrivateRoute element={<StudentPaperProject />} allowedRoles={["clerk"]} />} />

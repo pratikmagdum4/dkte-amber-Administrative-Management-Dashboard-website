@@ -14,6 +14,7 @@ export const LoginNavLink = [
 ];
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
+  { label: "Profile", url: "/login/admin/home/profile" },
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
   { label: "Notification", url: "/login/admin/home/notification" },
@@ -38,6 +39,7 @@ export const AdminDisplayLink = [
 ];
 export const ClerkNavLink = [
   { label: "Home", url: "/login/clerk/deptlist/deptlogin/home" },
+  { label: "Profile", url: "/login/clerk/deptlist/deptlogin/home/profile" },
 
   {
     label: "Notification",
