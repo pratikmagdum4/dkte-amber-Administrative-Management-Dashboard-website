@@ -80,7 +80,8 @@ import AdminSignupPage from './pages/SignUp/AdminSignUp.jsx';
 import AdminProfilePage from './pages/SignUp/AdminSignUp.jsx';
 import AdminProfile from './pages/Admin/Profile/AdminProfile.jsx';
 import ClerkProfile from './pages/Clerk/ClerkHome/ClerkProfilePage.jsx';
-import ResetPassword from './components/ui/ResetPassword.jsx';
+import AdminResetPassword from './components/ui/AdminResetPassword.jsx';
+import ClerkResetPassword from './components/ui/ClerkResetPassword.jsx';
 
 const App = () => {
 
@@ -88,7 +89,8 @@ const App = () => {
     <Router>
       <Routes>
         <Route path='/' element={<CarouselComponent  />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/admin/reset-password/:token" element={<AdminResetPassword />} />
+        <Route path="/clerk/reset-password/:token" element={<ClerkResetPassword />} />
         <Route path='/submit-article' element={<ArticleForm  />} />
         <Route path='/submit-image' element={<ImageForm  />} />
         <Route path='/submit-technical-article' element={<TechnicalArticleForm  />} />

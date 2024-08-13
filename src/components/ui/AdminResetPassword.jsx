@@ -7,12 +7,12 @@ import { BASE_URL } from '../../api';
 import Navbar from '../../pages/navbar/Navbar';
 import { HomeLink } from '../variables/variables';
 
-function ResetPassword() {
+function AdminResetPassword() {
     const [newPassword, setNewPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const { token } = useParams();
-
+    const role  = 0;
     const handleResetPasswordSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -57,4 +57,4 @@ function ResetPassword() {
     );
 }
 
-export default ResetPassword;
+export default AdminResetPassword;

@@ -99,11 +99,17 @@ console.log("the department is ",response.data.result.department);
 
     const handleForgotPasswordSubmit = async (e) => {
         e.preventDefault();
+        try {
+            await axios.post(`${BASE_URL}/api/clerk/forgot-password`, { email: forgotPasswordEmail });
+            setShowForgotPassword(false);
+            toast.success('Password reset instructions sent to your email');
+            setForgotPasswordEmail('');
 
-        console.log("Forgot Password email submitted:", forgotPasswordEmail);
-        setShowForgotPassword(false);
-        toast.success('Password reset instructions sent to your email');
+        } catch (error) {
+            toast.error('Failed to send password reset email');
+        }
     };
+
 
     return (
         <>
@@ -164,13 +170,13 @@ console.log("the department is ",response.data.result.department);
                                 <button type="submit" className="w-30 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Login
                                 </button>
-                                {/* <button
+                                <button
                                     type="button"
                                     className="ml-2 text-sm text-yellow-500 hover:text-yellow-600 focus:outline-none"
                                     onClick={() => setShowForgotPassword(true)}
                                 >
                                     Forgot Password?
-                                </button> */}
+                                </button>
                             </div>
                             <div className='flex justify-center pt-6'>
                                 <button
