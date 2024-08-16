@@ -36,70 +36,110 @@ const initialState = loadState() || {
 };
 
 // Create the auth slice with reducers
+let logoutTimer;
+
 export const authSlice = createSlice({
-    name: "auth",
-    initialState: initialState,
-    reducers: {
-        authenticate: (state, action) => {
-            state.isAuthenticated = action.payload;
-            saveState(state);
-        },
-        setUserInfo: (state, action) => {
-            const {
-                user,
-                token,
-                Uid,
-                Name,
-                Role,
-                Dept
-            } = action.payload;
-            state.currentUser = user;
-            state.token = token;
-            state.Uid = Uid;
-            state.Name = Name;
-            state.Role = Role;
-            state.Dept = Dept;
-            state.isAuthenticated = true;
+  name: "auth",
+  initialState: initialState,
+  reducers: {
+    authenticate: (state, action) => {
+      state.isAuthenticated = action.payload;
+      saveState(state);
 
-            const existingUserIndex = state.users.findIndex((u) => u.Uid === Uid);
-            if (existingUserIndex !== -1) {
-                state.users[existingUserIndex] = {
-                    user,
-                    token,
-                    Uid,
-                    Name,
-                    Role,
-                    Dept
-                };
-            } else {
-                state.users.push({
-                    user,
-                    token,
-                    Uid,
-                    Name,
-                    Role,
-                    Dept
-                });
-            }
+      // Start the logout timer
+      if (state.isAuthenticated) {
+        logoutTimer = setTimeout(() => {
+          state.isAuthenticated = false;
+          state.currentUser = null;
+          state.token = null;
+          state.Uid = null;
+          state.Name = null;
+          state.Role = null;
+          state.Dept = null;
 
-            saveState(state);
-        },
-        logOut: (state) => {
-            state.currentUser = null;
-            state.token = null;
-            state.Uid = null;
-            state.Name = null;
-            state.Role = null;
-            state.Dept = null;
-            state.isAuthenticated = false;
+          // Remove auth state from localStorage
+          localStorage.removeItem("authState");
+          localStorage.removeItem("clerkAuthToken");
+          localStorage.removeItem("adminAuthToken");
 
-            // Remove auth state from localStorage
-            localStorage.removeItem("authState");
-            localStorage.removeItem("clerkAuthToken");
-            localStorage.removeItem("adminAuthToken");
-        }
-    }
+          saveState(state);
+        }, 3600000); // 1 hour in milliseconds
+      }
+    },
+    setUserInfo: (state, action) => {
+      const { user, token, Uid, Name, Role, Dept } = action.payload;
+      state.currentUser = user;
+      state.token = token;
+      state.Uid = Uid;
+      state.Name = Name;
+      state.Role = Role;
+      state.Dept = Dept;
+      state.isAuthenticated = true;
+
+      const existingUserIndex = state.users.findIndex((u) => u.Uid === Uid);
+      if (existingUserIndex !== -1) {
+        state.users[existingUserIndex] = {
+          user,
+          token,
+          Uid,
+          Name,
+          Role,
+          Dept,
+        };
+      } else {
+        state.users.push({
+          user,
+          token,
+          Uid,
+          Name,
+          Role,
+          Dept,
+        });
+      }
+
+      saveState(state);
+
+      // Start the logout timer
+      if (state.isAuthenticated) {
+        if (logoutTimer) clearTimeout(logoutTimer);
+        logoutTimer = setTimeout(() => {
+          state.isAuthenticated = false;
+          state.currentUser = null;
+          state.token = null;
+          state.Uid = null;
+          state.Name = null;
+          state.Role = null;
+          state.Dept = null;
+
+          // Remove auth state from localStorage
+          localStorage.removeItem("authState");
+          localStorage.removeItem("clerkAuthToken");
+          localStorage.removeItem("adminAuthToken");
+
+          saveState(state);
+        }, 3600000); // 1 hour in milliseconds
+      }
+    },
+    logOut: (state) => {
+      state.currentUser = null;
+      state.token = null;
+      state.Uid = null;
+      state.Name = null;
+      state.Role = null;
+      state.Dept = null;
+      state.isAuthenticated = false;
+
+      // Remove auth state from localStorage
+      localStorage.removeItem("authState");
+      localStorage.removeItem("clerkAuthToken");
+      localStorage.removeItem("adminAuthToken");
+
+      // Clear the logout timer
+      if (logoutTimer) clearTimeout(logoutTimer);
+    },
+  },
 });
+
 
 // Export the actions and reducer
 export const { authenticate, setUserInfo, logOut } = authSlice.actions;
