@@ -26,9 +26,9 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         const fetchData = async () => {
             try {
                 setLoading(true);
-                if (!NotDisplayToast) {
-                    toast.info("The Data if not visible will be available in a minute ");
-                }
+                // if (!NotDisplayToast) {
+                //     toast.info("The Data if not visible will be available in a minute ");
+                // }
 
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map((row, index) => ({ ...row, srno: index + 1, modified: false })) : initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));

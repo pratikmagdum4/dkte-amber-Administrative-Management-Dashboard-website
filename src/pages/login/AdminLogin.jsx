@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import axios from 'axios';
+import Navbar from '../navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { interviewComposition, NotVisibleEye, visibleEye } from '../../assets';
-import { useNavigate } from 'react-router';
-import { BASE_URL } from '../../api';
 import Loading from '../../components/ui/Loader';
 import { authenticate, selectCurrentRole, setUserInfo } from '../../redux/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { HomeLink, LoginNavLink } from '../../components/variables/variables';
+import { LoginNavLink } from '../../components/variables/variables';
+import { BASE_URL } from '../../api';
 
 function AdminLoginForm() {
     const dispatch = useDispatch();
@@ -18,60 +18,50 @@ function AdminLoginForm() {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
     const [loading, setLoading] = useState(false);
-
-    const selector = useSelector(selectCurrentRole);
+    const [invalid, setInvalid] = useState(false);
+    const currentRole = useSelector(selectCurrentRole);
 
     useEffect(() => {
-        const token = localStorage.getItem('adminAuthToken');
-        if (selector === "admin") {
+        if (currentRole === 'admin') {
             navigate('/login/admin/home');
         }
-    }, [navigate, selector]);
+    }, [navigate, currentRole]);
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
     const [formValues, setFormValues] = useState({
-        email: "",
-        password: ""
+        email: '',
+        password: '',
     });
 
-    const fields = [
-        { name: "email", label: "Email", type: "email" },
-        { name: "password", label: "Password", type: "password" },
-    ];
-    const handleForgotPassClick = () =>{
-        setShowForgotPassword(true);
-        setForgotPasswordEmail('');
-    }
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormValues({ ...formValues, [name]: value });
+        setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
     };
 
-    const onSubmit = async (e) => {
+    const handleForgotPassClick = () => {
+        setShowForgotPassword(true);
+        setForgotPasswordEmail('');
+    };
+
+    const handleLoginSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
+        setInvalid(false);
         try {
             const response = await axios.post(`${BASE_URL}/api/login/admin`, formValues);
             const { data, token, result } = response.data;
-            console.log("the resoines is ",response)
-            const name = response.data.result.name;
-            const role = response.data.role;
-            localStorage.setItem("adminAuthToken", token);
-            const id = response.data.result.id;
+            console.log(response)
             dispatch(authenticate(true));
-            dispatch(setUserInfo({ user: data, token, Uid: id, Name: name, Role: role }));
+            console.log(result._id)
+            dispatch(setUserInfo({ user: data, token, Uid: result._id, Name: result.name, Role: response.data.role }));
+            localStorage.setItem('adminAuthToken', token);
             navigate('/login/admin/home');
-            // navigate('home');
         } catch (error) {
-            if (error.response) {
-                const message = error.response.data.message;
-                if (message === "Admin doesn't exist" || message === "Invalid credentials") {
-                    toast.error(message);
-                }
+            setLoading(false);
+            if (error.response && (error.response.data.message === "Admin doesn't exist" || error.response.data.message === "Invalid credentials")) {
+                setInvalid(true);
+                toast.error(error.response.data.message);
             }
         } finally {
             setLoading(false);
@@ -85,15 +75,24 @@ function AdminLoginForm() {
             setShowForgotPassword(false);
             toast.success('Password reset instructions sent to your email');
             setForgotPasswordEmail('');
-           
-        } catch (error) {
+        } catch {
             toast.error('Failed to send password reset email');
         }
     };
 
+    const renderPasswordToggle = () => (
+        <button
+            type="button"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
+            onClick={togglePasswordVisibility}
+        >
+            <img src={showPassword ? visibleEye : NotVisibleEye} alt="Toggle Password Visibility" className="h-6 w-6" />
+        </button>
+    );
+
     return (
         <>
-            {loading ? (
+            {loading && invalid ? (
                 <Loading links={LoginNavLink} />
             ) : (
                 <div>
@@ -101,34 +100,26 @@ function AdminLoginForm() {
                     <ToastContainer position="top-center" autoClose={2000} />
                     <div className="flex justify-center items-center h-screen animate-slideFromBottom flex-col">
                         <div className="bg-zinc-800 p-8 rounded-lg w-96">
-                            <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 flex justify-center" id="title">Admin Login</h2>
-                            <form onSubmit={onSubmit} className="">
-                                {fields.map(field => (
-                                    <div key={field.name} className="mb-4 text-center">
-                                        <label htmlFor={field.name} className="block text-white mb-2">{field.label}:</label>
+                            <h2 className="text-white text-2xl mb-6 border-b border-zinc-600 pb-2 text-center">
+                                Admin Login
+                            </h2>
+                            <form onSubmit={handleLoginSubmit}>
+                                {['email', 'password'].map((field) => (
+                                    <div key={field} className="mb-4 text-center">
+                                        <label htmlFor={field} className="block text-white mb-2">
+                                            {field.charAt(0).toUpperCase() + field.slice(1)}:
+                                        </label>
                                         <div className="relative">
                                             <input
-                                                type={field.name === 'password' && !showPassword ? 'password' : 'text'}
-                                                id={field.name}
-                                                name={field.name}
-                                                value={formValues[field.name]}
-                                                onChange={handleChange}
+                                                type={field === 'password' && !showPassword ? 'password' : 'text'}
+                                                id={field}
+                                                name={field}
+                                                value={formValues[field]}
+                                                onChange={handleInputChange}
                                                 className="input-field font-bold p-1 focus:border-yellow-500 focus:ring-yellow-500 text-black"
                                                 required
                                             />
-                                            {field.name === 'password' && (
-                                                <button
-                                                    type="button"
-                                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-white"
-                                                    onClick={togglePasswordVisibility}
-                                                >
-                                                    {showPassword ? (
-                                                        <img src={visibleEye} alt="Hide Password" className="h-6 w-6" />
-                                                    ) : (
-                                                        <img src={NotVisibleEye} alt="Show Password" className="h-6 w-6" />
-                                                    )}
-                                                </button>
-                                            )}
+                                            {field === 'password' && renderPasswordToggle()}
                                         </div>
                                     </div>
                                 ))}
@@ -137,7 +128,7 @@ function AdminLoginForm() {
                                         Login
                                     </button>
                                 </div>
-                                <div className='flex justify-center pt-6'>
+                                <div className="flex justify-center pt-6">
                                     <button
                                         type="button"
                                         className="ml-2 text-lg text-yellow-500 hover:text-yellow-600 focus:outline-none"
@@ -146,16 +137,15 @@ function AdminLoginForm() {
                                         Register
                                     </button>
                                 </div>
-                                <div className='flex justify-center pt-6'>
+                                <div className="flex justify-center pt-6">
                                     <button
                                         type="button"
                                         className="ml-2 text-lg text-yellow-500 hover:text-yellow-600 focus:outline-none"
-                                            onClick={() => handleForgotPassClick()}
+                                        onClick={handleForgotPassClick}
                                     >
                                         Forgot Password
                                     </button>
                                 </div>
-                               
                             </form>
                             {showForgotPassword && (
                                 <form onSubmit={handleForgotPasswordSubmit}>

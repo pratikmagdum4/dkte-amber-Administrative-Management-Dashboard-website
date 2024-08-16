@@ -23,6 +23,8 @@ function LoginForm2() {
     const [userExists, setUserExists] = useState(true);
     const [loading, setLoading] = useState(false);
     const [invalidCredentials, setInvalidCredentials] = useState(false);
+    const [invalid, setInvalid] = useState(false);
+
     const selector = useSelector(selectCurrentRole)
     useEffect(() => {
         // Check if the user is already logged in
@@ -54,6 +56,7 @@ function LoginForm2() {
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log("formdata is ", formValues);
+        setInvalid(false)
         setLoading(true);
         try {
             const response = await axios.post(`${BASE_URL}/api/login/clerk/${department}`, formValues);
@@ -82,12 +85,14 @@ console.log("the department is ",response.data.result.department);
             // console.log("the msg is ", error.response.data.message)
             if (error.response.data.message ==="Clerk doesn't exist")
             {
+                
                 setUserExists(false);
                 alert("Clerk doesn't exist")
                 toast.error(error.response.data.message)
             }
             if (error.response.data.message === "Invalid credentials") {
                 console.log("hi invalid ")
+                setInvalid(true)
                 setInvalidCredentials(true);
                 alert("Invalid credentials")
                 toast.error(error.response.data.message)
@@ -113,7 +118,7 @@ console.log("the department is ",response.data.result.department);
 
     return (
         <>
-            {loading  ? (
+            {loading &&invalid ? (
                 <Loading links={ClerkLoginList} />
             ) : (
         <div>
