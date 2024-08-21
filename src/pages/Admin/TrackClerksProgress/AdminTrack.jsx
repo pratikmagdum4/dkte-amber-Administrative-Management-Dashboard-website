@@ -8,7 +8,7 @@ import Loading from '../../../components/ui/Loader';
 const departments = ['CSE', 'CSE-AIML', 'ENTC', 'MECH', 'ELEC', 'TC', 'TT', 'MMTT', 'Diploma', 'MBA'];
 
 const departmentModelMapping = {
-    'CSE': ['sponsors', 'engineeringCompanies',],
+    'CSE': ['engi','sponsors', 'engineeringCompanies',],
     'CSE-AIML': ['sponsors', 'engineeringCompanies'],
     'ENTC': ['sponsors', 'engineeringCompanies'],
     'MECH': ['sponsors', 'engineeringCompanies'],

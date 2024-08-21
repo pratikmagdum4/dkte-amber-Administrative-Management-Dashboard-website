@@ -14,7 +14,7 @@ const ArticleList = () => {
                 const response = await axios.get(`${BASE_URL}/api/article/get`);
                 const articles = response.data.map(article => ({
                     ...article,
-                    selfImage: article.selfImage.replace(/^"|"$/g, '') // Remove extra quotes from URL
+                    selfImage: article.selfImage.replace(/^"|"$/g, '')
                 }));
                 setArticleList(articles);
             } catch (error) {
