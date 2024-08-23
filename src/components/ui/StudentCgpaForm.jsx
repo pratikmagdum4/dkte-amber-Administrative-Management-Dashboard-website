@@ -182,43 +182,6 @@ const StudentCgpaFormTable = forwardRef(({ title, initialState, FetchUrl, Submit
         });
     };
 
-    // const generateWord = () => {
-    //     const departments = [...new Set(students.map(student => student.dept))];
-    //     const doc = new Document();
-
-    //     departments.forEach(dept => {
-    //         const deptStudents = students.filter(student => student.dept === dept);
-    //         doc.addSection({
-    //             properties: {},
-    //             children: [
-    //                 new Paragraph({
-    //                     children: [
-    //                         new TextRun({ text: dept, bold: true, size: 24 }),
-    //                     ],
-    //                 }),
-    //                 new Paragraph({
-    //                     children: [
-    //                         new TextRun({ text: 'Rank', bold: true }),
-    //                         new TextRun({ text: 'Student Name', bold: true, underline: true }),
-    //                         new TextRun({ text: 'CGPA', bold: true, underline: true }),
-    //                     ],
-    //                     spacing: { after: 200 },
-    //                 }),
-    //                 ...deptStudents.map(student => new Paragraph({
-    //                     children: [
-    //                         new TextRun(student.rank),
-    //                         new TextRun(student.stdname),
-    //                         new TextRun(student.cgpa),
-    //                     ],
-    //                 })),
-    //             ],
-    //         });
-    //     });
-
-    //     Packer.toBlob(doc).then(blob => {
-    //         saveAs(blob, 'Student-CGPA.docx');
-    //     });
-    // };
 
     return (
         <>
