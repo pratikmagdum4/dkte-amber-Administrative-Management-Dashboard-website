@@ -12,6 +12,7 @@ const initialRows = [
     { srno: '', sponsors: '' },
 ];
 
+
 const columnHeaders = [
     { key: 'srno', label: 'Sr.No.' },
     { key: 'sponsors', label: 'Sponsors Information' },

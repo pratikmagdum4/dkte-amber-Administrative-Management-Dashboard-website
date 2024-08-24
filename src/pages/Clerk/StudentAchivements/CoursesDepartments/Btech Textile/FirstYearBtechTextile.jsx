@@ -24,6 +24,11 @@ const initialStudentsState = [
     { rank: 3, stdname: '', cgpa: '', dept: 'TC' },
     { rank: 4, stdname: '', cgpa: '', dept: 'TC' },
     { rank: 5, stdname: '', cgpa: '', dept: 'TC' },
+    { rank: 1, stdname: '', cgpa: '', dept: 'TP' },
+    { rank: 2, stdname: '', cgpa: '', dept: 'TP' },
+    { rank: 3, stdname: '', cgpa: '', dept: 'TP' },
+    { rank: 4, stdname: '', cgpa: '', dept: 'TP' },
+    { rank: 5, stdname: '', cgpa: '', dept: 'TP' },
 ];
 
 const FirstYearBtechTextileTables = () => {

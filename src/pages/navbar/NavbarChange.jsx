@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
-import { logo } from '../../assets'; // Import the logo
+import { logo } from '../../assets'; 
 
 const Navbar = ({ links }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
