@@ -1,26 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Load the auth state from localStorage
-const loadState = () => {
-    try {
-        const serializedState = localStorage.getItem("authState");
-        if (serializedState === null) {
-            return undefined;
-        }
-        return JSON.parse(serializedState);
-    } catch (err) {
-        return undefined;
-    }
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify({
+      ...state,
+      expiry: Date.now() + 3600000, // 1 hour in milliseconds
+    });
+    localStorage.setItem("authState", serializedState);
+  } catch {
+    // Ignore write errors
+  }
 };
 
-// Save the auth state to localStorage
-const saveState = (state) => {
-    try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem("authState", serializedState);
-    } catch {
-        // Ignore write errors
+const loadState = () => {
+  try {
+    const serializedState = localStorage.getItem("authState");
+    if (serializedState === null) {
+      return undefined;
     }
+    const parsedState = JSON.parse(serializedState);
+    if (parsedState.expiry && Date.now() > parsedState.expiry) {
+      localStorage.removeItem("authState"); // Clear expired state
+      return undefined;
+    }
+    return parsedState;
+  } catch (err) {
+    return undefined;
+  }
 };
 
 // Define the initial state
@@ -144,7 +151,7 @@ export const authSlice = createSlice({
 // Export the actions and reducer
 export const { authenticate, setUserInfo, logOut } = authSlice.actions;
 export default authSlice.reducer;
-
+export { loadState };
 // Selectors
 export const selectCurrentUser = (state) => state.auth.currentUser;
 export const selectCurrentToken = (state) => state.auth.token;

@@ -47,7 +47,8 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
             acc[header.key] = '';
             return acc;
         }, {});
-        newRow.srno = rows.length + 1; // Assign the next srno
+        newRow.srno = rows.length + 1;
+        // newRow.rank = rows.length + 1; 
         newRow.modified = true;
         setRows([...rows, newRow]);
     };
@@ -122,11 +123,11 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         e.preventDefault();
 
         const hasUnsavedChanges = rows.some(row => row.modified);
-        if (hasUnsavedChanges) {
-            if (!window.confirm("There are unsaved changes. Do you want to submit them anyway?")) {
-                return;
-            }
-        }
+        // if (hasUnsavedChanges) {
+        //     if (!window.confirm("There are unsaved changes. Do you want to submit them anyway?")) {
+        //         return;
+        //     }
+        // }
 
         if (window.confirm("Are you sure you want to submit?")) {
             try {

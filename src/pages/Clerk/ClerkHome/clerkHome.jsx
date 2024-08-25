@@ -10,7 +10,7 @@ const ClerkHome = () => {
         navigate(`/login/clerk/deptlist/deptlogin/home/${option}`)
     }
     return (
-        <div className="min-h-screen bg-white dark:bg-zinc-900">
+        <div className="min-h-screen bg-white dark:bg-zinc-900 mt-10">
             <Navbar links={ClerkNavLink} />
             <main className="flex flex-col items-center p-8">
 

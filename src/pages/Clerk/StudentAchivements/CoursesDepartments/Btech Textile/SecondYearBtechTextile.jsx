@@ -1,47 +1,46 @@
-import React from 'react';
-import StudentCgpaFormTable from '../../../../../components/ui/StudentCgpaForm';
-import { BASE_URL } from '../../../../../api';
+import React, { useRef } from 'react';
+import AchievementsTable from '../../../../../components/ui/TableComponent';
 import Navbar from '../../../../navbar/Navbar';
 import { ClerkNavLink } from '../../../../../components/variables/variables';
+import { BASE_URL } from '../../../../../api';
 
-const initialStudentsState = [
-    { rank: 1, stdname: '', cgpa: '', dept: 'TT' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'TT' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'TT' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'TT' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'TT' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'MMTT' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'MMTT' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'MMTT' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'MMTT' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'MMTT' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'FT' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'FT' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'FT' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'FT' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'FT' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'TC' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'TC' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'TC' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'TC' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'TC' },
+const initialRows = [
+    { rank: '', stdname: '', cgpa: '', dept: '' },
 ];
 
-const SecondYearBtechTextileTables = () => {
+const columnHeaders = [
+    { key: 'rank', label: 'Rank' },
+    { key: 'stdname', label: 'Student Name' },
+    { key: 'cgpa', label: 'CGPA' },
+];
 
-    const FetchUrl = `${BASE_URL}/api/btechtextcgpa/get/first`
-    const SubmitUrl = `${BASE_URL}/api/btechtextcgpa/submit/first`
-    const year = "Second"
+const stdabroad = true;
+const departments = ["tt", "tc", "mmtt", "tp", "ft"];
+
+const SecondYearBtechTextileTables = () => {
+    const tableRef = useRef(null);
+    const year = "Second";
+
+
     return (
-        <div>
-           
-            <StudentCgpaFormTable
-                title="First Year BTech Textile Technology"
-                initialState={initialStudentsState}
-                FetchUrl={FetchUrl}
-                SubmitUrl={SubmitUrl}
-                year={year}
-            />
+        <div className='mt-14'>
+            <Navbar links={ClerkNavLink} />
+            {departments.map(dept => (
+                <AchievementsTable
+                    key={`${year}-${dept}`}
+                    NotDisplayToast={true}
+                    stdabroad={stdabroad}
+                    initialRows={initialRows}
+                    columnHeaders={columnHeaders}
+                    title={` ${year.toUpperCase()} Year ${dept.toUpperCase()} DEPARTMENT`}
+                    numberOfColumns={4}
+                    SubmitUrl={`${BASE_URL}/api/studentscgpa/textile/submit/${year.toLowerCase()}/${dept}`}
+                    FetchUrl={`${BASE_URL}/api/studentscgpa/textile/get/${year.toLowerCase()}/${dept}`}
+                    DeleteUrl={`${BASE_URL}/api/studentscgpa/textile/${year.toLowerCase()}/${dept}`}
+                    UpdateUrl={`${BASE_URL}/api/studentscgpa/textile/${year.toLowerCase()}/${dept}`}
+                    ref={tableRef}
+                />
+            ))}
         </div>
     );
 };

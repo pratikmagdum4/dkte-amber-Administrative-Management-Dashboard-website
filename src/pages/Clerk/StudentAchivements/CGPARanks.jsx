@@ -35,7 +35,7 @@ function DisplayInstitutes()
 
     return (
         <>
-        <div>
+            <div className='mt-14'>
         <Navbar links={StudentAchivements}/>
        
             <DropDownOptions title={"BTech"}options={Btech}/>

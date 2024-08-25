@@ -1,28 +1,43 @@
-import React from 'react';
-import StudentCgpaFormTable from '../../../../../components/ui/StudentCgpaForm';
+
+
+import React, { useRef } from 'react';
+import AchievementsTable from '../../../../../components/ui/TableComponent';
+import Navbar from '../../../../navbar/Navbar';
+import { ClerkNavLink } from '../../../../../components/variables/variables';
 import { BASE_URL } from '../../../../../api';
 
-const initialStudentsState = [
-    { rank: 1, stdname: '', cgpa: '', dept: 'FyMba' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'FyMba' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'FyMba' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'FyMba' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'FyMba' },
+const initialRows = [
+    { rank: '', stdname: '', cgpa: '' },
 ];
 
-const MBAFirstYearCgpaTables = () => {
+const columnHeaders = [
+    { key: 'rank', label: 'Rank' },
+    { key: 'stdname', label: 'Student Name' },
+    { key: 'cgpa', label: 'CGPA' },
+];
 
-    const FetchUrl = `${BASE_URL}/api/mba/get/first`
-    const SubmitUrl = `${BASE_URL}/api/mba/submit/first`
-    const year = "First"
+const stdabroad = true;
+
+const MBAFirstYearCgpaTables = () => {
+    const tableRef = useRef(null);
+    const year = "First";
+
     return (
-        <div>
-            <StudentCgpaFormTable
-                title="First Year MBA "
-                initialState={initialStudentsState}
-                FetchUrl={FetchUrl}
-                SubmitUrl={SubmitUrl}
-                year={year}
+        <div className='mt-14'>
+            <Navbar links={ClerkNavLink} />
+            <AchievementsTable
+                key={year}
+                NotDisplayToast={true}
+                stdabroad={stdabroad}
+                initialRows={initialRows}
+                columnHeaders={columnHeaders}
+                title={`MBA ${year.toUpperCase()} Year CGPA Data`}
+                numberOfColumns={3}
+                SubmitUrl={`${BASE_URL}/api/studentscgpa/mba/submit/${year.toLowerCase()}`}
+                FetchUrl={`${BASE_URL}/api/studentscgpa/mba/get/${year.toLowerCase()}`}
+                DeleteUrl={`${BASE_URL}/api/studentscgpa/mba/delete/${year.toLowerCase()}`}
+                UpdateUrl={`${BASE_URL}/api/studentscgpa/mba/update/${year.toLowerCase()}`}
+                ref={tableRef}
             />
         </div>
     );

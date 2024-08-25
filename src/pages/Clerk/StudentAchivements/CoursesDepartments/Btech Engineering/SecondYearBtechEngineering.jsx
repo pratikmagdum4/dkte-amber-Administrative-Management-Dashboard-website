@@ -1,62 +1,48 @@
-import React from 'react';
-import StudentCgpaFormTable from '../../../../../components/ui/StudentCgpaForm';
-import { BASE_URL } from '../../../../../api';
+import React, { useRef } from 'react';
+import AchievementsTable from '../../../../../components/ui/TableComponent';
 import Navbar from '../../../../navbar/Navbar';
 import { ClerkNavLink } from '../../../../../components/variables/variables';
-const initialStudentsState = [
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: '', stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: '', stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: '', stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: '', stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: '', stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: '', stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: '', stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: '', stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: '', stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: '', stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CE' },
-    { rank: '', stdname: '', cgpa: '', dept: 'CE' },
+import { BASE_URL } from '../../../../../api';
+
+const initialRows = [
+    { rank: '', stdname: '', cgpa: '', dept: '' },
 ];
 
-const SecondYearBtechEngineeringTables = () => {
-    const FetchUrl = `${BASE_URL}/api/btechcgpa/get/second`
-    const SubmitUrl = `${BASE_URL}/api/btechcgpa/submit/second`
-    const year = "Fourth"
+const columnHeaders = [
+    { key: 'rank', label: 'Rank' },
+    { key: 'stdname', label: 'Student Name' },
+    { key: 'cgpa', label: 'CGPA' },
+];
+
+const stdabroad = true;
+const departments = ["cse", "aiml", "aids", "entc", "ele", "mech", "civil"];
+
+const FirstYearBtechEngineeringTables = () => {
+    const tableRef = useRef(null);
+    const year = "Second";
+
+
     return (
-        <div>
-           
-            <StudentCgpaFormTable
-                title="Second Year BTech"
-                initialState={initialStudentsState}
-                FetchUrl={FetchUrl}
-                SubmitUrl={SubmitUrl}
-                year = {year}
-            />
+        <div className='mt-14'>
+            <Navbar links={ClerkNavLink} />
+            {departments.map(dept => (
+                <AchievementsTable
+                    key={`${year}-${dept}`}
+                    NotDisplayToast={true}
+                    stdabroad={stdabroad}
+                    initialRows={initialRows}
+                    columnHeaders={columnHeaders}
+                    title={` ${year.toUpperCase()} Year ${dept.toUpperCase()} DEPARTMENT`}
+                    numberOfColumns={4}
+                    SubmitUrl={`${BASE_URL}/api/studentscgpa/engi/submit/${year.toLowerCase()}/${dept}`}
+                    FetchUrl={`${BASE_URL}/api/studentscgpa/engi/get/${year.toLowerCase()}/${dept}`}
+                    DeleteUrl={`${BASE_URL}/api/studentscgpa/engi/${year.toLowerCase()}/${dept}`}
+                    UpdateUrl={`${BASE_URL}/api/studentscgpa/engi/${year.toLowerCase()}/${dept}`}
+                    ref={tableRef}
+                />
+            ))}
         </div>
     );
 };
 
-export default SecondYearBtechEngineeringTables;
+export default FirstYearBtechEngineeringTables;

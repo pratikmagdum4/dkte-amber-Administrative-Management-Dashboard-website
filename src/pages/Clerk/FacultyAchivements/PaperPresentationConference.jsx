@@ -41,7 +41,7 @@ const FacultyPaperPresentation = () => {
     };
 
     return (
-        <div>
+        <div className='mt-14'>
             <Navbar links={FacultyAchivements} />
             <button onClick={handleGenerateWord} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                 Generate Word Document

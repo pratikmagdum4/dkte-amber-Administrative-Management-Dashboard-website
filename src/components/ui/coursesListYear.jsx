@@ -13,7 +13,7 @@ const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleT
 
     return (
         <>
-        <div className="min-h-screen bg-white dark:bg-zinc-900">
+        <div className="min-h-screen bg-white dark:bg-zinc-900 mt-4">
             <Navbar links={FacultyAchivements} />
 
             <main className="flex flex-col items-center p-8">

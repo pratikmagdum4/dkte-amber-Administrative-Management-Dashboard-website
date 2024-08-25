@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -82,8 +82,36 @@ import AdminProfile from './pages/Admin/Profile/AdminProfile.jsx';
 import ClerkProfile from './pages/Clerk/ClerkHome/ClerkProfilePage.jsx';
 import AdminResetPassword from './components/ui/AdminResetPassword.jsx';
 import ClerkResetPassword from './components/ui/ClerkResetPassword.jsx';
-
+import { logOut, loadState } from './redux/auth.js';
+import { useDispatch } from 'react-redux';
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const checkExpiry = () => {
+      const storedState = loadState();
+      if (storedState && storedState.expiry && Date.now() > storedState.expiry) {
+        dispatch(logOut()); // Log out if expired
+      }
+    };
+
+    const intervalId = setInterval(checkExpiry, 5000); // Check every 5 seconds
+
+    return () => clearInterval(intervalId); // Cleanup on unmount
+  }, [dispatch]);
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      if (event.key === 'authState') {
+        const storedState = loadState();
+        if (!storedState || (storedState.expiry && Date.now() > storedState.expiry)) {
+          dispatch(logOut()); // Force logout
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => window.removeEventListener('storage', handleStorageChange); // Cleanup on unmount
+  }, [dispatch]);
 
   return (
     <Router>

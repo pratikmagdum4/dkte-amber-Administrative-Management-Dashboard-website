@@ -114,7 +114,7 @@ const dept = useSelector(selectCurrentDept)
 
     return (
         <ErrorBoundary>
-            <div>
+            <div className='mt-14'>
                 <Navbar links={ClerkNavLink} />
                 <button onClick={generatePDF} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                     Generate PDF

@@ -1,63 +1,57 @@
-import React from 'react';
-import StudentCgpaFormTable from '../../../../../components/ui/StudentCgpaForm';
-import { BASE_URL } from '../../../../../api';
+import React, { useRef } from 'react';
+import AchievementsTable from '../../../../../components/ui/TableComponent';
 import Navbar from '../../../../navbar/Navbar';
 import { ClerkNavLink } from '../../../../../components/variables/variables';
+import { BASE_URL } from '../../../../../api';
+import { generateMultipleWordDocument } from '../../../../../utils/wordDocumentGenerateMultiple';
 
-const initialStudentsState = [
-    { rank: 1, stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'CSE' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'CSE AI' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'ENTC' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'ELEC' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'MECH' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'AIDS' },
-    { rank: 1, stdname: '', cgpa: '', dept: 'CE' },
-    { rank: 2, stdname: '', cgpa: '', dept: 'CE' },
-    { rank: 3, stdname: '', cgpa: '', dept: 'CE' },
-    { rank: 4, stdname: '', cgpa: '', dept: 'CE' },
-    { rank: 5, stdname: '', cgpa: '', dept: 'CE' },
+const initialRows = [
+    { rank: '', stdname: '', cgpa: '', dept: '' },
 ];
 
-const FirstYearBtechEngineeringTables = () => {
+const columnHeaders = [
+    { key: 'rank', label: 'Rank' },
+    { key: 'stdname', label: 'Student Name' },
+    { key: 'cgpa', label: 'CGPA' },
+];
 
-    const FetchUrl =  `${BASE_URL}/api/btechcgpa/get/first`
-    const SubmitUrl =  `${BASE_URL}/api/btechcgpa/submit/first`
-    const year = "First"
-    
+const stdabroad = true;
+const departments = ["cse", "aiml", "aids", "entc", "ele", "mech", "civil"];
+
+const FirstYearBtechEngineeringTables = () => {
+    const tableRef = useRef(null);
+    const year = "First"; 
+    const tablesRef = useRef([]);
+    const generateWord = () => {
+        const tables = tablesRef.current.map(table => ({
+            title: table.title,
+            rows: table.rows,
+            columns: table.columnHeaders,
+        }));
+        generateMultipleWordDocument(tables, 'ClubReports');
+    };
     return (
-        <div>
-     
-            <StudentCgpaFormTable
-                title="First Year BTech"
-                initialState={initialStudentsState}
-                FetchUrl={FetchUrl}
-                SubmitUrl={SubmitUrl}
-                year={year}
-            />
+        <div className='mt-14'>
+            <Navbar links={ClerkNavLink} />
+            <button onClick={generateWord} className="mt-4 bg-green-500 text-white px-4 py-2 rounded ml-4">
+                Generate Word Document
+            </button>
+            {departments.map(dept => (
+                <AchievementsTable
+                    key={`${year}-${dept}`}
+                    NotDisplayToast={true}
+                    stdabroad={stdabroad}
+                    initialRows={initialRows}
+                    columnHeaders={columnHeaders}
+                    title={` ${year.toUpperCase()} Year ${dept.toUpperCase()} DEPARTMENT`}
+                    numberOfColumns={4}
+                    SubmitUrl={`${BASE_URL}/api/studentscgpa/engi/submit/${year.toLowerCase()}/${dept}`}
+                    FetchUrl={`${BASE_URL}/api/studentscgpa/engi/get/${year.toLowerCase()}/${dept}`}
+                    DeleteUrl={`${BASE_URL}/api/studentscgpa/engi/${year.toLowerCase()}/${dept}`}
+                    UpdateUrl={`${BASE_URL}/api/studentscgpa/engi/${year.toLowerCase()}/${dept}`}
+                    ref={tableRef}
+                />
+            ))}
         </div>
     );
 };

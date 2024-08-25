@@ -96,7 +96,7 @@ const FacultyOtherSpecial = () => {
     }
 
     return (
-        <div>
+        <div className='mt-14'>
             <Navbar links={FacultyAchivements} />
             <button onClick={generateWordDocument} className='text-white bg-purple-500 mt-4 py-2 px-4'>
                 Generate Word Document
