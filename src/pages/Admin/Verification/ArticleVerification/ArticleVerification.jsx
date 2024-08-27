@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
-import { AdminVerifyLink } from '../../../../components/variables/variables';
+import { AdminVerifyLink, departmentMapping } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const ArticleList = () => {
     const [ArticleList, setArticleList] = useState([]);
@@ -38,6 +39,15 @@ const ArticleList = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${BASE_URL}/api/article/delete/${id}`);
+            setArticleList(prevArticles => prevArticles.filter(article => article._id !== id));
+        } catch (error) {
+            console.error('Error deleting article:', error);
+        }
+    };
+
     useEffect(() => {
         const checkScreenSize = () => {
             setIsSmallScreen(window.innerWidth <= 640);
@@ -60,7 +70,6 @@ const ArticleList = () => {
                             <div key={article._id} className="p-4 border rounded-md shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {isSmallScreen ? (
                                     <>
-                                        
                                         <div className="col-span-2 flex flex-col justify-between">
                                             <div className="col-span-1 flex justify-center items-center">
                                                 <img
@@ -74,7 +83,7 @@ const ArticleList = () => {
                                                 <p className="text-gray-600">By {article.stdname}</p>
                                                 <p className="text-gray-600">Email: {article.email}</p>
                                                 <p className="text-gray-600">Contact: {article.contact}</p>
-                                                <p className="text-gray-600">Branch: {article.branch}</p>
+                                                <p className="text-gray-600">Branch: {departmentMapping[article.branch]}</p>
                                                 <p className="text-gray-600">Year: {article.year}</p>
                                                 <p className="text-gray-600">Language: {article.language}</p>
                                                 <p className="text-gray-600">Verified: {article.isVerified ? 'Yes' : 'No'}</p>
@@ -88,22 +97,25 @@ const ArticleList = () => {
                                         </div>
                                         <div className="col-span-3 mt-4 flex justify-center">
                                             <div className="flex space-x-4 mt-2">
-                                                <a
-                                                    href={article.content}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                <Link
+                                                    to={article.content}
                                                     className="px-4 py-2 bg-blue-500 text-white rounded"
                                                 >
                                                     View
-                                                </a>
-                                                <a
-                                                    href={article.content}
+                                                </Link>
+                                                <Link
+                                                    to={article.content}
                                                     download={`${article.stdname},${article.branch}`}
-                                                    target="_blank"
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
-                                                </a>
+                                                </Link>
+                                                <button
+                                                    className="px-4 py-2 bg-red-500 text-white rounded"
+                                                    onClick={() => handleDelete(article._id)}
+                                                >
+                                                    Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </>
@@ -122,7 +134,7 @@ const ArticleList = () => {
                                                 <p className="text-gray-600">By {article.stdname}</p>
                                                 <p className="text-gray-600">Email: {article.email}</p>
                                                 <p className="text-gray-600">Contact: {article.contact}</p>
-                                                <p className="text-gray-600">Branch: {article.branch}</p>
+                                                <p className="text-gray-600">Branch: {departmentMapping[article.branch]}</p>
                                                 <p className="text-gray-600">Year: {article.year}</p>
                                                 <p className="text-gray-600">Language: {article.language}</p>
                                                 <p className="text-gray-600">Verified: {article.isVerified ? 'Yes' : 'No'}</p>
@@ -136,22 +148,25 @@ const ArticleList = () => {
                                         </div>
                                         <div className="col-span-3 mt-4 flex justify-center md:justify-start">
                                             <div className="flex space-x-4 mt-2">
-                                                <a
-                                                    href={article.content}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                <Link
+                                                    to={article.content}
                                                     className="px-4 py-2 bg-blue-500 text-white rounded"
                                                 >
                                                     View
-                                                </a>
-                                                <a
-                                                    href={article.content}
-                                                        target="_blank"
-                                                        download={`${article.stdname},${article.branch}`}
+                                                </Link>
+                                                <Link
+                                                    to={article.content}
+                                                    download={`${article.stdname},${article.branch}`}
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
-                                                </a>
+                                                </Link>
+                                                <button
+                                                    className="px-4 py-2 bg-red-500 text-white rounded"
+                                                    onClick={() => handleDelete(article._id)}
+                                                >
+                                                    Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </>

@@ -60,13 +60,13 @@ const Navbar = ({ links }) => {
                     className="block w-full text-left px-4 py-2 hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-300"
                     onClick={() => handleDropdownClick(label, "article")}
                 >
-                    Article
+                   Non-Technical Articles/Poems
                 </button>
                 <button
                     className="block w-full text-left px-4 py-2 hover:bg-green-500 hover:text-white rounded-lg transition-all duration-300"
                     onClick={() => handleDropdownClick(label, "image")}
                 >
-                    Image
+                    Sketch/Photograph
                 </button>
                 <button
                     className="block w-full text-left px-4 py-2 hover:bg-purple-500 hover:text-white rounded-lg transition-all duration-300"

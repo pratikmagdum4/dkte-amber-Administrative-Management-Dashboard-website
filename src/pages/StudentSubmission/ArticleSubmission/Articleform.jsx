@@ -14,6 +14,7 @@ const ArticleForm = () => {
     contact: '',
     branch: '',
     year: '',
+    articleType:'',
     language: 'english',
     content: null,
     selfImage: null,
@@ -99,14 +100,39 @@ const ArticleForm = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             <label className="block text-left text-sm font-medium text-gray-700">Branch:</label>
-            <input
+            {/* <input
               type="text"
               name="branch"
               value={formData.branch}
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            /> */}
+            <select
+              name="branch"
+              value={formData.branch}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+
+              <option value="" disabled>Select Year</option>
+              <option value="cse">Computer Science & Engineering</option>
+              <option value="aiml">Computer Science(AIML)</option>
+              <option value="aids">Artificial Intelligence and Data Science</option>
+              <option value="antc">Electronics and Telecommunication Engineering</option>
+              <option value="ele">Electrical Engineering </option>
+              <option value="mech">Mechanical Engineering</option>
+              <option value="civil">Civil Engineering</option>
+              <option value="tt">Textile Technology</option>
+              <option value="tc">Textile Chemistry</option>
+              <option value="tp">Textile Plant Engineering</option>
+              <option value="mmtt">Man-Made Textile Technology</option>
+              <option value="ft">Fashion Technology</option>
+              <option value="diploma">Diploma</option>
+              <option value="mba">MBA Technology</option>
+             
+            </select>
             <div>
               <label className="block text-left text-sm font-medium text-gray-700">Year:</label>
               <select
@@ -142,13 +168,29 @@ const ArticleForm = () => {
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
+              <option value="">Select</option>
               <option value="english">English</option>
               <option value="hindi">Hindi</option>
               <option value="marathi">Marathi</option>
             </select>
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Self Image:</label>
+            <label className="block text-left text-sm font-medium text-gray-700">Type (Article or Poem):</label>
+            <select
+              name="articleType"
+              value={formData.articleType}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="">Select</option>
+              <option value="sketch">Article</option>
+              <option value="photography">Poem</option>
+
+            </select>
+            </div>
+          <div>
+            <label className="block text-left text-sm font-medium text-gray-700">Your Photo :</label>
             <input
               type="file"
               name="selfImage"
@@ -159,15 +201,17 @@ const ArticleForm = () => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Article File (Word File):</label>
+            <label className="block text-left text-sm font-medium text-gray-700">Article File (Only Word File Accepted):</label>
             <input
               type="file"
               name="content"
+              accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               onChange={handleChange}
               required
               className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
+
           <button
             type="submit"
             disabled={isSubmitting}

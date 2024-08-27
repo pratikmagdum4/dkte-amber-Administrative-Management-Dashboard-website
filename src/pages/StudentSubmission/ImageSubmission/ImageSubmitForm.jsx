@@ -134,7 +134,7 @@ const ImageForm = () => {
 
       <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
 
-        <h2 className="text-2xl font-bold mb-6">Image Submission Form</h2>
+        <h2 className="text-2xl font-bold mb-6">Sketch/Photograph Submission Form</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-left text-sm font-medium text-gray-700">Student Name:</label>
@@ -190,15 +190,31 @@ const ImageForm = () => {
           </div>
           <div>
             <label className="block text-left text-sm font-medium text-gray-700">Branch:</label>
-            <input
-              type="text"
+            <select
               name="branch"
               value={formData.branch}
               onChange={handleChange}
               required
-              className={`mt-1 block w-full px-3 py-2 border ${errors.branch ? 'border-red-500' : 'border-gray-300'
-                } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
-            />
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+
+              <option value="" disabled>Select Year</option>
+              <option value="cse">Computer Science & Engineering</option>
+              <option value="amil">Computer Science(AIML)</option>
+              <option value="aids">Artificial Intelligence and Data Science</option>
+              <option value="antc">Electronics and Telecommunication Engineering</option>
+              <option value="ele">Electrical Engineering </option>
+              <option value="mech">Mechanical Engineering</option>
+              <option value="civil">Civil Engineering</option>
+              <option value="tt">Textile Technology</option>
+              <option value="tc">Textile Chemistry</option>
+              <option value="tp">Textile Plant Engineering</option>
+              <option value="mmtt">Man-Made Textile Technology</option>
+              <option value="ft">Fashion Technology</option>
+              <option value="diploma">Diploma</option>
+              <option value="mba">MBA Technology</option>
+
+            </select>
             {errors.branch && <p className="text-red-500 text-xs mt-1">{errors.branch}</p>}
           </div>
           <div>

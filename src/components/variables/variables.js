@@ -142,3 +142,20 @@ export const UpGraduation = [
   { label: "Notification", url: "/login/clerk/home/notification" },
   { label: "Contact", url: "/" },
 ];
+
+export const departmentMapping = {
+  cse: "Computer Science & Engineering",
+  amil: "Computer Science (AIML)",
+  aids: "Artificial Intelligence and Data Science",
+  antc: "Electronics and Telecommunication Engineering",
+  ele: "Electrical Engineering",
+  mech: "Mechanical Engineering",
+  civil: "Civil Engineering",
+  tt: "Textile Technology",
+  tc: "Textile Chemistry",
+  tp: "Textile Plant Engineering",
+  mmtt: "Man-Made Textile Technology",
+  ft: "Fashion Technology",
+  diploma: "Diploma",
+  mba: "MBA Technology",
+};
