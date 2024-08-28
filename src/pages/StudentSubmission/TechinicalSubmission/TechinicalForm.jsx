@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
 import { BASE_URL } from '../../../api';
 import { toast } from 'react-toastify';
+import { saveAs } from "file-saver";
+import * as mammoth from 'mammoth'; // Correct library for converting .docx to HTML
 
 const TechnicalArticleForm = () => {
     const [formData, setFormData] = useState({
@@ -16,38 +18,124 @@ const TechnicalArticleForm = () => {
         year: '',
         language: 'english',
         content: null,
+        contentPdf: null,
         selfImage: null,
-        isVerified: false
+        isVerified: false,
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    useEffect(() => {
+        const { content, contentPdf, selfImage, stdname, branch } = formData;
+
+        // Function to update file name
+        const updateFileName = (file) => {
+            if (file && stdname && branch) {
+                const newFileName = `${stdname},${branch.toUpperCase()}`;
+                console.log("new file name is ", newFileName);
+                return new File([file], newFileName, { type: file.type });
+            }
+            return file;
+        };
+
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            content: updateFileName(content),
+            contentPdf: updateFileName(contentPdf),
+            selfImage: updateFileName(selfImage),
+        }));
+    }, [formData.stdname, formData.branch]);
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        setFormData({
-            ...formData,
-            [name]: files ? files[0] : value,
-        });
+
+        if (files) {
+            setFormData({
+                ...formData,
+                [name]: files[0],
+            });
+            if (formData.content) {
+                console.log("The name of file is ", formData.content.name);
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
+
+    // const convertDocToPdf = async (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.onload = async (e) => {
+    //             const docxBlob = new Blob([e.target.result], { type: file.type });
+    //             const pdfBlob = await docx.render(docxBlob, 'pdf');
+    //             resolve(pdfBlob);
+    //         };
+    //         reader.onerror = reject;
+    //         reader.readAsArrayBuffer(file);
+    //     });
+    // };
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        console.log('Form Data Submitted:', formData);
+        if (!formData.content || !formData.contentPdf || !formData.selfImage) {
+        
+            alert("Please upload all required files")
+            toast.error("Please upload all required files");
+            setIsSubmitting(false);
+            return;
+        }
         const formDataObj = new FormData();
         Object.keys(formData).forEach(key => {
             formDataObj.append(key, formData[key]);
         });
+
         try {
             const response = await axios.post(`${BASE_URL}/api/submit/technical`, formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            toast.success("Successfully submitted")
-            console.log('Server response:', response.data);
-            alert("Success!");
+
+            const wordFileUrl = response.data.wordFileUrl;
+
+            // Convert the Word document to PDF on the frontend
+            const wordFile = formData.content;
+            // const pdfBlob = await convertDocToPdf(wordFile);
+
+            // Optional: Upload the PDF back to the server or allow the user to download it
+            // const pdfUrl = URL.createObjectURL(pdfBlob);
+            // console.log("The PDF file url is ", pdfUrl);
+            // const a = document.createElement('a');
+            // a.href = pdfUrl;
+            // a.download = `${formData.title}.pdf`;
+            // a.click();
+
+            toast.success("Successfully submitted");
+            alert("Successfully submitted!");
+
+            // Reset form
+            setFormData({
+                title: '',
+                stdname: '',
+                prn: '',
+                email: '',
+                contact: '',
+                branch: '',
+                year: '',
+                language: 'english',
+                content: null,
+                contentPdf:null,
+                selfImage: null,
+                isVerified: false,
+            });
+
         } catch (error) {
             console.error('Error submitting form:', error);
+            toast.error("Failed to submit");
         } finally {
             setIsSubmitting(false);
         }
@@ -104,13 +192,12 @@ const TechnicalArticleForm = () => {
                             required
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         >
-
                             <option value="" disabled>Select Year</option>
                             <option value="cse">Computer Science & Engineering</option>
                             <option value="amil">Computer Science(AIML)</option>
                             <option value="aids">Artificial Intelligence and Data Science</option>
                             <option value="antc">Electronics and Telecommunication Engineering</option>
-                            <option value="ele">Electrical Engineering </option>
+                            <option value="ele">Electrical Engineering</option>
                             <option value="mech">Mechanical Engineering</option>
                             <option value="civil">Civil Engineering</option>
                             <option value="tt">Textile Technology</option>
@@ -120,7 +207,6 @@ const TechnicalArticleForm = () => {
                             <option value="ft">Fashion Technology</option>
                             <option value="diploma">Diploma</option>
                             <option value="mba">MBA Technology</option>
-
                         </select>
                         <div>
                             <label className="block text-left text-sm font-medium text-gray-700">Year:</label>
@@ -174,6 +260,7 @@ const TechnicalArticleForm = () => {
                         />
                     </div>
                     <div>
+                        <label className="block text-left text-sm font-medium text-gray-700">Submit Both Files pdf and docx:</label>
                         <label className="block text-left text-sm font-medium text-gray-700">Technical Article File (Only Word File Accepted):</label>
                         <input
                             type="file"
@@ -183,6 +270,37 @@ const TechnicalArticleForm = () => {
                             required
                             className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                         />
+                    </div>
+                    <div>
+                        <label className="block text-left text-sm font-medium text-gray-700">Technical Article File (Only PDF File Accepted):</label>
+                        <input
+                            type="file"
+                            name="contentPdf"
+                            accept=".pdf"
+                            onChange={handleChange}
+                            required
+                            className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                    </div>
+                    <div>
+                        <a
+                            href={"https://www.ilovepdf.com/pdf_to_word"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2  bg-blue-500 text-white rounded"
+                        >
+                            Convert PDF to word File
+                        </a>
+                    </div>
+                    <div>
+                        <a
+                            href={"https://www.ilovepdf.com/word_to_pdf"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-4 py-2 bg-blue-500 text-white rounded"
+                        >
+                            Convert Word File to PDF
+                        </a>
                     </div>
                     <button
                         type="submit"

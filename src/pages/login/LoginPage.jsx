@@ -24,11 +24,11 @@ function LoginPage() {
                 const response = await axios.get(`${BASE_URL}/api/article/get`);
 
                
-                const articles = response.data.map(article => ({
-                    ...article,
-                    selfImage: article.selfImage.replace(/^"|"$/g, '')
-                }));
-                setArticleList(articles);
+                // const articles = response.data.map(article => ({
+                //     ...article,
+                //     selfImage: article.selfImage.replace(/^"|"$/g, '')
+                // }));
+                // setArticleList(articles);
 
                
                 if (response.data) {

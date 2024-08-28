@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
@@ -17,22 +17,62 @@ const ArticleForm = () => {
     articleType:'',
     language: 'english',
     content: null,
+    contentPdf: null,
     selfImage: null,
     isVerified: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  useEffect(() => {
+    const { content, contentPdf, selfImage, stdname, branch } = formData;
 
+    // Function to update file name
+    const updateFileName = (file) => {
+      if (file && stdname && branch) {
+        const newFileName = `${stdname},${branch.toUpperCase()}`;
+        console.log("new file name is ", newFileName);
+        return new File([file], newFileName, { type: file.type });
+      }
+      return file;
+    };
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      content: updateFileName(content),
+      contentPdf: updateFileName(contentPdf),
+      selfImage: updateFileName(selfImage),
+    }));
+  }, [formData.stdname, formData.branch]); 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+
+    if (files) {
+      setFormData({
+        ...formData,
+        [name]: files[0],
+      });
+      if(formData.content)
+      {
+      console.log("The name of file is ",formData.content.name);
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    if (!formData.content || !formData.contentPdf || !formData.selfImage) {
+      console.log("i mhere ")
+      alert("Please upload all required files")
+      toast.error("Please upload all required files");
+      setIsSubmitting(false); 
+      return;
+    }
+    console.log("The image info ",formData.content)
     console.log('Form Data Submitted:', formData);
     const formDataObj = new FormData();
     Object.keys(formData).forEach(key => {
@@ -49,6 +89,21 @@ const ArticleForm = () => {
       alert("Data submitted successfully!");
       console.log('Server response:', response.data);
       setIsSubmitting(false);
+     setFormData({
+        title: '',
+        stdname: '',
+        prn: '',
+        email: '',
+        contact: '',
+        branch: '',
+        year: '',
+        articleType: '',
+        language: 'english',
+        content: null,
+        contentPdf: null,
+        selfImage: null,
+        isVerified: false,
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
       setIsSubmitting(false);
@@ -201,7 +256,8 @@ const ArticleForm = () => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Article File (Only Word File Accepted):</label>
+            <label className="block text-left text-sm font-medium text-gray-700">Submit Both Files pdf and docx:</label>
+            <label className="block text-left text-sm font-medium text-gray-700"> Article File (Only Word File Accepted here):</label>
             <input
               type="file"
               name="content"
@@ -211,7 +267,37 @@ const ArticleForm = () => {
               className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
             />
           </div>
-
+          <div>
+            <label className="block text-left text-sm font-medium text-gray-700"> Article File (Only PDF File Accepted here):</label>
+            <input
+              type="file"
+              name="contentPdf"
+              accept=".pdf"
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            />
+          </div>
+          <div>
+            <a
+              href={"https://www.ilovepdf.com/pdf_to_word"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2  bg-blue-500 text-white rounded"
+            >
+              Convert PDF to word File
+            </a>
+          </div>
+          <div>
+            <a
+              href={"https://www.ilovepdf.com/word_to_pdf"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-blue-500 text-white rounded"
+            >
+              Convert Word File to PDF
+            </a>
+          </div>
           <button
             type="submit"
             disabled={isSubmitting}

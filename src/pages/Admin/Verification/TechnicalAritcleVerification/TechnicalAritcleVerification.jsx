@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
 import { AdminVerifyLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
+import { toast } from 'react-toastify';
 
 const TechArticleList = () => {
     const [techArticleList, setTechArticleList] = useState([]);
@@ -14,8 +15,10 @@ const TechArticleList = () => {
                 const response = await axios.get(`${BASE_URL}/api/technical/get`);
                 const articles = response.data.map(article => ({
                     ...article,
-                    selfImage: article.selfImage.replace(/^"|"$/g, '') // Remove extra quotes from URL
+                    selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : '' // Remove extra quotes from URL or set empty string if null
                 }));
+                console.log("THe article ",articles)
+                console.log("The article image",articles[0])
                 setTechArticleList(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
@@ -24,6 +27,7 @@ const TechArticleList = () => {
 
         fetchTechArticles();
     }, []);
+
 
     const handleVerify = async (id, isVerified) => {
         try {
@@ -38,6 +42,26 @@ const TechArticleList = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        // Show a confirmation dialog to the user
+        const confirmed = window.confirm('Are you sure you want to delete this article?');
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/api/technical/delete/${id}`);
+                setTechArticleList(prevArticles => prevArticles.filter(article => article._id !== id));
+                toast.success("Successfully deleted")
+                alert("Successfully deleted")
+            } catch (error) {
+                console.error('Error deleting article:', error);
+            }
+        } else {
+            // User canceled the deletion
+            console.log('Article deletion canceled.');
+        }
+    };
+
+
     useEffect(() => {
         const checkScreenSize = () => {
             setIsSmallScreen(window.innerWidth <= 640);
@@ -50,7 +74,7 @@ const TechArticleList = () => {
     return (
         <>
             <Navbar links={AdminVerifyLink} />
-            <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+            <div className="max-w-6xl mx-auto mt-14 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Technical Articles</h2>
                 {techArticleList.length === 0 ? (
                     <p>No articles found.</p>
@@ -134,21 +158,28 @@ const TechArticleList = () => {
                                         <div className="col-span-3 mt-4 flex justify-center md:justify-start">
                                             <div className="flex space-x-4 mt-2">
                                                 <a
-                                                    href={article.content}
+                                                    href={article.contentPdf}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="px-4 py-2 bg-blue-500 text-white rounded"
                                                 >
                                                     View
                                                 </a>
+
                                                 <a
                                                     href={article.content}
                                                     download={`${article.stdname},${article.branch}`}
-                                                        target="_blank"
+                                                        // target="_blank"
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
                                                 </a>
+                                                    <button
+                                                        className="px-4 py-2 bg-red-500 text-white rounded"
+                                                        onClick={() => handleDelete(article._id)}
+                                                    >
+                                                        Delete
+                                                    </button>
                                             </div>
                                         </div>
                                     </>

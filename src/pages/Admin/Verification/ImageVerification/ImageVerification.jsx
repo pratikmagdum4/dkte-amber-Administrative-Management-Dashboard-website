@@ -36,10 +36,26 @@ const ImgUploadList = () => {
         }
     };
 
+    const handleDelete = async (id) => {
+        const confirmed = window.confirm('Are you sure you want to delete this image?');
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/api/imgupload/delete/${id}`);
+                setImgUploads(prevImgUploads => prevImgUploads.filter(imgUpload => imgUpload._id !== id));
+                alert("Successfully deleted")
+            } catch (error) {
+                console.error('Error deleting image upload:', error);
+            }
+        } else {
+            console.log('Image deletion canceled.');
+        }
+    };
+
     return (
         <>
             <Navbar links={AdminVerifyLink} />
-            <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+            <div className="max-w-6xl mx-auto mt-14 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Images</h2>
                 {imgUploads.length === 0 ? (
                     <p>No images found.</p>
@@ -70,6 +86,12 @@ const ImgUploadList = () => {
                                         >
                                             {imgUpload.isVerified ? 'Unverify' : 'Verify'}
                                         </button>
+                                        <button
+                                            className="mt-2 ml-2 px-4 py-2 bg-red-500 text-white rounded"
+                                            onClick={() => handleDelete(imgUpload._id)}
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="col-span-1 md:col-span-2">
@@ -78,13 +100,11 @@ const ImgUploadList = () => {
                                             <div className="flex flex-col items-center">
                                                 <img
                                                     src={`${imgUpload.imageUrl}`}
-                                                    
                                                     alt="Uploaded"
                                                     className="w-full h-full object-cover rounded-md mt-4"
                                                 />
                                                 <a
                                                     href={imgUpload.imageUrl}
-                                                    
                                                     download={`${imgUpload.stdname},${imgUpload.branch}`}
                                                     target="_blank"
                                                     className="mt-2 px-4 py-2 bg-green-500 text-white rounded"

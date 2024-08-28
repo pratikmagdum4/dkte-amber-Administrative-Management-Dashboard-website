@@ -31,21 +31,29 @@ const CarouselComponent = () => {
   const [imageType, setImageType] = useState('all');
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const[imageUrl, setImageUrl] = useState('')
+  const [title,setTitle] = useState('')
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/api/imgupload/getverified`, {
-          params: { imageType: imageType !== 'all' ? imageType : '' }
+          params: { imageType: imageType !== 'all' ? imageType : '' },
         });
-        const images = response.data.map(image => ({
+        const images = response.data.map((image) => ({
           ...image,
-          selfImage: image.selfImage.replace(/^"|"$/g, '') 
+          selfImage: image.selfImage.replace(/^"|"$/g, ''), // Clean up the image URL
         }));
-        console.log("THe uimages are ",imageList)
-        if (images[0].imageUrl)
-        {
-        setImageUrl(images[0].imageUrl)
+
+        console.log("The images are ", images); // Logging to check the fetched images
+
+        const length = images.length;
+
+        if (length > 0) {
+          // Get a random index based on the length of the images array
+          const randomIndex = Math.floor(Math.random() * length);
+          setTitle(images[randomIndex].title)
+          setImageUrl(images[randomIndex].imageUrl); // Set imageUrl to a random image URL
         }
+
         setImageList(images);
       } catch (error) {
         console.error('Error fetching images:', error);
@@ -53,7 +61,8 @@ const CarouselComponent = () => {
     };
 
     fetchImages();
-  }, [imageType]);
+  }, [imageType]); // Dependency array to re-fetch when imageType changes
+
   useEffect(() => {
     // animations 
   }, []);
@@ -110,7 +119,7 @@ const CarouselComponent = () => {
           <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
               <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
             <h3 className="text-2xl font-bold mb-2">Photographs</h3>
-            <p className="text-gray-600">Capture the world through the lens of our students.</p>
+            <p className="text-gray-600">{title}</p>
           </div>
           <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
             <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../navbar/Navbar';
 import { HomeLink } from '../../../components/variables/variables';
 import axios from 'axios';
@@ -14,7 +14,7 @@ const ImageForm = () => {
     branch: '',
     year: '',
     title: '',
-    imageUrl: null,
+    image: null,
     selfImage: null,
     isVerified: false,
     imageType:''
@@ -31,13 +31,44 @@ const ImageForm = () => {
     image: '',
   });
 
+  useEffect(() => {
+    const { content, contentPdf, selfImage, stdname, branch } = formData;
+
+    // Function to update file name
+    const updateFileName = (file) => {
+      if (file && stdname && branch) {
+        const newFileName = `${stdname},${branch.toUpperCase()}`;
+        console.log("new file name is ", newFileName);
+        return new File([file], newFileName, { type: file.type });
+      }
+      return file;
+    };
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      image: updateFileName(image),
+      selfImage: updateFileName(selfImage),
+    }));
+  }, [formData.stdname, formData.branch]);
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+
+    if (files) {
+      setFormData({
+        ...formData,
+        [name]: files[0],
+      });
+      if (formData.content) {
+        console.log("The name of file is ", formData.content.name);
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+
   const validate = () => {
     let errors = {};
 
@@ -82,13 +113,13 @@ const ImageForm = () => {
       errors.title = 'Title must be at least 3 characters';
     }
 
-    if (!formData.image) {
-      errors.image = 'Image is required';
-    } else if (!formData.image.type.startsWith('image/')) {
-      errors.image = 'File must be an image';
-    } else if (formData.image.size > 10 * 1024 * 1024) { // 2MB limit
-      errors.image = 'Image must be less than 2MB';
-    }
+    // if (!formData.imageUrl) {
+    //   errors.imageUrl = 'Image is required';
+    // } else if (!formData.imageUrl.type.startsWith('image/')) {
+    //   errors.imageUrl = 'File must be an image';
+    // } else if (formData.imageUrl.size > 10 * 1024 * 1024) { // 2MB limit
+    //   errors.imageUrl = 'Image must be less than 2MB';
+    // }
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
@@ -97,6 +128,13 @@ const ImageForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.image || !formData.selfImage) {
+      console.log(formData.image)
+      alert("Please upload all required files")
+      toast.error("Please upload all required files");
+      setIsSubmitting(false);
+      return;
+    }
     setIsSubmitting(true)
     if (!validate()) {
       return;
@@ -117,6 +155,19 @@ const ImageForm = () => {
       toast.success("Form Submitted Successfully");
 
       alert("upload successfully")
+      setFormData({
+        stdname: '',
+          contact: '',
+            email: '',
+              prn: '',
+                branch: '',
+                  year: '',
+                    title: '',
+                      imageUrl: null,
+                        selfImage: null,
+                          isVerified: false,
+                            imageType: ''
+      })
       console.log('Server response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
