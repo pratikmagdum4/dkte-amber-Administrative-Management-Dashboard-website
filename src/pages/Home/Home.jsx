@@ -27,107 +27,150 @@ const CarouselComponent = () => {
     fade: true,
     cssEase: 'linear',
   };
+
   const [imageList, setImageList] = useState([]);
   const [imageType, setImageType] = useState('all');
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const[imageUrl, setImageUrl] = useState('')
-  const [title,setTitle] = useState('')
+  const [imageUrl, setImageUrl] = useState('');
+  const [imageSketchUrl, setSketchImageUrl] = useState('');
+  const [title, setTitle] = useState('');
+  const [sketchTitle, setSketchTitle] = useState('');
+  const [techArticleList, setTechArticleList] = useState([]);
+  const [techArticleTitle, setTechArticleTitle] = useState([]);
+
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/imgupload/getverified`, {
+        const response = await axios.get(`${BASE_URL}/api/imgupload/get`, {
           params: { imageType: imageType !== 'all' ? imageType : '' },
         });
+        console.log("The response is ",response);
         const images = response.data.map((image) => ({
           ...image,
           selfImage: image.selfImage.replace(/^"|"$/g, ''), // Clean up the image URL
         }));
 
-        console.log("The images are ", images); // Logging to check the fetched images
-
-        const length = images.length;
-
+        const photos = response.data.filter(image => image.imageType !== "sketch");
+        const length = photos.length;
         if (length > 0) {
-          // Get a random index based on the length of the images array
           const randomIndex = Math.floor(Math.random() * length);
-          setTitle(images[randomIndex].title)
-          setImageUrl(images[randomIndex].imageUrl); // Set imageUrl to a random image URL
+          setTitle(photos[randomIndex].title);
+          setImageUrl(photos[randomIndex].imageUrl); // Set imageUrl to a random image URL
         }
 
-        setImageList(images);
+        setImageList(photos);
       } catch (error) {
         console.error('Error fetching images:', error);
       }
     };
 
+    const fetchSketchImages = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/imgupload/get`, {
+          params: { imageType: imageType !== 'all' ? imageType : '' },
+        });
+        // console.log("The sketches are ", response.data);
+        // console.log("th type is "+response.data[0].imageType);
+        // Filter out images that are of type "photography"
+        const sketches = response.data.filter(image => image.imageType !== "photography");
+
+        console.log("The filtered sketches are ", sketches);
+
+        const length = sketches.length;
+        if (length > 0) {
+          const randomIndex = Math.floor(Math.random() * length);
+          setSketchTitle(sketches[randomIndex].title);
+          setSketchImageUrl(sketches[randomIndex].imageUrl); // Set imageUrl to a random sketch URL
+        }
+      } catch (error) {
+        console.error('Error fetching sketches:', error);
+      }
+    };
+
+
+    fetchSketchImages();
     fetchImages();
-  }, [imageType]); // Dependency array to re-fetch when imageType changes
+  }, [imageType]); 
 
   useEffect(() => {
-    // animations 
-  }, []);
+    const fetchTechArticles = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/technical/get`);
+        const articles = response.data.map(article => ({
+          ...article,
+          selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : ''
+        }));
 
+        console.log("THe article ", articles)
+        console.log("The article tech ", articles[0])
+        setTechArticleList(articles);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    };
+
+    fetchTechArticles();
+  }, []);
   return (
     <>
       <Navbar links={HomeLink} />
-<div className="mt-4">
-      <header className="text-center mt-20">
-        <h1 className="text-5xl font-bold text-indigo-600 animate__animated animate__fadeInDown">Welcome to Ambar</h1>
-        <p className="text-lg mt-4 text-gray-700 animate__animated animate__fadeInUp">A canvas of creativity and knowledge</p>
-      </header>
+      <div className="mt-4">
+        <header className="text-center mt-20">
+          <h1 className="text-5xl font-bold text-indigo-600 animate__animated animate__fadeInDown">Welcome to Ambar</h1>
+          <p className="text-lg mt-4 text-gray-700 animate__animated animate__fadeInUp">A canvas of creativity and knowledge</p>
+        </header>
 
-      <div className="carousel-container mx-auto mt-10 w-full max-w-6xl shadow-lg border rounded-lg overflow-hidden animate__animated animate__zoomIn">
-        <Slider {...settings}>
-          <div className="relative h-96">
-            <img src={img1} alt="Slide 1" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="text-white text-3xl font-bold">Explore Stunning Art</h2>
+        <div className="carousel-container mx-auto mt-10 w-full max-w-6xl shadow-lg border rounded-lg overflow-hidden animate__animated animate__zoomIn">
+          <Slider {...settings}>
+            <div className="relative h-96">
+              <img src={img1} alt="Slide 1" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-white text-3xl font-bold">Explore Stunning Art</h2>
+              </div>
             </div>
-          </div>
-          <div className="relative h-96">
-            <img src={img2} alt="Slide 2" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="text-white text-3xl font-bold">Capture Moments</h2>
+            <div className="relative h-96">
+              <img src={img2} alt="Slide 2" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-white text-3xl font-bold">Capture Moments</h2>
+              </div>
             </div>
-          </div>
-          <div className="relative h-96">
-            <img src={img3} alt="Slide 3" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="text-white text-3xl font-bold">Share Knowledge</h2>
+            <div className="relative h-96">
+              <img src={img3} alt="Slide 3" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-white text-3xl font-bold">Share Knowledge</h2>
+              </div>
             </div>
-          </div>
-          <div className="relative h-96">
-            <img src={img4} alt="Slide 4" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black opacity-40"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="text-white text-3xl font-bold">Inspire Creativity</h2>
+            <div className="relative h-96">
+              <img src={img4} alt="Slide 4" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black opacity-40"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 className="text-white text-3xl font-bold">Inspire Creativity</h2>
+              </div>
             </div>
-          </div>
-        </Slider>
-      </div>
-
-      <section className="mt-16 text-center">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl">
-          <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
-            <img src="/path/to/logo1.png" alt="Sketches" className="mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-2">Sketches</h3>
-            <p className="text-gray-600">Discover the intricate details of student sketches.</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
-              <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-2">Photographs</h3>
-            <p className="text-gray-600">{title}</p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
-            <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
-            <h3 className="text-2xl font-bold mb-2">Articles</h3>
-            <p className="text-gray-600">Read insightful articles and technical pieces.</p>
-          </div>
+          </Slider>
         </div>
-      </section>
+
+        <section className="mt-16 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl">
+            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
+              <img src={imageSketchUrl} alt="Sketches" className="mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-2">Sketches</h3>
+              <p className="text-gray-600">{sketchTitle}</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
+              <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-2">Photographs</h3>
+              <p className="text-gray-600">{title}</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
+              <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-2">Articles</h3>
+              <p className="text-gray-600">Read insightful articles and technical pieces.</p>
+            </div>
+          </div>
+        </section>
       </div>
       <Footer />
     </>

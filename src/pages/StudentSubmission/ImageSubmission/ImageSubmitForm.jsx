@@ -32,7 +32,7 @@ const ImageForm = () => {
   });
 
   useEffect(() => {
-    const { content, contentPdf, selfImage, stdname, branch } = formData;
+    const {  image, selfImage, stdname, branch } = formData;
 
     // Function to update file name
     const updateFileName = (file) => {
@@ -66,6 +66,7 @@ const ImageForm = () => {
         ...formData,
         [name]: value,
       });
+      console.log("The change is ", formData);
     }
   };
 
@@ -136,9 +137,7 @@ const ImageForm = () => {
       return;
     }
     setIsSubmitting(true)
-    if (!validate()) {
-      return;
-    }
+   
 
     const formDataObj = new FormData();
     Object.keys(formData).forEach(key => {
@@ -146,7 +145,7 @@ const ImageForm = () => {
     });
 
     try {
-
+      console.log("form to submit is "+formDataObj)
       const response = await axios.post(`${BASE_URL}/api/submit/imgupload`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -154,19 +153,19 @@ const ImageForm = () => {
       });
       toast.success("Form Submitted Successfully");
 
-      alert("upload successfully")
+      alert("Submitted successfully")
       setFormData({
-        stdname: '',
-          contact: '',
-            email: '',
-              prn: '',
-                branch: '',
-                  year: '',
-                    title: '',
-                      imageUrl: null,
-                        selfImage: null,
-                          isVerified: false,
-                            imageType: ''
+    stdname: '',
+    contact: '',
+    email: '',
+    prn: '',
+    branch: '',
+    year: '',
+    title: '',
+    image: null,
+    selfImage: null,
+    isVerified: false,
+    imageType:''
       })
       console.log('Server response:', response.data);
     } catch (error) {
@@ -295,6 +294,7 @@ const ImageForm = () => {
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
+              <option value="" disabled>Select</option>
               <option value="sketch">Sketch</option>
               <option value="photography">PhotoGraphy</option>
              
