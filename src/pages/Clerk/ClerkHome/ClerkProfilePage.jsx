@@ -72,6 +72,7 @@ const ProfileDetailsForm = () => {
         }
     };
 
+
     return (
         <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-lg font-semibold mb-6">Update Profile Details</h3>
@@ -207,7 +208,7 @@ const ClerkProfile = () => {
         <>
             <Navbar links={ClerkNavLink} />
             <div className="max-w-4xl mx-auto p-5">
-                <div className="flex items-center bg-yellow-400 p-4 rounded-lg mb-6">
+                <div className="flex items-center bg-yellow-400 p-4 rounded-lg mb-6 mt-16">
                     <img src={ProfileImage} alt="User Profile" className="rounded-full w-10 h-10" />
                     <span className="ml-3 font-semibold text-lg">{UserName}</span>
                 </div>

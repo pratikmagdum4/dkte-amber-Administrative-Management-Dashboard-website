@@ -1,9 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import AchievementsTable from '../../../components/ui/TableComponent';
 import Navbar from '../../navbar/Navbar';
 import { ClerkNavLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
-import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun } from 'docx';
+import { Document, Packer, Paragraph, Table, TableCell, TableRow } from 'docx';
 import { saveAs } from 'file-saver';
 import { useSelector } from 'react-redux';
 import { selectCurrentDept } from '../../../redux/auth';
@@ -19,9 +19,10 @@ const columnHeaders = [
 const stdabroad = true;
 
 const MainEventTables = () => {
-    
     const tablesRef = useRef([]);
-    const dept  = useSelector(selectCurrentDept)
+    const dept = useSelector(selectCurrentDept);
+    const [isDarkMode, setIsDarkMode] = useState(false); // Dark mode state
+
     const FetchUrl = `${BASE_URL}/api/mainevents/getdata`;
     const SubmitUrl = `${BASE_URL}/api/mainevents/submit`;
     const DeleteUrl = `${BASE_URL}/api/mainevents`;
@@ -35,10 +36,7 @@ const MainEventTables = () => {
                     children: [
                         new Paragraph({
                             text: table.title,
-                            heading: columnHeaders.label,
                         }),
-
-
                         new Table({
                             rows: [
                                 new TableRow({
@@ -68,11 +66,23 @@ const MainEventTables = () => {
     };
 
     return (
-        <div className='mt-14'>
+        <div className={isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}> {/* Toggle dark/light mode */}
             <Navbar links={ClerkNavLink} />
+
+            {/* Dark Mode Toggle Button */}
+            <div className="mt-16">
+                <button
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                    className={`px-4 py-2 rounded ${isDarkMode ? 'bg-yellow-500' : 'bg-purple-500'} text-white`}
+                >
+                    Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+                </button>
+            </div>
+
             <button onClick={generateWordDocument} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                 Generate Word Document
             </button>
+
             <div>
                 {[
                     {
@@ -124,6 +134,7 @@ const MainEventTables = () => {
                         DeleteUrl={config.deleteUrl}
                         UpdateUrl={config.updateUrl}
                         ref={el => tablesRef.current[index] = el}
+                        isDarkMode={isDarkMode} // Pass dark mode state to child component
                     />
                 ))}
             </div>

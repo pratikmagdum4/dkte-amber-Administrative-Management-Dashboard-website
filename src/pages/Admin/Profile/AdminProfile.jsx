@@ -206,7 +206,7 @@ const AdminProfile = () => {
     return (
         <>
             <Navbar links={AdminHomeLink}  />
-            <div className="max-w-4xl mx-auto p-5">
+            <div className="max-w-4xl mx-auto p-5 mt-14">
                 <div className="flex items-center bg-yellow-400 p-4 rounded-lg mb-6">
                     <img src={ProfileImage} alt="User Profile" className="rounded-full w-10 h-10" />
                     <span className="ml-3 font-semibold text-lg">{UserName}</span>

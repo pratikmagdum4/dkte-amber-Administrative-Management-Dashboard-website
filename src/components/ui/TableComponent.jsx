@@ -11,7 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentDept, selectCurrentRole } from '../../redux/auth';
 
-const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast }, ref) => {
+const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, title, numberOfColumns, SubmitUrl, FetchUrl, DeleteUrl, UpdateUrl, NotDisplayToast, isDarkMode }, ref) => {
     const [rows, setRows] = useState(initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -26,14 +26,10 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         const fetchData = async () => {
             try {
                 setLoading(true);
-                // if (!NotDisplayToast) {
-                //     toast.info("The Data if not visible will be available in a minute ");
-                // }
-
                 const response = await axios.get(FetchUrl);
                 setRows(response.data.length > 0 ? response.data.map((row, index) => ({ ...row, srno: index + 1, modified: false })) : initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));
             } catch (error) {
-                setRows(initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false }))); // set to initialRows if fetching fails
+                setRows(initialRows.map((row, index) => ({ ...row, srno: index + 1, modified: false })));
             } finally {
                 setLoading(false);
             }
@@ -48,7 +44,6 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
             return acc;
         }, {});
         newRow.srno = rows.length + 1;
-        // newRow.rank = rows.length + 1; 
         newRow.modified = true;
         setRows([...rows, newRow]);
     };
@@ -67,20 +62,14 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                 } catch (error) {
                     console.error('Error deleting row:', error);
                     toast.error('Error deleting row from the server.');
-                    return; // Exit the function if deletion fails
+                    return;
                 }
-            } else {
-                // toast.info('Row deleted locally.');
             }
 
-            // Remove the row from the local state
             const newRows = [...rows];
             newRows.splice(index, 1);
 
-            // Update srno for remaining rows
             const updatedRows = newRows.map((row, i) => ({ ...row, srno: i + 1 }));
-
-            // Update the state
             setRows(updatedRows);
         }
     };
@@ -123,12 +112,6 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
         e.preventDefault();
 
         const hasUnsavedChanges = rows.some(row => row.modified);
-        // if (hasUnsavedChanges) {
-        //     if (!window.confirm("There are unsaved changes. Do you want to submit them anyway?")) {
-        //         return;
-        //     }
-        // }
-
         if (window.confirm("Are you sure you want to submit?")) {
             try {
                 await axios.post(SubmitUrl, rows, {
@@ -192,19 +175,20 @@ const AchievementsTable = forwardRef(({ stdabroad, initialRows, columnHeaders, t
                                                     onChange={(date) => handleDateChange(index, date)}
                                                     dateFormat="dd-MM-yyyy"
                                                     className="w-full p-2 border border-zinc-300 rounded"
-                                                />
-                                            ) : (
-                                                <textarea
-                                                    name={header.key}
-                                                    value={row[header.key]}
-                                                    onChange={(e) => handleChange(index, e)}
-                                                    className="w-full p-2 border border-zinc-300 rounded resize-none"
-                                                    rows="1"
-                                                    onInput={(e) => adjustTextareaHeight(e.target)}
-                                                    style={{ overflow: 'hidden' }}
-                                                />
-                                            )}
-                                        </td>
+    />
+) : (
+                                                    <textarea
+                                                        name={header.key}
+                                                        value={row[header.key]}
+                                                        onChange={(e) => handleChange(index, e)}
+                                                        className={`w-full p-2 border border-zinc-300 rounded resize-none ${isDarkMode ? 'text-black' : 'text-black'}`}
+                                                        rows="1"
+                                                        onInput={(e) => adjustTextareaHeight(e.target)}
+                                                        style={{ overflow: 'hidden' }}
+                                                    />
+
+)}
+</td>
                                     ))}
                                     <td className="border border-zinc-400 px-4 py-2 text-center">
                                         <button
