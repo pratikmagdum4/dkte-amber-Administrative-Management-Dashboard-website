@@ -1,15 +1,24 @@
 import Navbar from '../../pages/navbar/Navbar';
 import '../styles/loading.css';
 
-const Loading = ({links}) =>{
+const Loading = ({ links, isHome }) => {
 
     return (
         <>
-            <Navbar links ={links}  />
-        <div className='loader'> 
-            Loading
-            <span></span>
-        </div>
+            {isHome ? (
+                <> 
+                <div className='loader mt-14'>
+                    Loading
+                    <span></span>
+                </div>
+                </>) : 
+                (<><Navbar links={links} />
+                    <div className='loader'>
+                        Loading
+                        <span></span>
+                    </div></>
+                )}
+
         </>
     )
 }

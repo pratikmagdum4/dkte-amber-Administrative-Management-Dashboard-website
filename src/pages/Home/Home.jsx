@@ -6,14 +6,16 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import 'animate.css'; // Import animate.css for easy animations
-
+import Skeleton from 'react-loading-skeleton'; // Import react-loading-skeleton
+import 'react-loading-skeleton/dist/skeleton.css';
+import axios from "axios";
+import { BASE_URL } from "../../api";
+import Loading from "../../components/ui/Loader";
 // Import your images
 import img1 from '../../images/img1.jpg';
 import img2 from '../../images/img2.jpg';
 import img3 from '../../images/img3.jpg';
 import img4 from '../../images/img4.jpg';
-import { BASE_URL } from "../../api";
-import axios from "axios";
 
 const CarouselComponent = () => {
   const settings = {
@@ -35,15 +37,15 @@ const CarouselComponent = () => {
   const [title, setTitle] = useState('');
   const [sketchTitle, setSketchTitle] = useState('');
   const [techArticleList, setTechArticleList] = useState([]);
-  const [techArticleTitle, setTechArticleTitle] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchImages = async () => {
+      setLoading(true); // Start loading
       try {
         const response = await axios.get(`${BASE_URL}/api/imgupload/get`, {
           params: { imageType: imageType !== 'all' ? imageType : '' },
         });
-        console.log("The response is ",response);
         const images = response.data.map((image) => ({
           ...image,
           selfImage: image.selfImage.replace(/^"|"$/g, ''), // Clean up the image URL
@@ -60,6 +62,8 @@ const CarouselComponent = () => {
         setImageList(photos);
       } catch (error) {
         console.error('Error fetching images:', error);
+      } finally {
+        setLoading(false); // End loading
       }
     };
 
@@ -68,12 +72,7 @@ const CarouselComponent = () => {
         const response = await axios.get(`${BASE_URL}/api/imgupload/get`, {
           params: { imageType: imageType !== 'all' ? imageType : '' },
         });
-        // console.log("The sketches are ", response.data);
-        // console.log("th type is "+response.data[0].imageType);
-        // Filter out images that are of type "photography"
         const sketches = response.data.filter(image => image.imageType !== "photography");
-
-        console.log("The filtered sketches are ", sketches);
 
         const length = sketches.length;
         if (length > 0) {
@@ -86,10 +85,9 @@ const CarouselComponent = () => {
       }
     };
 
-
     fetchSketchImages();
     fetchImages();
-  }, [imageType]); 
+  }, [imageType]);
 
   useEffect(() => {
     const fetchTechArticles = async () => {
@@ -99,9 +97,6 @@ const CarouselComponent = () => {
           ...article,
           selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : ''
         }));
-
-        console.log("THe article ", articles)
-        console.log("The article tech ", articles[0])
         setTechArticleList(articles);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -110,6 +105,7 @@ const CarouselComponent = () => {
 
     fetchTechArticles();
   }, []);
+
   return (
     <>
       <Navbar links={HomeLink} />
@@ -128,44 +124,38 @@ const CarouselComponent = () => {
                 <h2 className="text-white text-3xl font-bold">Explore Stunning Art</h2>
               </div>
             </div>
-            <div className="relative h-96">
-              <img src={img2} alt="Slide 2" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black opacity-40"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h2 className="text-white text-3xl font-bold">Capture Moments</h2>
-              </div>
-            </div>
-            <div className="relative h-96">
-              <img src={img3} alt="Slide 3" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black opacity-40"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h2 className="text-white text-3xl font-bold">Share Knowledge</h2>
-              </div>
-            </div>
-            <div className="relative h-96">
-              <img src={img4} alt="Slide 4" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-black opacity-40"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <h2 className="text-white text-3xl font-bold">Inspire Creativity</h2>
-              </div>
-            </div>
+            {/* Repeat for other slides */}
           </Slider>
         </div>
 
         <section className="mt-16 text-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl">
             <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
-              <img src={imageSketchUrl} alt="Sketches" className="mx-auto mb-4" />
+              {loading ? (
+                <Loading isHome={true} />
+              ) : (
+                <img src={imageSketchUrl} alt="Sketches" className="mx-auto mb-4" />
+              )}
               <h3 className="text-2xl font-bold mb-2">Sketches</h3>
-              <p className="text-gray-600">{sketchTitle}</p>
+              <p className="text-gray-600">{loading ? <Skeleton /> : sketchTitle}</p>
             </div>
+
             <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
-              <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
+              {loading ? (
+                <Loading isHome={true} />
+              ) : (
+                <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
+              )}
               <h3 className="text-2xl font-bold mb-2">Photographs</h3>
-              <p className="text-gray-600">{title}</p>
+              <p className="text-gray-600">{ title}</p>
             </div>
+
             <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
-              <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
+              {loading ? (
+                <Loading isHome={true} />
+              ) : (
+                <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
+              )}
               <h3 className="text-2xl font-bold mb-2">Articles</h3>
               <p className="text-gray-600">Read insightful articles and technical pieces.</p>
             </div>
@@ -175,6 +165,6 @@ const CarouselComponent = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default CarouselComponent;
