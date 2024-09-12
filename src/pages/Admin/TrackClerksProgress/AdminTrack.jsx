@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
@@ -9,34 +8,17 @@ import Loading from '../../../components/ui/Loader';
 
 const departments = ['CSE', 'CSE-AIML', 'ENTC', 'MECH', 'ELEC', 'TC', 'TT', 'MMTT', 'Diploma', 'MBA'];
 
-const departmentModelMapping = {
-    'CSE': ['engi', 'sponsors', 'engineeringCompanies', 'facultyAchievementBookPublication'],
-    'CSE-AIML': ['engi', 'sponsors', 'engineeringCompanies', 'facultyAchievementBookPublication'],
-    'ENTC': ['engi', 'sponsors', 'engineeringCompanies', 'facultyAchievementBookPublication'],
-    'MECH': ['engi', 'sponsors', 'engineeringCompanies'],
-    'ELEC': ['engi', 'sponsors', 'engineeringCompanies'],
-    'CIVIL': ['engi', 'sponsors', 'engineeringCompanies'],
-    'TC': ['textileCompanies', 'textilePlacement'],
-    'TT': ['textileCompanies', 'textilePlacement'],
-    'MMTT': ['textileCompanies', 'textilePlacement'],
-    'Diploma': ['sponsors', 'textileCompanies'],
-    'MBA': ['sponsors', 'textileCompanies'],
-};
-
-
-const categories = ['Faculty Achievements', 'Student Achievements',' Student CGPA Ranks', 'Engineering Companies', 'Textile Companies', 'Events', 'Club Reports', 'Other'];
-
-
-
-
-
+const categories = [
+    'Faculty Achievements', 'Student Achievements', 'Student CGPA Ranks', 'Engineering Companies',
+    'Textile Companies', 'Events', 'Club Reports', 'Staff Members', 'Other'
+];
 
 const ProgressTracking = () => {
     const [progressData, setProgressData] = useState({});
     const [activeDepartment, setActiveDepartment] = useState(null);
-    const [activeCategory, setActiveCategory] = useState(null);        
+    const [activeCategory, setActiveCategory] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [getdata, setGetdata] = useState(false);
+    const [getData, setGetData] = useState(false);
 
     useEffect(() => {
         const fetchAllProgressData = async () => {
@@ -45,10 +27,7 @@ const ProgressTracking = () => {
             for (let department of departments) {
                 try {
                     const response = await axios.get(`${BASE_URL}/api/clerk/progress/${department}`);
-                    console.log(response);
-                    setGetdata(true);
                     data[department] = response.data;
-                    setLoading(false);
                 } catch (error) {
                     console.error(`Error fetching progress data for ${department}:`, error);
                     alert(`Error fetching progress data for ${department}`);
@@ -58,11 +37,11 @@ const ProgressTracking = () => {
             setLoading(false);
         };
 
-        if (!getdata) {
+        if (!getData) {
             fetchAllProgressData();
-            setGetdata(true);
+            setGetData(true);
         }
-    }, [getdata]);
+    }, [getData]);
 
     const toggleDepartment = (department) => {
         setActiveDepartment(activeDepartment === department ? null : department);
@@ -75,7 +54,9 @@ const ProgressTracking = () => {
 
     return (
         <>
-            {loading ? (<Loading links={AdminHomeLink} />) : (
+            {loading ? (
+                <Loading links={AdminHomeLink} />
+            ) : (
                 <>
                     <Navbar links={AdminHomeLink} />
                     <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
@@ -94,7 +75,7 @@ const ProgressTracking = () => {
                                         <>
                                             <div className="mt-4">
                                                 <h4 className="text-lg font-semibold mb-2">Select Category:</h4>
-                                                <div className="flex space-x-4">
+                                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                                     {categories.map((category) => (
                                                         <button
                                                             key={category}
@@ -116,7 +97,8 @@ const ProgressTracking = () => {
                                                         {activeCategory} Progress
                                                     </h4>
 
-                                                    {activeCategory === 'Faculty' && (
+                                                    {/* Display data based on selected category */}
+                                                    {activeCategory === 'Faculty Achievements' && (
                                                         <>
                                                             <ClerkProgress
                                                                 title="Faculty Achievement Book Publication"
@@ -124,47 +106,37 @@ const ProgressTracking = () => {
                                                                 filledRecords={progressData[dept]?.facultyAchievementBookPublication || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="FacultyAchievement Other Special"
+                                                                title="Faculty Achievement Other Special"
                                                                 totalRecords={30}
-
                                                                 filledRecords={progressData[dept]?.facultyAchievementOtherSpecial || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="FacultyAchievement Paper Presentation"
+                                                                title="Faculty Achievement Paper Presentation"
                                                                 totalRecords={30}
-
                                                                 filledRecords={progressData[dept]?.facultyAchievementPaperPresentation || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="FacultyAchievement Patent Grant"
+                                                                title="Faculty Achievement Patent Grant"
                                                                 totalRecords={30}
-
                                                                 filledRecords={progressData[dept]?.facultyAchievementPatentGrant || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="FacultyAchievement Training Programmes"
+                                                                title="Faculty Achievement Training Programmes"
                                                                 totalRecords={30}
-
                                                                 filledRecords={progressData[dept]?.facultyAchievementTrainingProgrammes || 0}
                                                             />
-
-
                                                             <ClerkProgress
-                                                                title="FacultyAchievement Workshop"
+                                                                title="Faculty Achievement Workshop"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.facultyAchievementWorkshop || 0}
                                                             />
-
-
-                                                            {/* Add more faculty-related ClerkProgress components here */}
                                                         </>
                                                     )}
 
-                                                    {activeCategory === 'Student' && (
+                                                    {activeCategory === 'Student Achievements' && (
                                                         <>
-                                                            
                                                             <ClerkProgress
-                                                                title="Student Achievement Appreciation Prize "
+                                                                title="Student Achievement Appreciation Prize"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementAppreciationPrize || 0}
                                                             />
@@ -174,7 +146,7 @@ const ProgressTracking = () => {
                                                                 filledRecords={progressData[dept]?.studentAchievementHigherStudies || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="Student Achievement International Training "
+                                                                title="Student Achievement International Training"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementInternationalTraining || 0}
                                                             />
@@ -184,64 +156,29 @@ const ProgressTracking = () => {
                                                                 filledRecords={progressData[dept]?.studentAchievementPaperProject || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="Student Achievement SpecialAchievements of Gate "
+                                                                title="Student Achievement Special Achievements Gate"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementSpecialAchievementsGate || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="Student Achievement SpecialAchievements of GRE "
+                                                                title="Student Achievement Special Achievements GRE"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementSpecialAchievementsGre || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="Student Achievement SpecialAchievements of NIFT "
+                                                                title="Student Achievement Special Achievements NIFT"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementSpecialAchievementsNift || 0}
                                                             />
                                                             <ClerkProgress
-                                                                title="Student Achievement SpecialAchievements of TOEFL "
+                                                                title="Student Achievement Special Achievements TOEFL"
                                                                 totalRecords={30}
                                                                 filledRecords={progressData[dept]?.studentAchievementSpecialAchievementsToefl || 0}
                                                             />
-                                                            <ClerkProgress
-                                                                title="Student Achievement SpecialAchievements of TOEFL "
-                                                                totalRecords={30}
-                                                                filledRecords={progressData[dept]?.studentAchievementSpecialAchievementsToefl || 0}
-                                                            />
-                                                            {/* Add more student-related ClerkProgress components here */}
                                                         </>
                                                     )}
 
-                                                    {activeCategory === 'Other' && (
-                                                        <>
-                                                            <ClerkProgress
-                                                                title="Sponsors"
-                                                                totalRecords={50}
-                                                                filledRecords={progressData[dept]?.sponsors || 0}
-                                                            />
-                                                            <ClerkProgress
-                                                                title="Engineering Companies"
-                                                                totalRecords={30}
-                                                                filledRecords={progressData[dept]?.engineeringCompanies || 0}
-                                                            />
-                                                            {/* Add more other-related ClerkProgress components here */}
-                                                        </>
-                                                    )}
-                                                    {activeCategory === 'Companies' && (
-                                                        <>
-                                                            <ClerkProgress
-                                                                title="Sponsors"
-                                                                totalRecords={50}
-                                                                filledRecords={progressData[dept]?.sponsors || 0}
-                                                            />
-                                                            <ClerkProgress
-                                                                title="Engineering Companies"
-                                                                totalRecords={30}
-                                                                filledRecords={progressData[dept]?.engineeringCompanies || 0}
-                                                            />
-                                                            {/* Add more other-related ClerkProgress components here */}
-                                                        </>
-                                                    )}
+                                                    {/* Add similar blocks for other categories */}
                                                 </>
                                             )}
                                         </>
