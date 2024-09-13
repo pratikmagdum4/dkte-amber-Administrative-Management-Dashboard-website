@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const PrivateRoute = ({ element, allowedRoles }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userRole = useSelector((state) => state.auth.Role);
-  console.log("role is ", userRole);
+  //  ("role is ", userRole);
   const navigate = useNavigate();
 
   useEffect(() => {

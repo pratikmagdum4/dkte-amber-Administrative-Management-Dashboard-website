@@ -17,7 +17,7 @@ const ImageForm = () => {
     image: null,
     selfImage: null,
     isVerified: false,
-    imageType:''
+    imageType: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({
@@ -32,13 +32,13 @@ const ImageForm = () => {
   });
 
   useEffect(() => {
-    const {  image, selfImage, stdname, branch } = formData;
+    const { image, selfImage, stdname, branch } = formData;
 
     // Function to update file name
     const updateFileName = (file) => {
       if (file && stdname && branch) {
         const newFileName = `${stdname},${branch.toUpperCase()}`;
-        console.log("new file name is ", newFileName);
+        ("new file name is ", newFileName);
         return new File([file], newFileName, { type: file.type });
       }
       return file;
@@ -59,14 +59,14 @@ const ImageForm = () => {
         [name]: files[0],
       });
       if (formData.content) {
-        console.log("The name of file is ", formData.content.name);
+        ("The name of file is ", formData.content.name);
       }
     } else {
       setFormData({
         ...formData,
         [name]: value,
       });
-      console.log("The change is ", formData);
+      ("The change is ", formData);
     }
   };
 
@@ -130,14 +130,14 @@ const ImageForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.image || !formData.selfImage) {
-      console.log(formData.image)
+      (formData.image)
       alert("Please upload all required files")
       toast.error("Please upload all required files");
       setIsSubmitting(false);
       return;
     }
     setIsSubmitting(true)
-   
+
 
     const formDataObj = new FormData();
     Object.keys(formData).forEach(key => {
@@ -145,7 +145,7 @@ const ImageForm = () => {
     });
 
     try {
-      console.log("form to submit is "+formDataObj)
+      ("form to submit is " + formDataObj)
       const response = await axios.post(`${BASE_URL}/api/submit/imgupload`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -155,22 +155,22 @@ const ImageForm = () => {
 
       alert("Submitted successfully")
       setFormData({
-    stdname: '',
-    contact: '',
-    email: '',
-    prn: '',
-    branch: '',
-    year: '',
-    title: '',
-    image: null,
-    selfImage: null,
-    isVerified: false,
-    imageType:''
+        stdname: '',
+        contact: '',
+        email: '',
+        prn: '',
+        branch: '',
+        year: '',
+        title: '',
+        image: null,
+        selfImage: null,
+        isVerified: false,
+        imageType: ''
       })
-      console.log('Server response:', response.data);
+        ('Server response:', response.data);
     } catch (error) {
       console.error('Error submitting form:', error);
-      
+
     }
     finally {
       setIsSubmitting(false);
@@ -297,7 +297,7 @@ const ImageForm = () => {
               <option value="" disabled>Select</option>
               <option value="sketch">Sketch</option>
               <option value="photography">PhotoGraphy</option>
-             
+
             </select>
           </div>
           <div>

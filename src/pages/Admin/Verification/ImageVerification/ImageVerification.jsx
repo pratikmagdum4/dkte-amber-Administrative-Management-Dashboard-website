@@ -48,7 +48,7 @@ const ImgUploadList = () => {
                 console.error('Error deleting image upload:', error);
             }
         } else {
-            console.log('Image deletion canceled.');
+            ('Image deletion canceled.');
         }
     };
 

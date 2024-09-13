@@ -4,6 +4,7 @@ import Navbar from '../../../navbar/Navbar';
 import { AdminVerifyLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const TechArticleList = () => {
     const [techArticleList, setTechArticleList] = useState([]);
@@ -17,8 +18,8 @@ const TechArticleList = () => {
                     ...article,
                     selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : '' // Remove extra quotes from URL or set empty string if null
                 }));
-                console.log("THe article ",articles)
-                console.log("The article image",articles[0])
+               console.log("THe article ", articles)
+                    
                 setTechArticleList(articles);
             } catch (error) {
                 console.error('Error fetching articles:', error);
@@ -57,7 +58,7 @@ const TechArticleList = () => {
             }
         } else {
             // User canceled the deletion
-            console.log('Article deletion canceled.');
+            
         }
     };
 
@@ -157,29 +158,24 @@ const TechArticleList = () => {
                                         </div>
                                         <div className="col-span-3 mt-4 flex justify-center md:justify-start">
                                             <div className="flex space-x-4 mt-2">
-                                                <a
-                                                    href={article.contentPdf}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="px-4 py-2 bg-blue-500 text-white rounded"
-                                                >
-                                                    View
-                                                </a>
+                                                    <Link to={article.contentPdf} className="px-4 py-2 bg-blue-500 text-white rounded">
+                                                        View
+                                                    </Link>
 
                                                 <a
                                                     href={article.content}
                                                     download={`${article.stdname},${article.branch}`}
-                                                        // target="_blank"
+                                                    // target="_blank"
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >
                                                     Download
                                                 </a>
-                                                    <button
-                                                        className="px-4 py-2 bg-red-500 text-white rounded"
-                                                        onClick={() => handleDelete(article._id)}
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                <button
+                                                    className="px-4 py-2 bg-red-500 text-white rounded"
+                                                    onClick={() => handleDelete(article._id)}
+                                                >
+                                                    Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </>

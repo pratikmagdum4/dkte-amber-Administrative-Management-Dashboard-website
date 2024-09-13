@@ -14,7 +14,7 @@ const ArticleForm = () => {
     contact: '',
     branch: '',
     year: '',
-    articleType:'',
+    articleType: '',
     language: 'english',
     content: null,
     contentPdf: null,
@@ -29,7 +29,7 @@ const ArticleForm = () => {
     const updateFileName = (file) => {
       if (file && stdname && branch) {
         const newFileName = `${stdname},${branch.toUpperCase()}`;
-        console.log("new file name is ", newFileName);
+        ("new file name is ", newFileName);
         return new File([file], newFileName, { type: file.type });
       }
       return file;
@@ -41,7 +41,7 @@ const ArticleForm = () => {
       contentPdf: updateFileName(contentPdf),
       selfImage: updateFileName(selfImage),
     }));
-  }, [formData.stdname, formData.branch]); 
+  }, [formData.stdname, formData.branch]);
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -50,9 +50,8 @@ const ArticleForm = () => {
         ...formData,
         [name]: files[0],
       });
-      if(formData.content)
-      {
-      console.log("The name of file is ",formData.content.name);
+      if (formData.content) {
+        ("The name of file is ", formData.content.name);
       }
     } else {
       setFormData({
@@ -66,14 +65,14 @@ const ArticleForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     if (!formData.content || !formData.contentPdf || !formData.selfImage) {
-      console.log("i mhere ")
+      ("i mhere ")
       alert("Please upload all required files")
       toast.error("Please upload all required files");
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
       return;
     }
-    console.log("The image info ",formData.content)
-    console.log('Form Data Submitted:', formData);
+    ("The image info ", formData.content)
+      ('Form Data Submitted:', formData);
     const formDataObj = new FormData();
     Object.keys(formData).forEach(key => {
       formDataObj.append(key, formData[key]);
@@ -87,9 +86,9 @@ const ArticleForm = () => {
       });
       toast.success("Data submitted successfully")
       alert("Data submitted successfully!");
-      console.log('Server response:', response.data);
+      ('Server response:', response.data);
       setIsSubmitting(false);
-     setFormData({
+      setFormData({
         title: '',
         stdname: '',
         prn: '',
@@ -186,7 +185,7 @@ const ArticleForm = () => {
               <option value="ft">Fashion Technology</option>
               <option value="diploma">Diploma</option>
               <option value="mba">MBA Technology</option>
-             
+
             </select>
             <div>
               <label className="block text-left text-sm font-medium text-gray-700">Year:</label>
@@ -243,7 +242,7 @@ const ArticleForm = () => {
               <option value="photography">Poem</option>
 
             </select>
-            </div>
+          </div>
           <div>
             <label className="block text-left text-sm font-medium text-gray-700">Your Photo :</label>
             <input

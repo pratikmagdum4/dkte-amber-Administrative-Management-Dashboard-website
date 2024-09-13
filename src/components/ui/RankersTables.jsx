@@ -8,7 +8,7 @@ const RankersTables = () => {
 
     const location = useLocation();
     const course = location.state && location.state.course;
-    console.log("The course is ", course)
+ 
     let dept = location.state && location.state.dept;
 
     // let Years = [];

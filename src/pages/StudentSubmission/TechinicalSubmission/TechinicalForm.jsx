@@ -31,7 +31,7 @@ const TechnicalArticleForm = () => {
         const updateFileName = (file) => {
             if (file && stdname && branch) {
                 const newFileName = `${stdname},${branch.toUpperCase()}`;
-                console.log("new file name is ", newFileName);
+                ("new file name is ", newFileName);
                 return new File([file], newFileName, { type: file.type });
             }
             return file;
@@ -53,7 +53,7 @@ const TechnicalArticleForm = () => {
                 [name]: files[0],
             });
             if (formData.content) {
-                console.log("The name of file is ", formData.content.name);
+                ("The name of file is ", formData.content.name);
             }
         } else {
             setFormData({
@@ -82,7 +82,7 @@ const TechnicalArticleForm = () => {
         e.preventDefault();
         setIsSubmitting(true);
         if (!formData.content || !formData.contentPdf || !formData.selfImage) {
-        
+
             alert("Please upload all required files")
             toast.error("Please upload all required files");
             setIsSubmitting(false);
@@ -108,7 +108,7 @@ const TechnicalArticleForm = () => {
 
             // Optional: Upload the PDF back to the server or allow the user to download it
             // const pdfUrl = URL.createObjectURL(pdfBlob);
-            // console.log("The PDF file url is ", pdfUrl);
+            //  ("The PDF file url is ", pdfUrl);
             // const a = document.createElement('a');
             // a.href = pdfUrl;
             // a.download = `${formData.title}.pdf`;
@@ -128,7 +128,7 @@ const TechnicalArticleForm = () => {
                 year: '',
                 language: 'english',
                 content: null,
-                contentPdf:null,
+                contentPdf: null,
                 selfImage: null,
                 isVerified: false,
             });
@@ -194,7 +194,7 @@ const TechnicalArticleForm = () => {
                         >
                             <option value="" disabled>Select Year</option>
                             <option value="cse">Computer Science & Engineering</option>
-                            <option value="amil">Computer Science(AIML)</option>
+                            <option value="aiml">Computer Science(AIML)</option>
                             <option value="aids">Artificial Intelligence and Data Science</option>
                             <option value="antc">Electronics and Telecommunication Engineering</option>
                             <option value="ele">Electrical Engineering</option>

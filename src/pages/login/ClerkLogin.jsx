@@ -55,18 +55,18 @@ function LoginForm2() {
     };
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log("formdata is ", formValues);
+        ("formdata is ", formValues);
         setInvalid(false)
         setLoading(true);
         try {
             const response = await axios.post(`${BASE_URL}/api/login/clerk/${department}`, formValues);
-            console.log("the response is ", response);
-            console.log("the role is ", response.data.role);
-            console.log("the department is ", response.data.result.department);
+            ("the response is ", response);
+            ("the role is ", response.data.role);
+            ("the department is ", response.data.result.department);
             // const { data, token } = response.data;
             // const { name, role, department } = data;
-            // console.log("the data is ",data);
-            // console.log(" im in ")
+            //  ("the data is ",data);
+            //  (" im in ")
             // // localStorage.setItem("clerkId", clerkId);
             // localStorage.setItem("clerkAuthToken", token);
 
@@ -82,7 +82,7 @@ function LoginForm2() {
                 navigate('home');
             }
         } catch (error) {
-            // console.log("the msg is ", error.response.data.message)
+            //  ("the msg is ", error.response.data.message)
             if (error.response.data.message === "Clerk doesn't exist") {
 
                 setUserExists(false);
@@ -90,7 +90,7 @@ function LoginForm2() {
                 toast.error(error.response.data.message)
             }
             if (error.response.data.message === "Invalid credentials") {
-                console.log("hi invalid ")
+                ("hi invalid ")
                 setInvalid(true)
                 setInvalidCredentials(true);
                 alert("Invalid credentials")
@@ -190,7 +190,7 @@ function LoginForm2() {
                                         >
                                             Register
                                         </button>
-                                    </div> 
+                                    </div>
                                     <button
 
                                         type="button"

@@ -16,6 +16,7 @@ import img1 from '../../images/img1.jpg';
 import img2 from '../../images/img2.jpg';
 import img3 from '../../images/img3.jpg';
 import img4 from '../../images/img4.jpg';
+import { Link } from "react-router-dom";
 
 const CarouselComponent = () => {
   const settings = {
@@ -38,7 +39,8 @@ const CarouselComponent = () => {
   const [sketchTitle, setSketchTitle] = useState('');
   const [techArticleList, setTechArticleList] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
-
+  const [articleTile, setArticleTitle] = useState('');
+  const [articleUrl, setArticleUrl] = useState('');
   useEffect(() => {
     const fetchImages = async () => {
       setLoading(true); // Start loading
@@ -97,7 +99,14 @@ const CarouselComponent = () => {
           ...article,
           selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : ''
         }));
+        console.log("The articles are ",articles)
         setTechArticleList(articles);
+        const length = articles.length;
+        if (length > 0) {
+          const randomIndex = Math.floor(Math.random() * length);
+          setArticleTitle(articles[randomIndex].title);
+          setArticleUrl(articles[randomIndex].contentPdf); // Set imageUrl to a random sketch URL
+        }
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
@@ -154,10 +163,14 @@ const CarouselComponent = () => {
               {loading ? (
                 <Loading isHome={true} />
               ) : (
-                <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
+                // <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
+                <h1></h1>
               )}
-              <h3 className="text-2xl font-bold mb-2">Articles</h3>
+              <h3 className="text-2xl font-bold mb-2">{articleTile}</h3>
               <p className="text-gray-600">Read insightful articles and technical pieces.</p>
+              <Link to={articleUrl} className="inline-block mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300">
+                View
+              </Link>
             </div>
           </div>
         </section>

@@ -11,7 +11,7 @@ const StudentFormTable = forwardRef(({ title }, ref) => {
     ]);
 
     useEffect(() => {
-        
+
         const savedStudents = JSON.parse(localStorage.getItem(`${title}-students`));
         if (savedStudents) {
             setStudents(savedStudents);
@@ -32,12 +32,12 @@ const StudentFormTable = forwardRef(({ title }, ref) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("hi i m here ")
+
         const dataToSend = { students };
-        console.log("The data is ", dataToSend)
+
         try {
             const response = await axios.post('/api/save', dataToSend);
-            console.log('Data sent successfully:', response.data);
+            ('Data sent successfully:', response.data);
             alert('Data saved successfully!');
         } catch (error) {
             console.error('Error sending data:', error);

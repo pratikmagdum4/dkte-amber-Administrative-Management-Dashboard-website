@@ -13,8 +13,7 @@ import { useNavigate } from "react-router-dom";
 function DropDownOptions({ options, title }) {
     const navigate = useNavigate()
     function handleClick(item) {
-        console.log("clickked houdfhauo")
-        console.log(item)
+      
         navigate('/rank', {
             state: {
                 dept: item

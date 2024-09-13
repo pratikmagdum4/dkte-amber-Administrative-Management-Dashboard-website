@@ -15,11 +15,10 @@ const ArticleList = () => {
                 const response = await axios.get(`${BASE_URL}/api/article/get`);
                 const articles = response.data.map(article => ({
                     ...article,
-                    if(article)
-                    {
+                    if(article) {
                         selfImage: article.selfImage.replace(/^"|"$/g, '')
                     }
-                    
+
                 }));
                 setArticleList(articles);
             } catch (error) {
@@ -45,7 +44,7 @@ const ArticleList = () => {
 
     const handleDelete = async (id) => {
         // Show a confirmation dialog to the user
-        console.log('Are you sure you want to delete')
+        ('Are you sure you want to delete')
         const confirmed = window.confirm('Are you sure you want to delete this article?');
 
         if (confirmed) {
@@ -57,7 +56,7 @@ const ArticleList = () => {
             }
         } else {
             // User canceled the deletion
-            console.log('Article deletion canceled.');
+            ('Article deletion canceled.');
         }
     };
 
@@ -163,14 +162,14 @@ const ArticleList = () => {
                                             <div className="flex space-x-4 mt-2">
                                                 <Link
                                                     to={article.contentPdf}
-                                                        target="_blank"
+                                                    target="_blank"
                                                     className="px-4 py-2 bg-blue-500 text-white rounded"
                                                 >
                                                     View
                                                 </Link>
                                                 <Link
                                                     to={article.content}
-                                                        target="_blank"
+                                                    target="_blank"
                                                     download={`${article.stdname},${article.branch}`}
                                                     className="px-4 py-2 bg-green-500 text-white rounded"
                                                 >

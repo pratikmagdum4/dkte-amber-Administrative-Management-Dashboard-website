@@ -8,12 +8,9 @@ function DepartmentListing() {
     let departments = []
     const course = location.state && location.state.course
     departments = location.state && location.state.departments;
-    console.log("indie listing")
-    console.log("hi there " + location.state.departments);
-    console.log("hi there " + location.state.course);
-
+   
     function handleClick(item) {
-        console.log("hi there " + location.state.departments);
+      
 
         navigate('/clerk/home/studentachievement/courselist/listing/ranktables', {
             state: {

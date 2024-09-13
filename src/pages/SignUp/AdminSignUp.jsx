@@ -35,31 +35,31 @@ const AdminSignupPage = () => {
 
     const handleSubmit = async (e) => {
         setLoading(true);
-        console.log("the loading is ", loading)
+        ("the loading is ", loading)
         e.preventDefault();
         try {
 
             const response = await axios.post(`${BASE_URL}/api/signup/admin`, formValues);
 
-            
+
             // const { _id, name, role, token } = response.data;
 
             // const adminAuthToken = token;
 
             // localStorage.setItem("adminAuthToken", adminAuthToken);
-           
+
 
             if (response.data) {
                 toast.success("Login successful!");
-                console.log("data is", response.data.data)
+                ("data is", response.data.data)
                 dispatch(authenticate(true));
                 alert("SignUp is Successful");
                 toast.success("SignUp is Successful")
                 navigate('/login/admin');
-                console.log("stored i guess ")
-               
+                ("stored i guess ")
 
-            } 
+
+            }
 
 
         } catch (error) {
@@ -86,8 +86,8 @@ const AdminSignupPage = () => {
             ) : (
 
 
-                <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
-                        <Navbar links={AdminSingupLinks} />
+                <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col mt-14">
+                    <Navbar links={AdminSingupLinks} />
                     <div className="flex justify-center items-center flex-grow mt-10">
                         <div className="bg-zinc-800 dark:bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
                             <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Admin Sign Up</h2>

@@ -51,9 +51,9 @@ function AdminLoginForm() {
         try {
             const response = await axios.post(`${BASE_URL}/api/login/admin`, formValues);
             const { data, token, result } = response.data;
-            console.log(response)
+            (response)
             dispatch(authenticate(true));
-            console.log(result._id)
+            (result._id)
             dispatch(setUserInfo({ user: data, token, Uid: result._id, Name: result.name, Role: response.data.role }));
             localStorage.setItem('adminAuthToken', token);
             navigate('/login/admin/home');

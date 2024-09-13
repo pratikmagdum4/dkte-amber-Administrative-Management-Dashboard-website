@@ -20,29 +20,29 @@ function LoginPage() {
     useEffect(() => {
         const func = async () => {
             try {
-               
+
                 const response = await axios.get(`${BASE_URL}/api/article/get`);
 
-               
+
                 // const articles = response.data.map(article => ({
                 //     ...article,
                 //     selfImage: article.selfImage.replace(/^"|"$/g, '')
                 // }));
                 // setArticleList(articles);
 
-               
+
                 if (response.data) {
                     setConnected(true);
                 } else {
                     setConnected(false);
                 }
             } catch (error) {
-                console.log(error);
+                (error);
                 setConnected(false);
             }
         };
 
-        func(); 
+        func();
     }, []);
 
     const role = useSelector(selectCurrentRole);

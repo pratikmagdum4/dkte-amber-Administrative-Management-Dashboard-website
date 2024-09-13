@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/Navbar';
-import { FacultyAchivements } from '../../components/variables/variables';
+import { FacultyAchivements, LoginNavLink } from '../../components/variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -12,15 +12,15 @@ import Loader from '../../components/ui/Loader.jsx';
 const ClerkSignupPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [loading,setLoading] = useState(false);
-    const [userExists,setUserExists] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [userExists, setUserExists] = useState(false);
     const [formValues, setFormValues] = useState({
         name: '',
         email: '',
-        password:'',
+        password: '',
         phoneNumber: '',
         department: '',
-      
+
     });
 
     const departments = [
@@ -35,14 +35,14 @@ const ClerkSignupPage = () => {
 
     const handleSubmit = async (e) => {
         setLoading(true);
-    console.log("the loading is ",loading)
+        ("the loading is ", loading)
         e.preventDefault();
         try {
             //  Axios POST    
-           const response =  await axios.post(`${BASE_URL}/api/signup/clerk`, formValues);
-            console.log("THe msg is ", response.msg);
+            const response = await axios.post(`${BASE_URL}/api/signup/clerk`, formValues);
+            ("THe msg is ", response.msg);
             if (response.msg == "User does not exist") {
-                console.log("thoadign")
+                ("thoadign")
                 toast.error(response.msg);
             }
             const { id: clerkId, name, role, token } = response.data;
@@ -50,17 +50,17 @@ const ClerkSignupPage = () => {
             const adminAuthToken = token;
             localStorage.setItem("clerkId", clerkId);
             localStorage.setItem("clerkAuthToken", adminAuthToken);
-            console.log("clerkId is fro mlocal", localStorage.getItem("clerkId"));
-            console.log("clerkAuthToken is from local", localStorage.getItem("clerkAuthToken"));
+            ("clerkId is fro mlocal", localStorage.getItem("clerkId"));
+            ("clerkAuthToken is from local", localStorage.getItem("clerkAuthToken"));
 
             if (response.data) {
                 toast.success("Login successful!");
-                console.log("data is", response.data.data)
+                ("data is", response.data.data)
                 dispatch(authenticate(true));
                 // dispatch(setUserInfo({ user: response.data.data, token, Uid: response.data.data.id, Name: response.data.data.name, Role: response.data.data.role }));
                 alert("Signup successful")
                 navigate('/login/clerk/deptlist');
-                console.log("stored i guess ")
+                ("stored i guess ")
 
 
             } else {
@@ -71,7 +71,7 @@ const ClerkSignupPage = () => {
         } catch (error) {
 
             alert("Error Submitting Form ,Please try again in a minute")
-           
+
             setLoading(false);
             // if (error.response.data.msg === "User does not exist") {
             //     setUserExists(false)
@@ -88,76 +88,76 @@ const ClerkSignupPage = () => {
     return (
         <>
             {(loading) ? (
-                <Loader links={FacultyAchivements} />
-            ) :(
-                
-           
-        <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
-            <Navbar links={FacultyAchivements} />
-            <div className="flex justify-center items-center flex-grow mt-10">
-                <div className="bg-zinc-800 dark:bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Clerk Sign Up</h2>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label className="block  text-gray-100">Name</label>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formValues.name}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-100 dark:text-gray-300">Email</label>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formValues.email}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-100 dark:text-gray-300">Password</label>
-                            <input
-                                type="text"
-                                name="password"
-                                value={formValues.password}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-100 dark:text-gray-300">Phone Number</label>
-                            <input
-                                type="tel"
-                                name="phoneNumber"
-                                value={formValues.phoneNumber}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-gray-100 dark:text-gray-300">Department</label>
-                            <select
-                                name="department"
-                                value={formValues.department}
-                                onChange={handleChange}
-                                required
-                                className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
-                            >
-                                <option value="" disabled>Select your department</option>
-                                {departments.map((dept, index) => (
-                                    <option key={index} value={dept}>{dept}</option>
-                                ))}
-                            </select>
-                        </div>
-                        {/* <div>
+                <Loader links={LoginNavLink} />
+            ) : (
+
+
+                <div className="min-h-screen bg-white dark:bg-zinc-900 flex flex-col mt-14">
+                        <Navbar links={LoginNavLink} />
+                    <div className="flex justify-center items-center flex-grow mt-10">
+                        <div className="bg-zinc-800 dark:bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+                            <h2 className="text-2xl font-bold text-center text-gray-100  mb-6">Clerk Sign Up</h2>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div>
+                                    <label className="block  text-gray-100">Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={formValues.name}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-100 dark:text-gray-300">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formValues.email}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-100 dark:text-gray-300">Password</label>
+                                    <input
+                                        type="text"
+                                        name="password"
+                                        value={formValues.password}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-100 dark:text-gray-300">Phone Number</label>
+                                    <input
+                                        type="tel"
+                                        name="phoneNumber"
+                                        value={formValues.phoneNumber}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-gray-100 dark:text-gray-300">Department</label>
+                                    <select
+                                        name="department"
+                                        value={formValues.department}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                    >
+                                        <option value="" disabled>Select your department</option>
+                                        {departments.map((dept, index) => (
+                                            <option key={index} value={dept}>{dept}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                {/* <div>
                             <label className="block text-gray-100 dark:text-gray-300">ID Card</label>
                             <input
                                 type="text"
@@ -168,21 +168,21 @@ const ClerkSignupPage = () => {
                                 className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
                             />
                         </div> */}
-                        <div className="text-center">
-                            <button
-                                type="submit"
-                                className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                            >
-                                Sign Up
-                            </button>
+                                <div className="text-center">
+                                    <button
+                                        type="submit"
+                                        className="w-full bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+                    <img src={Groupdiscussionbro1} alt="Group discussion illustration" className="w-full mt-8" />
                 </div>
-            </div>
-            <img src={Groupdiscussionbro1} alt="Group discussion illustration" className="w-full mt-8" />
-        </div>
             )}
-         </>
+        </>
     );
 };
 
