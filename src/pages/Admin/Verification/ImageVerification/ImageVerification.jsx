@@ -14,6 +14,7 @@ const ImgUploadList = () => {
                 const imgUploads = response.data.map(imgUpload => ({
                     ...imgUpload,
                 }));
+                console.log(imgUploads)
                 setImgUploads(imgUploads);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -47,9 +48,10 @@ const ImgUploadList = () => {
             } catch (error) {
                 console.error('Error deleting image upload:', error);
             }
-        } else {
-            ('Image deletion canceled.');
-        }
+        } 
+        // else {
+        //     console.log('Image deletion canceled.');
+        // }
     };
 
     return (
@@ -78,7 +80,7 @@ const ImgUploadList = () => {
                                         <p className="text-gray-600">Contact: {imgUpload.contact}</p>
                                         <p className="text-gray-600">Branch: {imgUpload.branch}</p>
                                         <p className="text-gray-600">Year: {imgUpload.year}</p>
-                                        <p className="text-gray-600">Language: {imgUpload.language}</p>
+                                        <p className="text-gray-600">Language: {imgUpload.imageType}</p>
                                         <p className="text-gray-600">Verified: {imgUpload.isVerified ? 'Yes' : 'No'}</p>
                                         <button
                                             className={`mt-2 px-4 py-2 rounded ${imgUpload.isVerified ? 'bg-red-500 text-white' : 'bg-green-500 text-white'}`}

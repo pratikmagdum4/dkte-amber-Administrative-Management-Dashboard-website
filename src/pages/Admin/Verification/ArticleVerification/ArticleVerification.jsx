@@ -44,7 +44,7 @@ const ArticleList = () => {
 
     const handleDelete = async (id) => {
         // Show a confirmation dialog to the user
-        ('Are you sure you want to delete')
+        // ('Are you sure you want to delete')
         const confirmed = window.confirm('Are you sure you want to delete this article?');
 
         if (confirmed) {
@@ -54,10 +54,11 @@ const ArticleList = () => {
             } catch (error) {
                 console.error('Error deleting article:', error);
             }
-        } else {
-            // User canceled the deletion
-            ('Article deletion canceled.');
-        }
+        } 
+        // else {
+        //     // User canceled the deletion
+        //     ('Article deletion canceled.');
+        // }
     };
 
     useEffect(() => {

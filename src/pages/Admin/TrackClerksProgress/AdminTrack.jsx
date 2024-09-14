@@ -6,7 +6,7 @@ import { BASE_URL } from '../../../api';
 import ClerkProgress from '../../../components/ui/ClerkProgressComponent';
 import Loading from '../../../components/ui/Loader';
 
-const departments = ['CSE', 'CSE-AIML', 'ENTC', 'MECH', 'ELEC', 'TC', 'TT', 'MMTT', 'Diploma', 'MBA'];
+const departments = ['CSE', 'CSE-AIML','AIDS', 'ENTC', 'MECH', 'ELEC', 'TC', 'TT', 'MMTT', 'Diploma', 'MBA'];
 
 const categories = [
     'Faculty Achievements', 'Student Achievements', 'Student CGPA Ranks', 'Engineering Companies',
@@ -80,8 +80,8 @@ const ProgressTracking = () => {
                                                         <button
                                                             key={category}
                                                             className={`px-4 py-2 rounded-md ${activeCategory === category
-                                                                    ? 'bg-blue-500 text-white'
-                                                                    : 'bg-gray-200'
+                                                                ? 'bg-blue-500 text-white'
+                                                                : 'bg-gray-200'
                                                                 }`}
                                                             onClick={() => selectCategory(category)}
                                                         >
@@ -100,6 +100,7 @@ const ProgressTracking = () => {
                                                     {/* Display data based on selected category */}
                                                     {activeCategory === 'Faculty Achievements' && (
                                                         <>
+                                                            {/* Faculty Achievements Progress */}
                                                             <ClerkProgress
                                                                 title="Faculty Achievement Book Publication"
                                                                 totalRecords={30}
@@ -135,6 +136,7 @@ const ProgressTracking = () => {
 
                                                     {activeCategory === 'Student Achievements' && (
                                                         <>
+                                                            {/* Student Achievements Progress */}
                                                             <ClerkProgress
                                                                 title="Student Achievement Appreciation Prize"
                                                                 totalRecords={30}
@@ -178,7 +180,117 @@ const ProgressTracking = () => {
                                                         </>
                                                     )}
 
-                                                    {/* Add similar blocks for other categories */}
+                                                    {activeCategory === 'Student CGPA Ranks' && (
+                                                        <>
+                                                            {/* Student CGPA Ranks Progress */}
+                                                            <ClerkProgress
+                                                                title="CGPA Ranks"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.cgpaRanks || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Engineering Companies' && (
+                                                        <>
+                                                            {/* Engineering Companies Progress */}
+                                                            <ClerkProgress
+                                                                title="Engineering Companies"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.engineeringCompanies || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Industrial Training"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.industrialTraining || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Textile Companies' && (
+                                                        <>
+                                                            {/* Textile Companies Progress */}
+                                                            <ClerkProgress
+                                                                title="National Textile Companies"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.textileCompaniesNational || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="International Textile Companies"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.textileCompaniesInternational || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Events' && (
+                                                        <>
+                                                            {/* Events Progress */}
+                                                            <ClerkProgress
+                                                                title="Alumni Meet"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.alumniMeet || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Tech Symposium"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.techSymposium || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Career Fair"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.careerFair || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Club Reports' && (
+                                                        <>
+                                                            {/* Club Reports Progress */}
+                                                            <ClerkProgress
+                                                                title="Club Reports ACSES"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.clubReportsAcses || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Club Reports COMSA"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.clubReportsComsa || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Club Reports EESA"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.clubReportsEesa || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Staff Members' && (
+                                                        <>
+                                                            {/* Staff Members Progress */}
+                                                            <ClerkProgress
+                                                                title="Staff Members Count"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.staffMembersCount || 0}
+                                                            />
+                                                            <ClerkProgress
+                                                                title="Staff Members Categories"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.staffMembersCategories || 0}
+                                                            />
+                                                        </>
+                                                    )}
+
+                                                    {activeCategory === 'Other' && (
+                                                        <>
+                                                            {/* Other Progress */}
+                                                            <ClerkProgress
+                                                                title="Miscellaneous Category"
+                                                                totalRecords={30}
+                                                                filledRecords={progressData[dept]?.other || 0}
+                                                            />
+                                                        </>
+                                                    )}
                                                 </>
                                             )}
                                         </>

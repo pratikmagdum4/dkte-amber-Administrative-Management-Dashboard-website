@@ -29,7 +29,7 @@ const ArticleForm = () => {
     const updateFileName = (file) => {
       if (file && stdname && branch) {
         const newFileName = `${stdname},${branch.toUpperCase()}`;
-        ("new file name is ", newFileName);
+    
         return new File([file], newFileName, { type: file.type });
       }
       return file;
@@ -50,9 +50,9 @@ const ArticleForm = () => {
         ...formData,
         [name]: files[0],
       });
-      if (formData.content) {
-        ("The name of file is ", formData.content.name);
-      }
+      // if (formData.content) {
+      //  console.log("The name of file is ", formData.content.name);
+      // }
     } else {
       setFormData({
         ...formData,
@@ -65,14 +65,13 @@ const ArticleForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     if (!formData.content || !formData.contentPdf || !formData.selfImage) {
-      ("i mhere ")
+      
       alert("Please upload all required files")
       toast.error("Please upload all required files");
       setIsSubmitting(false);
       return;
     }
-    ("The image info ", formData.content)
-      ('Form Data Submitted:', formData);
+   
     const formDataObj = new FormData();
     Object.keys(formData).forEach(key => {
       formDataObj.append(key, formData[key]);
@@ -86,7 +85,7 @@ const ArticleForm = () => {
       });
       toast.success("Data submitted successfully")
       alert("Data submitted successfully!");
-      ('Server response:', response.data);
+      
       setIsSubmitting(false);
       setFormData({
         title: '',
