@@ -8,6 +8,7 @@ const ContactPage = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
@@ -26,11 +27,11 @@ const ContactPage = () => {
         const serviceID = import.meta.env.VITE_EMAIL_SERVICE_ID;
         const templateID = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
         const userID = import.meta.env.VITE_EMAIL_USER_ID;
-        console.log("THe formdata is ",formData)
+        console.log("THe formdata is ", formData)
         // Send email via EmailJS
         emailjs.send(serviceID, templateID, formData, userID)
             .then((response) => {
-                console.log("response ",response)
+                console.log("response ", response)
                 console.log('SUCCESS!', response.status, response.text);
                 setSubmitted(true); // Show success message
             })
@@ -65,6 +66,19 @@ const ContactPage = () => {
                                     onChange={handleChange}
                                     className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     placeholder="Your Name"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    placeholder="Your Contact Number"
                                     required
                                 />
                             </div>
