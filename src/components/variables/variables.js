@@ -3,14 +3,14 @@ export const HomeLink = [
   { label: "Submit", url: "" },
   { label: "About Us", url: "/" },
   { label: "SignUp", url: "/signup" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 export const LoginNavLink = [
   { label: "Home", url: "/" },
   { label: "Submit", url: "" },
   { label: "About Us", url: "/" },
   { label: "SignUp", url: "/signup" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
@@ -45,14 +45,14 @@ export const ClerkNavLink = [
     label: "Notification",
     url: "/login/clerk/deptlist/deptlogin/home/notification",
   },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
   { label: "Logout", url: "/" },
 ];
 export const ClerkNotificationNavLink = [
   { label: "Home", url: "/login/clerk/deptlist/deptlogin/home" },
   { label: "Login", url: "/login" },
-  
-  { label: "Contact", url: "/" },
+
+  { label: "Contact", url: "/contact" },
   { label: "Logout", url: "/" },
 ];
 export const AdminNavLink = [
@@ -76,7 +76,7 @@ export const ClubList = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const FacultyAchivements = [
@@ -91,56 +91,56 @@ export const AdminSingupLinks = [
   { label: "Home", url: "/" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 export const ClerkLoginList = [
   { label: "Home", url: "/" },
   { label: "Register", url: "/signup" },
   { label: "Submit", url: "" },
   { label: "About Us", url: "/" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const MainEvents = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const SponsoresList = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const StaffMembers = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const StudentAchivements = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const TrainingPlacement = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const UpGraduation = [
   { label: "Home", url: "/login/clerk/home" },
   { label: "Login", url: "/login" },
   { label: "Notification", url: "/login/clerk/home/notification" },
-  { label: "Contact", url: "/" },
+  { label: "Contact", url: "/contact" },
 ];
 
 export const departmentMapping = {

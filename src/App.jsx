@@ -84,6 +84,8 @@ import AdminResetPassword from './components/ui/AdminResetPassword.jsx';
 import ClerkResetPassword from './components/ui/ClerkResetPassword.jsx';
 import { logOut, loadState } from './redux/auth.js';
 import { useDispatch } from 'react-redux';
+import ContactPage from './pages/Contact/Contact.jsx';
+
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -119,6 +121,7 @@ const App = () => {
         <Route path='/' element={<CarouselComponent  />} />
         <Route path="/admin/reset-password/:token" element={<AdminResetPassword />} />
         <Route path="/clerk/reset-password/:token" element={<ClerkResetPassword />} />
+        <Route path='/contact' element={<ContactPage  />} />
         <Route path='/submit-article' element={<ArticleForm  />} />
         <Route path='/submit-image' element={<ImageForm  />} />
         <Route path='/submit-technical-article' element={<TechnicalArticleForm  />} />

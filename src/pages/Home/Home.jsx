@@ -163,7 +163,9 @@ const CarouselComponent = () => {
 
             <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
               {loading ? (
+                <div className="">
                 <Loading isHome={true} />
+                </div>
               ) : (
                 // <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
                   <h1 className="text-2xl font-bold">Articles</h1>
