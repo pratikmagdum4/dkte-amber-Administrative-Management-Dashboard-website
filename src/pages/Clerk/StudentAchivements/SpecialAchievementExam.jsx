@@ -18,7 +18,7 @@ const initialRows1 = [
 const columnHeaders1 = [
     { key: 'srno', label: 'Sr No.' },
     { key: 'name', label: 'Name of Students' },
-    { key: 'class', label: 'Class' },
+    { key: 'Class', label: 'Class' },
 ];
 
 const StudentSpecialAchievements = () => {
