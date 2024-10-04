@@ -199,7 +199,7 @@ const App = () => {
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year1' element={<PrivateRoute element=
         {<FirstYearDiplomaTables />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<SecondYearDiplomaTables />} allowedRoles={["clerk"]} />} />
-        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<ThirdYearDiplomaTables />} allowedRoles={["clerk"]} />} />
+        <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year3' element={<PrivateRoute element={<ThirdYearDiplomaTables />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/notification' element={<PrivateRoute element={<ClerkNotification />} allowedRoles={["clerk"]} />} />
         <Route path='*' element={<ErrorPage  />} />
       </Routes>
