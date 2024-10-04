@@ -42,9 +42,44 @@ const ArticleForm = () => {
       selfImage: updateFileName(selfImage),
     }));
   }, [formData.stdname, formData.branch]);
+
+  const handleFileUpload = async (event, type) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    const endpoint = type === 'docx' ? '/api/convert-docx-to-pdf' : '/api/convert-pdf-to-docx';
+
+    // formData.append(type === 'docx' ? 'content' : 'pdfFile', file);
+    formData.append(type === 'docx' ? 'content' : 'pdfFile', file);
+    console.log("The form data is ",formData)
+    try {
+      const response = await fetch(`http://localhost:5000/api/convert-docx-to-pdf`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      // Check if the response is ok
+      if (!response.ok) {
+        throw new Error('File conversion failed');
+      }
+
+      // Create a blob from the response
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', type === 'docx' ? 'converted_file.pdf' : 'converted_file.docx');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-
+    console.log("The form data is ",formData)
     if (files) {
       setFormData({
         ...formData,
@@ -237,8 +272,8 @@ const ArticleForm = () => {
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
               <option value="">Select</option>
-              <option value="sketch">Article</option>
-              <option value="photography">Poem</option>
+              <option value="article">Article</option>
+              <option value="poem">Poem</option>
 
             </select>
           </div>
