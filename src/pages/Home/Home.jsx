@@ -141,9 +141,11 @@ const CarouselComponent = () => {
 
         <section className="mt-16 text-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl">
-            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
+            <div className="p-20 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
               {loading ? (
+                <div className="pb-12">
                 <Loading isHome={true} />
+                </div>
               ) : (
                 <img src={imageSketchUrl} alt="Sketches" className="mx-auto mb-4" />
               )}
@@ -151,9 +153,11 @@ const CarouselComponent = () => {
               <p className="text-gray-600">{loading ? <Skeleton /> : sketchTitle}</p>
             </div>
 
-            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
+            <div className="p-20 bg-white rounded-lg shadow-md animate__animated animate__fadeInUp">
               {loading ? (
-                <Loading isHome={true} />
+                <div className="pb-12">
+                  <Loading isHome={true} />
+                </div>
               ) : (
                 <img src={imageUrl} alt="Photographs" className="mx-auto mb-4" />
               )}
@@ -161,10 +165,10 @@ const CarouselComponent = () => {
               <p className="text-gray-600">{ title}</p>
             </div>
 
-            <div className="p-6 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
+            <div className="p-20 bg-white rounded-lg shadow-md animate__animated animate__fadeInRight">
               {loading ? (
-                <div className="">
-                <Loading isHome={true} />
+                <div className="pb-12">
+                  <Loading isHome={true} />
                 </div>
               ) : (
                 // <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
