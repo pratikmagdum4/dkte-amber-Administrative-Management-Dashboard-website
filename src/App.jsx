@@ -110,6 +110,7 @@ const App = () => {
       }
     };
 
+    
     window.addEventListener('storage', handleStorageChange);
 
     return () => window.removeEventListener('storage', handleStorageChange); // Cleanup on unmount
