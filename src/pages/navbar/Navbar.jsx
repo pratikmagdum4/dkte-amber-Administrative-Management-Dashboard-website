@@ -108,7 +108,7 @@ const Navbar = ({ links }) => {
                         className="relative lg:inline-block"
                         onClick={['Submit', 'Verify', 'Display', 'Logout'].includes(link.label) ? () => handleClick(link.label) : () => navigate(link.url)}
                     >
-                        <button className="block w-full text-left px-4 py-2 hover:text-yellow-300 lg:inline transition-all duration-300">
+                        <button className="block w-full text-left px-2 py-2 hover:text-yellow-300 lg:inline transition-all duration-300">
                             {link.label}
                         </button>
                         {dropdownVisible && activeDropdown === link.label && renderDropdown(link.label)}
