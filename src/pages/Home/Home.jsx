@@ -100,7 +100,7 @@ const CarouselComponent = () => {
           ...article,
           selfImage: article.selfImage ? article.selfImage.replace(/^"|"$/g, '') : ''
         }));
-        console.log("The articles are ",articles)
+        // console.log("The articles are ",articles)
         setTechArticleList(articles);
         const length = articles.length;
         if (length > 0) {

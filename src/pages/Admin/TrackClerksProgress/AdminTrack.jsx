@@ -5,13 +5,8 @@ import { AdminHomeLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
 import ClerkProgress from '../../../components/ui/ClerkProgressComponent';
 import Loading from '../../../components/ui/Loader';
+import { departments,categories } from '../../../components/variables/variables';
 
-const departments = ['CSE', 'CSE-AIML','AIDS', 'ENTC', 'MECH', 'ELEC', 'TC', 'TT', 'MMTT', 'Diploma', 'MBA'];
-
-const categories = [
-    'Faculty Achievements', 'Student Achievements', 'Student CGPA Ranks', 'Engineering Companies',
-    'Textile Companies', 'Events', 'Club Reports', 'Staff Members', 'Other'
-];
 
 const ProgressTracking = () => {
     const [progressData, setProgressData] = useState({});
@@ -29,7 +24,7 @@ const ProgressTracking = () => {
                     const data = {};
                     for (const dep of departments) {
                         const response = await axios.get(`${BASE_URL}/api/clerk/progress/${dep}`);
-                        console.log(`Response for ${dep}:`, response.data);
+                        // console.log(`Response for ${dep}:`, response.data);
                         data[dep] = response.data || {}; // Default to empty object
                     }
                     setProgressData(data);
@@ -76,7 +71,7 @@ const ProgressTracking = () => {
             ) : (
                 <>
                     <Navbar links={AdminHomeLink} />
-                    <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+                    <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md py-20">
                         <h2 className="text-2xl font-bold mb-6">Clerk Progress Tracking</h2>
                         <div className="space-y-4">
                             {departments.map((dept) => (

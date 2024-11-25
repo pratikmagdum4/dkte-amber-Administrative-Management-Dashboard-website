@@ -19,6 +19,7 @@ export const AdminHomeLink = [
   { label: "Display", url: "" },
   { label: "Progress Dashboard", url: "/login/admin/home" },
   { label: "Notification", url: "/login/admin/home/notification" },
+  { label: "Notification List", url: "/login/admin/home/notificationlist" },
   { label: "Logout", url: "/" },
 ];
 export const AdminVerifyLink = [
@@ -28,16 +29,18 @@ export const AdminVerifyLink = [
   { label: "Profile", url: "/login/admin/home/profile" },
   { label: "Progress Dashboard", url: "/login/admin/home" },
   { label: "Notification", url: "/login/admin/home/notification" },
+  { label: "Notification List", url: "/login/admin/home/notificationlist" },
   { label: "Logout", url: "/" },
 ];
 export const AdminDisplayLink = [
   { label: "Home", url: "/" },
+  { label: "Profile", url: "/login/admin/home/profile" },
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
-  { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Progress Dashboard", url: "/login/admin/home" },
   { label: "Notification", url: "/login/admin/home/notification" },
+  { label: "Notification List", url: "/login/admin/home/notificationlist" },
   { label: "Logout", url: "/" },
-  
 ];
 export const ClerkNavLink = [
   { label: "Home", url: "/login/clerk/deptlist/deptlogin/home" },
