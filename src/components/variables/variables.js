@@ -17,6 +17,7 @@ export const AdminHomeLink = [
   { label: "Profile", url: "/login/admin/home/profile" },
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
+  { label: "Progress Dashboard", url: "/login/admin/home" },
   { label: "Notification", url: "/login/admin/home/notification" },
   { label: "Logout", url: "/" },
 ];
@@ -24,7 +25,8 @@ export const AdminVerifyLink = [
   { label: "Home", url: "/" },
   { label: "Verify", url: "" },
   { label: "Display", url: "" },
-  { label: "Dashboard", url: "/login/admin/home" },
+  { label: "Profile", url: "/login/admin/home/profile" },
+  { label: "Progress Dashboard", url: "/login/admin/home" },
   { label: "Notification", url: "/login/admin/home/notification" },
   { label: "Logout", url: "/" },
 ];
@@ -159,3 +161,28 @@ export const departmentMapping = {
   diploma: "Diploma",
   mba: "MBA Technology",
 };
+export const departments = [
+  "CSE",
+  "CSE-AIML",
+  "AIDS",
+  "ENTC",
+  "MECH",
+  "ELEC",
+  "TC",
+  "TT",
+  "MMTT",
+  "Diploma",
+  "MBA",
+];
+
+export const categories = [
+  "Faculty Achievements",
+  "Student Achievements",
+  "Student CGPA Ranks",
+  "Engineering Companies",
+  "Textile Companies",
+  "Events",
+  "Club Reports",
+  "Staff Members",
+  "Other",
+];

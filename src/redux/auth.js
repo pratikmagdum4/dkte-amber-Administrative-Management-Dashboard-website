@@ -32,14 +32,14 @@ const loadState = () => {
 
 // Define the initial state
 const initialState = loadState() || {
-    users: [],
-    currentUser: null,
-    token: null,
-    Uid: null,
-    Role: null,
-    Name: null,
-    Dept: null,
-    isAuthenticated: false,
+  users: [],
+  currentUser: null,
+  token: null,
+  Uid: null,
+  Role: null,
+  Name: null,
+  Dept: null,
+  isAuthenticated: false,
 };
 
 // Create the auth slice with reducers
@@ -147,7 +147,6 @@ export const authSlice = createSlice({
   },
 });
 
-
 // Export the actions and reducer
 export const { authenticate, setUserInfo, logOut } = authSlice.actions;
 export default authSlice.reducer;
@@ -164,6 +163,6 @@ export const isAuthenticated = (state) => state.auth.isAuthenticated;
 
 // Action to set users manually
 export const setUsers = (users) => ({
-    type: "auth/setUsers",
-    payload: users,
+  type: "auth/setUsers",
+  payload: users,
 });

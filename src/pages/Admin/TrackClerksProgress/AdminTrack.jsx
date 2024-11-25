@@ -20,29 +20,46 @@ const ProgressTracking = () => {
     const [loading, setLoading] = useState(false);
     const [getData, setGetData] = useState(false);
 
-    useEffect(() => {
+    // useEffect(() => {
         const fetchAllProgressData = async () => {
             setLoading(true);
             const data = {};
-            for (let department of departments) {
+            
                 try {
-                    const response = await axios.get(`${BASE_URL}/api/clerk/progress/${department}`);
-                    data[department] = response.data;
+                    const data = {};
+                    for (const dep of departments) {
+                        const response = await axios.get(`${BASE_URL}/api/clerk/progress/${dep}`);
+                        console.log(`Response for ${dep}:`, response.data);
+                        data[dep] = response.data || {}; // Default to empty object
+                    }
+                    setProgressData(data);
+                    // Store the fetched data in localStorage or sessionStorage
+                    localStorage.setItem("progressData", JSON.stringify(data));
+                    setLoading(false); // Stop loading once data is fetched
                 } catch (error) {
-                    console.error(`Error fetching progress data for ${department}:`, error);
-                    alert(`Error fetching progress data for ${department}`);
+                    console.error("Error fetching progress data:", error.message);
+                    setLoading(false); // Stop loading in case of error
                 }
-            }
+            
             setProgressData(data);
             setLoading(false);
         };
 
-        if (!getData) {
-            fetchAllProgressData();
-            setGetData(true);
-        }
-    }, [getData]);
+    //     if (!getData) {
+    //         fetchAllProgressData();
+    //         setGetData(true);
+    //     }
+    // }, [getData]);
+    useEffect(() => {
+        const storedData = localStorage.getItem("progressData");
 
+        if (storedData) {
+            setProgressData(JSON.parse(storedData)); // Use the stored data if it exists
+            setLoading(false); // Stop loading if data is found
+        } else {
+            fetchAllProgressData(); // Fetch data if not available in storage
+        }
+    }, []);
     const toggleDepartment = (department) => {
         setActiveDepartment(activeDepartment === department ? null : department);
         setActiveCategory(null);

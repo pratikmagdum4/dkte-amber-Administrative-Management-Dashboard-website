@@ -1,8 +1,12 @@
 import React from 'react';
 
 const ClerkProgress = ({ title, totalRecords, filledRecords }) => {
-    const progressPercentage = (filledRecords / totalRecords) * 100;
-
+    let progressPercentage = (filledRecords / totalRecords) * 100;
+    let prog = (filledRecords / totalRecords) * 100;
+    if(progressPercentage>50)
+    {
+        prog = 50
+    }
     return (
         <div className="p-4 border rounded-md shadow-sm">
             <h3 className="text-xl font-bold">{title}</h3>
@@ -10,10 +14,10 @@ const ClerkProgress = ({ title, totalRecords, filledRecords }) => {
             <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                 <div
                     className="bg-blue-500 h-full"
-                    style={{ width: `${progressPercentage}%` }}
+                    style={{ width: `${prog}%` }}
                 ></div>
             </div>
-            <p>{progressPercentage.toFixed(2)}% completed</p>
+            {/* <p>{progressPercentage.toFixed(2)}% completed</p> */}
         </div>
     );
 };

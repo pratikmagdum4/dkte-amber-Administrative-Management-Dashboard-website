@@ -72,7 +72,7 @@ function SignUpPage() {
                             buttonUrl={"/signup/clerk"}
                             isSmallScreen={isSmallScreen}
                         />
-                        {/* <AuthButton
+                         <AuthButton
                             imageUrl={AdministratorMale}
                             altText={"Admin SignUp"}
                             buttonText={"Admin SignUp"}
@@ -80,7 +80,7 @@ function SignUpPage() {
                             buttonUrl="/signup/admin"
                             isSmallScreen={isSmallScreen}
                             className={isSmallScreen ? "text-sm" : ""}
-                        /> */}
+                        /> 
 
                     </div>
                     <div className="bg-zinc-100 flex justify-center">
