@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../navbar/Navbar';
-import { AdminDisplayLink } from '../../../components/variables/variables';
+import { AdminDisplayLink, AdminVerifyLink, FacultyVerifyLink } from '../../../components/variables/variables';
 import { BASE_URL } from '../../../api';
+import { useSelector } from 'react-redux';
+import { selectCurrentRole } from '../../../redux/auth';
 
 const ImageDisplayList = () => {
     const [imageList, setImageList] = useState([]);
     const [imageType, setImageType] = useState('all');
     const [isSmallScreen, setIsSmallScreen] = useState(false);
+    const role = useSelector(selectCurrentRole);
+    let NavLinks;
+    if (role === "faculty") {
+        NavLinks = FacultyVerifyLink;
+    }
+    else {
+        NavLinks = AdminVerifyLink
+    }
     useEffect(() => {
         const fetchImages = async () => {
             try {
@@ -38,7 +48,7 @@ const ImageDisplayList = () => {
 
     return (
         <>
-            <Navbar links={AdminDisplayLink} />
+            <Navbar links={NavLinks} />
             <div className="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Images</h2>
                 <div className="mb-4">

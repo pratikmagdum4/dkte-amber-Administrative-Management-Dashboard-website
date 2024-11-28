@@ -19,6 +19,7 @@ const ImageForm = () => {
     isVerified: false,
     imageType: ''
   });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({
     stdname: '',
@@ -314,7 +315,7 @@ const ImageForm = () => {
             {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Self Image:</label>
+            <label className="block text-left text-sm font-medium text-gray-700">Your Image:</label>
             <input
               type="file"
               name="selfImage"
@@ -325,7 +326,7 @@ const ImageForm = () => {
             />
           </div>
           <div>
-            <label className="block text-left text-sm font-medium text-gray-700">Image:</label>
+            <label className="block text-left text-sm font-medium text-gray-700">Image/Photograph :</label>
             <input
               type="file"
               name="image"

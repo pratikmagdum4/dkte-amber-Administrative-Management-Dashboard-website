@@ -17,7 +17,7 @@ const columnHeaders = [
 const stdabroad = true;
 const departments = ["cse", "aiml", "aids", "entc", "ele", "mech", "civil"];
 
-const FirstYearBtechEngineeringTables = () => {
+const FourthYearBtechEngineeringTables = () => {
     const tableRef = useRef(null);
     const year = "Fourth";
 
@@ -45,4 +45,4 @@ const FirstYearBtechEngineeringTables = () => {
     );
 };
 
-export default FirstYearBtechEngineeringTables;
+export default FourthYearBtechEngineeringTables;

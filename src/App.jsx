@@ -86,6 +86,8 @@ import { logOut, loadState } from './redux/auth.js';
 import { useDispatch } from 'react-redux';
 import ContactPage from './pages/Contact/Contact.jsx';
 import NotificationPage from './pages/Admin/Notification/AdminNotificaitonDisplayList.jsx';
+import CoordinateFacultySignup from './pages/SignUp/CoordinateFacultySignup.jsx';
+import FacultyLogin from './pages/login/CoFacultyLogin.jsx';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -130,10 +132,13 @@ const App = () => {
         <Route path='/signup' element={<SignUpPage  />} />
         <Route path='/signup/clerk'  element={<ClerkSignupPage  />} />
         <Route path='/signup/admin' element={<AdminSignupPage  />} />
+        <Route path='/signup/co-faculty' element={<CoordinateFacultySignup  />} />
         <Route path='/login'  element={<LoginPage  />} />
         <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2  />} />
         <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent  />} />
         <Route path='/login/admin' element={<AdminLoginForm  />} />
+        <Route path='/login/co-faculty' element={<FacultyLogin/> } />
+
         <Route path='/login/clerk/deptlist/deptlogin/home' element={<PrivateRoute element={<ClerkHome />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/profile' element={<PrivateRoute element={<ClerkProfile />} allowedRoles={["clerk"]} />} />
         <Route path='/rank/std' element={<PrivateRoute element={<StudentFormTable />} allowedRoles={[]} />} />
@@ -204,6 +209,16 @@ const App = () => {
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<SecondYearDiplomaTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year3' element={<PrivateRoute element={<ThirdYearDiplomaTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/notification' element={<PrivateRoute element={<ClerkNotification />} allowedRoles={["clerk", "admin"]} />} />
+
+       
+        <Route path='/login/co-faculty/verify-article' element={<PrivateRoute element={<ArticleList />} allowedRoles={["faculty"]} />} />
+        <Route path='/login/co-faculty/verify-image' element={<PrivateRoute element={<ImgUploadList />} allowedRoles={["faculty"]} />} />
+        <Route path='/login/co-faculty/verify-technical-article' element={<PrivateRoute element={<TechArticleList />} allowedRoles={["faculty"]} />} />
+        <Route path='/login/co-faculty/display-article' element={<PrivateRoute element={<ArticleDisplayList />} allowedRoles={["faculty"]} />} />
+        <Route path='/login/co-faculty/display-image' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={["faculty"]} />} />
+        <Route path='/login/co-faculty/display-technical-article' element={<PrivateRoute element={<TechArticleDisplayList />} allowedRoles={["faculty"]} />} />
+
+
         <Route path='*' element={<ErrorPage  />} />
       </Routes>
     </Router>

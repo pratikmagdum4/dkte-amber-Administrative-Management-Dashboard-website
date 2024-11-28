@@ -9,7 +9,7 @@ import { authenticate } from '../../redux/auth.js';
 import axios from 'axios';
 import { BASE_URL } from '../../api/index.js';
 import Loading from '../../components/ui/Loader.jsx';
-
+import { departments } from '../../components/variables/variables';
 const AdminSignupPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -21,14 +21,11 @@ const AdminSignupPage = () => {
         password: '',
         phoneNumber: '',
         department: '',
+        SignupSecret:''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const departments = [
-        "CSE", "CSE-AIML", "AIDS", "ENTC", "ELEC", "MECH", "CIVIL",
-        "TT", "MMTT", "FT", "TC", "Diploma", "MBA"
-    ];
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         // Validate phone number length
@@ -38,6 +35,10 @@ const AdminSignupPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formValues.SignupSecret != 1234) {
+            toast.error('Invalid Signup Secret Key ')
+            return
+        }
         if (formValues.password.length < 6) {
             toast.error('Password must be at least 6 characters long.');
             return;
@@ -142,6 +143,18 @@ const AdminSignupPage = () => {
                                         ))}
                                     </select>
                                 </div>
+                                    <div>
+                                        <label className="block text-gray-100">Add Signup Secret</label>
+                                        <input
+                                            type="tel"
+                                            name="SignupSecret"
+                                            value={formValues.SignupSecret}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                            maxLength={10}
+                                        />
+                                    </div>
                                 <div className="text-center">
                                     <button
                                         type="submit"

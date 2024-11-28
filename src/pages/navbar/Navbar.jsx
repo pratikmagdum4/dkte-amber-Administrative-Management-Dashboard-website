@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logo } from '../../assets';
-import { useDispatch } from 'react-redux';
-import { logOut } from '../../redux/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut, selectCurrentRole } from '../../redux/auth';
 
 const Navbar = ({ links }) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = ({ links }) => {
     const navigate = useNavigate();
     const timeoutRef = useRef(null);
     const dispatch = useDispatch();
-
+    const role = useSelector(selectCurrentRole)
 
     const handleClick = (label) => {
         if (activeDropdown === label && dropdownVisible) {
@@ -23,15 +23,22 @@ const Navbar = ({ links }) => {
         }
     };
 
+
     const handleDropdownClick = (label, type) => {
+      
         if (label === "Submit") {
             navigate(`/submit-${type}`);
-        } else if (label === "Verify") {
+        } else if (label === "Verify" && role === "admin") {
             navigate(`/login/admin/home/verify-${type}`);
-        } else if (label === "Display") {
+        } else if (label === "Display"&& role === "admin") {
             navigate(`/login/admin/home/display-${type}`);
+        } else if (label === "Verify" && role === "faculty") {
+            navigate(`/login/co-faculty/verify-${type}`);
+        } else if (label === "Display" && role === "faculty") {
+            navigate(`/login/co-faculty/display-${type}`);
         }
         setDropdownVisible(false); // Close the dropdown after navigation
+
     };
 
     const handleLogout = () => {
@@ -108,6 +115,7 @@ const Navbar = ({ links }) => {
                         className="relative lg:inline-block"
                         onClick={['Submit', 'Verify', 'Display', 'Logout'].includes(link.label) ? () => handleClick(link.label) : () => navigate(link.url)}
                     >
+                    
                         <button className="block w-full text-left px-2 py-2 hover:text-yellow-300 lg:inline transition-all duration-300">
                             {link.label}
                         </button>

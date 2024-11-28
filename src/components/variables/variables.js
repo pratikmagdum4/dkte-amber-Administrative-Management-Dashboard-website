@@ -4,6 +4,7 @@ export const HomeLink = [
   { label: "About Us", url: "/" },
   { label: "SignUp", url: "/signup" },
   { label: "Contact", url: "/contact" },
+  // { label: "Logout", url: "" },
 ];
 export const LoginNavLink = [
   { label: "Home", url: "/" },
@@ -11,6 +12,7 @@ export const LoginNavLink = [
   { label: "About Us", url: "/" },
   { label: "SignUp", url: "/signup" },
   { label: "Contact", url: "/contact" },
+  
 ];
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
@@ -148,6 +150,14 @@ export const UpGraduation = [
   { label: "Contact", url: "/contact" },
 ];
 
+export const FacultyVerifyLink = [
+  { label: "Home", url: "/" },
+  { label: "Verify", url: "" },
+  { label: "Display", url: "" },
+  // { label: "Profile", url: "/login/faculty/profile" },
+  // { label: "Notification List", url: "/login/faculty/notificationlist" },
+  { label: "Logout", url: "/" },
+];
 export const departmentMapping = {
   cse: "Computer Science & Engineering",
   amil: "Computer Science (AIML)",
@@ -171,8 +181,10 @@ export const departments = [
   "ENTC",
   "MECH",
   "ELEC",
+  "CIVIL",
   "TC",
   "TT",
+  "FT",
   "MMTT",
   "Diploma",
   "MBA",

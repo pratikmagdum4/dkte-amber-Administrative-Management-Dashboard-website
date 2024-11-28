@@ -21,6 +21,7 @@ const ClerkSignupPage = () => {
         password: '',
         phoneNumber: '',
         department: '',
+        SignupSecret:''
     });
     const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
 
@@ -48,9 +49,11 @@ const ClerkSignupPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("dfskjaj",formValues)
-
-
+        if (formValues.SignupSecret != 1234) {
+            toast.error('Invalid Signup Secret Key ')
+            return
+        }
+     
         // Validate form fields
         if (!validateEmail(formValues.email)) {
             alert("Please enter a valid email.");
@@ -173,6 +176,18 @@ const ClerkSignupPage = () => {
                                         ))}
                                     </select>
                                 </div>
+                                    <div>
+                                        <label className="block text-gray-100">Add Signup Secret</label>
+                                        <input
+                                            type="tel"
+                                            name="SignupSecret"
+                                            value={formValues.SignupSecret}
+                                            onChange={handleChange}
+                                            required
+                                            className="w-full px-4 py-2 mt-2 border border-gray-300 rounded-lg dark:bg-zinc-700 dark:text-gray-300 focus:outline-none focus:border-yellow-500"
+                                            maxLength={10}
+                                        />
+                                    </div>
                                 <div className="text-center">
                                     <button
                                         type="submit"

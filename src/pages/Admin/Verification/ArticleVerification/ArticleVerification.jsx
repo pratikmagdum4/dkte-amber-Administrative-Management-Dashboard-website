@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
-import { AdminVerifyLink, departmentMapping } from '../../../../components/variables/variables';
+import { AdminVerifyLink, FacultyVerifyLink, departmentMapping } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { useSelector } from 'react-redux';
+import { selectCurrentRole } from '../../../../redux/auth';
 
 const ArticleList = () => {
     const [ArticleList, setArticleList] = useState([]);
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
+    const role = useSelector(selectCurrentRole);
+    let NavLinks ;
+    if(role ==="faculty")
+    {
+        NavLinks = FacultyVerifyLink;
+    }
+    else{
+        NavLinks = AdminVerifyLink
+    }
     useEffect(() => {
         const fetchArticles = async () => {
             try {
@@ -72,7 +83,7 @@ const ArticleList = () => {
 
     return (
         <>
-            <Navbar links={AdminVerifyLink} />
+            <Navbar links={NavLinks} />
             <div className="max-w-6xl mx-auto mt-14 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Articles</h2>
                 {ArticleList.length === 0 ? (

@@ -54,6 +54,9 @@ function LoginPage() {
         if (role === "admin") {
             navigate("/login/admin/home");
         }
+        if (role === "faculty") {
+            navigate("/login/co-faculty/verify-article");
+        }
     }, [role, navigate]);
 
     useEffect(() => {
@@ -87,6 +90,14 @@ function LoginPage() {
                             altText={"Admin Login"}
                             buttonText={"Admin Login"}
                             buttonUrl="/login/admin"
+                            isSmallScreen={isSmallScreen}
+                            className={isSmallScreen ? "text-sm" : ""}
+                        />
+                        <AuthButton
+                            imageUrl={AdministratorMale}
+                            altText={"Faculty Login"}
+                                buttonText={"Faculty Login"}
+                            buttonUrl="/login/co-faculty"
                             isSmallScreen={isSmallScreen}
                             className={isSmallScreen ? "text-sm" : ""}
                         />

@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../../../navbar/Navbar';
-import { AdminVerifyLink } from '../../../../components/variables/variables';
+import { AdminVerifyLink, FacultyVerifyLink } from '../../../../components/variables/variables';
 import { BASE_URL } from '../../../../api';
+import { useSelector } from 'react-redux';
+import { selectCurrentRole } from '../../../../redux/auth';
 
 const ImgUploadList = () => {
-    const [imgUploads, setImgUploads] = useState([]);
 
+    
+    const [imgUploads, setImgUploads] = useState([]);
+    const role = useSelector(selectCurrentRole);
+    let NavLinks;
+    if (role === "faculty") {
+        NavLinks = FacultyVerifyLink;
+    }
+    else {
+        NavLinks = AdminVerifyLink
+    }
     useEffect(() => {
         const fetchImgUploads = async () => {
             try {
@@ -56,7 +67,7 @@ const ImgUploadList = () => {
 
     return (
         <>
-            <Navbar links={AdminVerifyLink} />
+            <Navbar links={NavLinks} />
             <div className="max-w-6xl mx-auto mt-14 p-6 bg-white shadow-md rounded-md">
                 <h2 className="text-2xl font-bold mb-6">Submitted Images</h2>
                 {imgUploads.length === 0 ? (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../pages/navbar/Navbar';
-import { FacultyAchivements } from '../variables/variables';
+import { ClerkNavLink, FacultyAchivements } from '../variables/variables';
 import { Groupdiscussionbro1 } from '../../assets';
 
 const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleToggleYears }) => {
@@ -14,7 +14,7 @@ const CourseListingComponent = ({ buttonNames, url, title, visibleYears, handleT
     return (
         <>
         <div className="min-h-screen bg-white dark:bg-zinc-900 mt-4">
-            <Navbar links={FacultyAchivements} />
+                <Navbar links={ClerkNavLink} />
 
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">{title}</h1>
