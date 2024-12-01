@@ -24,7 +24,7 @@ const SecondYearBtechTextileTables = () => {
 
     return (
         <div className='mt-14'>
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             {departments.map(dept => (
                 <AchievementsTable
                     key={`${year}-${dept}`}

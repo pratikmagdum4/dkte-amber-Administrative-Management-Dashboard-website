@@ -11,7 +11,7 @@ const ClerkHome = () => {
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900 mt-10">
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             <main className="flex flex-col items-center p-8">
 
                 <h1 className="text-2xl font-bold mb-8">Clerk Home </h1>

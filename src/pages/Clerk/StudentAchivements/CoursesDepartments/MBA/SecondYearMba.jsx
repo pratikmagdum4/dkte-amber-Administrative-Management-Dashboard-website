@@ -24,7 +24,7 @@ const MBAFirstYearCgpaTables = () => {
 
     return (
         <div className='mt-14'>
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             <AchievementsTable
                 key={year}
                 NotDisplayToast={true}

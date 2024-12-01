@@ -67,7 +67,7 @@ const MainEventTables = () => {
 
     return (
         <div className={isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}> {/* Toggle dark/light mode */}
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
 
             {/* Dark Mode Toggle Button */}
             <div className="mt-16">
