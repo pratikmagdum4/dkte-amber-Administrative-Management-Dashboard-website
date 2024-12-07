@@ -106,8 +106,8 @@ const CarouselComponent = () => {
         if (length > 0) {
           const randomIndex = Math.floor(Math.random() * length);
           setArticleTitle(articles[randomIndex].title);
-          setArticleUrl(articles[randomIndex].contentPdf); 
-          setArticleName(articles[randomIndex].stdname); 
+          setArticleUrl(articles[randomIndex].contentPdf);
+          setArticleName(articles[randomIndex].stdname);
         }
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -144,7 +144,7 @@ const CarouselComponent = () => {
             <div className="p-20 bg-white rounded-lg shadow-md animate__animated animate__fadeInLeft">
               {loading ? (
                 <div className="pb-12">
-                <Loading isHome={true} />
+                  <Loading isHome={true} />
                 </div>
               ) : (
                 <img src={imageSketchUrl} alt="Sketches" className="mx-auto mb-4" />
@@ -172,8 +172,8 @@ const CarouselComponent = () => {
                 </div>
               ) : (
                 // <img src="/path/to/logo3.png" alt="Articles" className="mx-auto mb-4" />
-                  <h1 className="text-2xl font-bold">Articles</h1>
-                  
+                <h1 className="text-2xl font-bold">Articles</h1>
+
               )}
               <h2 className="text-2xl font-bold mb-2">{articleTile}</h2>
               <p className="text-gray-600">{loading ? <Skeleton /> : articleTile}</p>

@@ -12,7 +12,7 @@ export const LoginNavLink = [
   { label: "About Us", url: "/" },
   { label: "SignUp", url: "/signup" },
   { label: "Contact", url: "/contact" },
-  
+
 ];
 export const AdminHomeLink = [
   { label: "Home", url: "/" },
@@ -45,6 +45,7 @@ export const AdminDisplayLink = [
   { label: "Logout", url: "/" },
 ];
 export const ClerkNavLink = [
+  // { label: "Clerk Sections", url: "" },
   { label: "Home", url: "/login/clerk/deptlist/deptlogin/home" },
   { label: "Profile", url: "/login/clerk/deptlist/deptlogin/home/profile" },
 

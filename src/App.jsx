@@ -82,12 +82,18 @@ import AdminProfile from './pages/Admin/Profile/AdminProfile.jsx';
 import ClerkProfile from './pages/Clerk/ClerkHome/ClerkProfilePage.jsx';
 import AdminResetPassword from './components/ui/AdminResetPassword.jsx';
 import ClerkResetPassword from './components/ui/ClerkResetPassword.jsx';
-import { logOut, loadState } from './redux/auth.js';
-import { useDispatch } from 'react-redux';
+import { logOut, loadState, selectCurrentRole } from './redux/auth.js';
+import { useDispatch, useSelector } from 'react-redux';
 import ContactPage from './pages/Contact/Contact.jsx';
 import NotificationPage from './pages/Admin/Notification/AdminNotificaitonDisplayList.jsx';
 import CoordinateFacultySignup from './pages/SignUp/CoordinateFacultySignup.jsx';
 import FacultyLogin from './pages/login/CoFacultyLogin.jsx';
+import ClerkSidebar from './pages/Clerk/ClerkHome/ClerkSidebar.jsx';
+import ClerkSidebarHome from './pages/Clerk/ClerkHome/ClerkSidebarhome.jsx';
+import ClerkLayout from './pages/Clerk/ClerkHome/ClerkLayout.jsx';
+import CollapseDefault from './components/ui/collapse.jsx';
+
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -113,33 +119,35 @@ const App = () => {
       }
     };
 
-    
+
     window.addEventListener('storage', handleStorageChange);
 
     return () => window.removeEventListener('storage', handleStorageChange); // Cleanup on unmount
   }, [dispatch]);
-
+  const role = useSelector(selectCurrentRole)
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<CarouselComponent  />} />
+        <Route path='/' element={<CarouselComponent />} />
         <Route path="/admin/reset-password/:token" element={<AdminResetPassword />} />
         <Route path="/clerk/reset-password/:token" element={<ClerkResetPassword />} />
-        <Route path='/contact' element={<ContactPage  />} />
-        <Route path='/submit-article' element={<ArticleForm  />} />
-        <Route path='/submit-image' element={<ImageForm  />} />
-        <Route path='/submit-technical-article' element={<TechnicalArticleForm  />} />
-        <Route path='/signup' element={<SignUpPage  />} />
-        <Route path='/signup/clerk'  element={<ClerkSignupPage  />} />
-        <Route path='/signup/admin' element={<AdminSignupPage  />} />
-        <Route path='/signup/co-faculty' element={<CoordinateFacultySignup  />} />
-        <Route path='/login'  element={<LoginPage  />} />
-        <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2  />} />
-        <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent  />} />
-        <Route path='/login/admin' element={<AdminLoginForm  />} />
-        <Route path='/login/co-faculty' element={<FacultyLogin/> } />
+        <Route path='/contact' element={<ContactPage />} />
+        <Route path='/submit-article' element={<ArticleForm />} />
+        <Route path='/submit-image' element={<ImageForm />} />
+        <Route path='/submit-technical-article' element={<TechnicalArticleForm />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/signup/clerk' element={<ClerkSignupPage />} />
+        <Route path='/signup/admin' element={<AdminSignupPage />} />
+        <Route path='/signup/co-faculty' element={<CoordinateFacultySignup />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login/clerk/deptlist/deptlogin' element={<LoginForm2 />} />
+        <Route path='/login/clerk/deptlist' element={<ClerkLoginDepartmentListingComponent />} />
+        <Route path='/login/admin' element={<AdminLoginForm />} />
+        <Route path='/login/co-faculty' element={<FacultyLogin />} />
 
-        <Route path='/login/clerk/deptlist/deptlogin/home' element={<PrivateRoute element={<ClerkHome />} allowedRoles={["clerk"]} />} />
+
+
+
         <Route path='/login/clerk/deptlist/deptlogin/home/profile' element={<PrivateRoute element={<ClerkProfile />} allowedRoles={["clerk"]} />} />
         <Route path='/rank/std' element={<PrivateRoute element={<StudentFormTable />} allowedRoles={[]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/courselist/listing/ranktables' element={<PrivateRoute element={<RankersTables />} allowedRoles={["clerk"]} />} />
@@ -191,7 +199,7 @@ const App = () => {
         <Route path='/notification' element={<PrivateRoute element={<AuthButton />} allowedRoles={[]} />} />
         <Route path='/home' element={<PrivateRoute element={<Home1 />} allowedRoles={[]} />} />
         {/* <Route path='/error' element={<PrivateRoute element={<ErrorPage />} allowedRoles={[]} />} /> */}
-        
+
         <Route path='/imagegallery' element={<PrivateRoute element={<ImageDisplayList />} allowedRoles={[]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year1' element={<PrivateRoute element={<FirstYearBtechEngineeringTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/btech/year2' element={<PrivateRoute element={<SecondYearBtechEngineeringTables />} allowedRoles={["clerk", "admin"]} />} />
@@ -202,15 +210,17 @@ const App = () => {
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year3' element={<PrivateRoute element={<ThirdYearBtechTextileTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/textile/year4' element={<PrivateRoute element={<FourthYearBtechTextileTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year1' element={<PrivateRoute element={<MBAFirstYearCgpaTables />} allowedRoles={["clerk"]} />} />
-        
+
+        <Route path='/login/clerk/deptlist/deptlogin/home' element={<PrivateRoute element={<ClerkHome />} allowedRoles={["clerk"]} />} />
+
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/mba/year2' element={<PrivateRoute element={<MBASecondYearCgpaTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year1' element={<PrivateRoute element=
-        {<FirstYearDiplomaTables />} allowedRoles={["clerk"]} />} />
+          {<FirstYearDiplomaTables />} allowedRoles={["clerk"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year2' element={<PrivateRoute element={<SecondYearDiplomaTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/studentachievement/course-list/diploma/year3' element={<PrivateRoute element={<ThirdYearDiplomaTables />} allowedRoles={["clerk", "admin"]} />} />
         <Route path='/login/clerk/deptlist/deptlogin/home/notification' element={<PrivateRoute element={<ClerkNotification />} allowedRoles={["clerk", "admin"]} />} />
 
-       
+
         <Route path='/login/co-faculty/verify-article' element={<PrivateRoute element={<ArticleList />} allowedRoles={["faculty"]} />} />
         <Route path='/login/co-faculty/verify-image' element={<PrivateRoute element={<ImgUploadList />} allowedRoles={["faculty"]} />} />
         <Route path='/login/co-faculty/verify-technical-article' element={<PrivateRoute element={<TechArticleList />} allowedRoles={["faculty"]} />} />
@@ -219,8 +229,16 @@ const App = () => {
         <Route path='/login/co-faculty/display-technical-article' element={<PrivateRoute element={<TechArticleDisplayList />} allowedRoles={["faculty"]} />} />
 
 
-        <Route path='*' element={<ErrorPage  />} />
+        {/* <Route path='/s' element={<Sidebar />}  /> */}
+        {/* <Route path='/s' element={<ClerkSidebar/>}  /> */}
+        <Route path='/s' element={<ClerkSidebarHome />} />
+        {/* <Route path='/s' element={<ClerkSidebarHome/>}  /> */}
+
+
+        <Route path='/col' element={<CollapseDefault />} />
+        <Route path='*' element={<ErrorPage />} />
       </Routes>
+
     </Router>
   );
 };
