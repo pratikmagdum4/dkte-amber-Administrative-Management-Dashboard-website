@@ -9,7 +9,7 @@ const StudentAchievementlists = () => {
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true}/>
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">Student</h1>
                 <div className="space-y-4 w-full max-w-md">

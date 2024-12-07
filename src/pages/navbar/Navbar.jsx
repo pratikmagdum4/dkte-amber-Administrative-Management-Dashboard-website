@@ -110,7 +110,7 @@ const Navbar = ({ links }) => {
             <div className="relative">
                 <button
                     className="block w-full text-left px-4 py-2 font-bold hover:bg-gray-200 rounded-lg transition-all"
-                    onClick={() => navigate("/login/clerk/deptlist/deptlogin/home/sponsorslist")}
+                    onClick={() => navigate("/login/clerk/deptlist/deptlogin/home/sponsorlist")}
                 >
                     Sponsors List
                 </button>

@@ -10,7 +10,7 @@ const FacultyAchievementLists = () => {
     }
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-900">
-            <Navbar links={FacultyAchivements} />
+            <Navbar links={FacultyAchivements} IsClerk={true} />
             <main className="flex flex-col items-center p-8">
                 <h1 className="text-2xl font-bold mb-8">Faculty</h1>
                 <div className="space-y-4 w-full max-w-md">

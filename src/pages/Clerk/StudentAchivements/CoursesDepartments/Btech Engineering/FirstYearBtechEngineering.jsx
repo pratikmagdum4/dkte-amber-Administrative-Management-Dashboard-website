@@ -35,7 +35,7 @@ const FirstYearBtechEngineeringTables = () => {
     };
     return (
         <div className='mt-14'>
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             <button onClick={generateWord} className="mt-4 bg-green-500 text-white px-4 py-2 rounded ml-4">
                 Generate Word Document
             </button>

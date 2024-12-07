@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 export const HomeLink = [
   { label: "Login", url: "/login" },
   { label: "Submit", url: "" },
@@ -202,3 +204,200 @@ export const categories = [
   "Staff Members",
   "Other",
 ];
+
+ export const getClerkOptions = (navigate) => [
+   {
+     label: "Student Achievements",
+     subOptions: [
+       {
+         label: "CGPA Ranks",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/courselist`
+           ),
+       },
+       {
+         label: "Paper/Project",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/paperproject`
+           ),
+       },
+       {
+         label: "GATE/TOEFL/NIFT/GRE",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/exams`
+           ),
+       },
+       {
+         label: "International Training",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/internationaltraining`
+           ),
+       },
+       {
+         label: "Higher Education",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/higherstudies`
+           ),
+       },
+       {
+         label: "Appreciation Prize",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/studentachievement/appreciationprize`
+           ),
+       },
+       // Add more sub-options here...
+     ],
+   },
+   {
+     label: "Faculty Achievements",
+     subOptions: [
+       {
+         label: "Paper /Journal Publication",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/paperjournalpub`
+           ),
+       },
+       {
+         label: "Books Publication",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/bookspublish`
+           ),
+       },
+       {
+         label: "Paper Presentation/Conference",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/paperpresentation`
+           ),
+       },
+       {
+         label: "Patent Grant",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/patentgrant`
+           ),
+       },
+       {
+         label: "Workshop/STTP/FDP",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/workshop`
+           ),
+       },
+       {
+         label: "OTHER Special",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/otherspecial`
+           ),
+       },
+       {
+         label: "Training Program",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/facultyachievement/trainingprogram`
+           ),
+       },
+     ],
+   },
+
+   {
+     label: "Training And Placement Activities",
+     subOptions: [
+       {
+         label: "TEXTILE PLACEMENT REPORT",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/placement/textile/report`
+           ),
+       },
+       {
+         label: "ENGINEERING  PLACEMENT REPORT",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/placement/engineering/report`
+           ),
+       },
+       {
+         label: "TEXTILE PLACEMENT INTERNATIONAL COMPANIES",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/placement/textile/internationalcompanies`
+           ),
+       },
+       {
+         label: "TEXTILE PLACEMENT NATIONAL COMPANIES",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/placement/textile/nationalcompanies`
+           ),
+       },
+       {
+         label: "ENGINEERING PLACEMENT  COMPANIES",
+         action: () =>
+           navigate(
+             `/login/clerk/deptlist/deptlogin/home/placement/engineering/companies`
+           ),
+       },
+     ],
+   },
+   {
+     label: "Club Reports",
+     subOptions: [
+       {
+         label: "Reports",
+         action: () =>
+           navigate(`/login/clerk/deptlist/deptlogin/home/clubreports`),
+       },
+     ],
+   },
+   {
+     label: "Main Events",
+     subOptions: [
+       {
+         label: "Events ",
+         action: () =>
+           navigate(`/login/clerk/deptlist/deptlogin/home/mainevents`),
+       },
+     ],
+   },
+   {
+     label: "Sponsors List",
+     subOptions: [
+       {
+         label: "Sponsors",
+         action: () =>
+           navigate(`/login/clerk/deptlist/deptlogin/home/sponsors`),
+       },
+     ],
+   },
+   {
+     label: "Staff Members",
+     subOptions: [
+       {
+         label: "Members List",
+         action: () =>
+           navigate(`/login/clerk/deptlist/deptlogin/home/staffmembers`),
+       },
+     ],
+   },
+   {
+     label: "Upgraduation",
+     subOptions: [
+       {
+         label: "List ",
+         action: () =>
+           navigate(`/login/clerk/deptlist/deptlogin/home/upgraduation`),
+       },
+     ],
+   },
+   // Add more categories here...
+ ];

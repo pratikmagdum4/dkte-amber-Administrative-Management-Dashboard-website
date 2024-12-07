@@ -206,7 +206,7 @@ const ClerkProfile = () => {
 
     return (
         <>
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             <div className="max-w-4xl mx-auto p-5">
                 <div className="flex items-center bg-yellow-400 p-4 rounded-lg mb-6 mt-16">
                     <img src={ProfileImage} alt="User Profile" className="rounded-full w-10 h-10" />

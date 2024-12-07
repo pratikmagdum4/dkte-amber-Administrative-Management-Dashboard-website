@@ -91,7 +91,7 @@ const ClubReports = () => {
     return (
         <ErrorBoundary>
             <div className='mt-10'>
-                <Navbar links={ClerkNavLink} />
+                <Navbar links={ClerkNavLink} IsClerk={true} />
                 <h1>Club Reports</h1>
                 <button onClick={generatePDF} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">
                     Generate PDF

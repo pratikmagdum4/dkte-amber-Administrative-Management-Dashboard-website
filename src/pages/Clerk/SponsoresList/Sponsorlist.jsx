@@ -83,7 +83,7 @@ const SponsorListInfo = () => {
 
     return (
         <div className="p-8">
-            <Navbar links={ClerkNavLink}/>
+            <Navbar links={ClerkNavLink} />
             <h1 className="text-2xl font-bold mb-6">Sponsors List</h1>
             <button
                 onClick={generateWordDocument}

@@ -41,7 +41,7 @@ const TextileNationalCompaniesList = () => {
     };
     return (
         <div className='mt-14'>
-            <Navbar links={ClerkNavLink} />
+            <Navbar links={ClerkNavLink} IsClerk={true} />
             <button onClick={handleGenerateWord} className="mt-4 bg-purple-500 text-white px-4 py-2 rounded">Generate Word Document</button>
             <AchievementsTable
                 ref={tableRef}

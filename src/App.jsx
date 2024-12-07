@@ -91,7 +91,6 @@ import FacultyLogin from './pages/login/CoFacultyLogin.jsx';
 import ClerkSidebar from './pages/Clerk/ClerkHome/ClerkSidebar.jsx';
 import ClerkSidebarHome from './pages/Clerk/ClerkHome/ClerkSidebarhome.jsx';
 import ClerkLayout from './pages/Clerk/ClerkHome/ClerkLayout.jsx';
-import CollapseDefault from './components/ui/collapse.jsx';
 
 
 
@@ -235,7 +234,7 @@ const App = () => {
         {/* <Route path='/s' element={<ClerkSidebarHome/>}  /> */}
 
 
-        <Route path='/col' element={<CollapseDefault />} />
+        {/* <Route path='/col' element={<CollapseDefau />} /> */}
         <Route path='*' element={<ErrorPage />} />
       </Routes>
 
